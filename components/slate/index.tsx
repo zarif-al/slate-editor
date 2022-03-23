@@ -7,6 +7,7 @@ import {
 	Descendant,
 	Transforms,
 	Editor,
+	Element,
 } from "slate";
 // Import the Slate components and React plugin.
 import { ReactEditor, Slate, Editable, withReact } from "slate-react";
@@ -69,13 +70,15 @@ const SlateEditor = (): JSX.Element => {
 						event.preventDefault();
 						// Determine whether any of the currently selected blocks are code blocks.
 						const [match] = Editor.nodes(editor, {
-							match: (n: CustomElement) => n.type === "code",
+							match: (n) => Element.isElement(n) && n.type === "code",
 						});
 						// Toggle the block type depending on whether there's already a match.
 						Transforms.setNodes(
 							editor,
 							{ type: match ? "paragraph" : "code" },
-							{ match: (n: CustomElement) => Editor.isBlock(editor, n) }
+							{
+								match: (n) => Element.isElement(n) && Editor.isBlock(editor, n),
+							}
 						);
 					}
 				}}
