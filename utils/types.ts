@@ -23,3 +23,10 @@ export interface RenderProps {
 	children: ReactChildren;
 	element: CustomElement;
 }
+
+export interface RenderLeaf {
+	attributes: Attributes;
+	children: ReactChildren;
+	leaf: CustomText;
+	text: CustomText;
+}
