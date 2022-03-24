@@ -1,7 +1,7 @@
 # Slate Editor Implementation
 
 ## Notes
-- Need to set "downlevelIteration": true, in tsConfig in-order for typescript to be able to do type checking.
+- Had to set "downlevelIteration": true, in tsConfig in-order for typescript to be able to do type checking on Slate Types.
 - Can only upload images from pexels.com as that is set as the only allowed domain in next.config.js
 - All data is stored in localStorage for now
 
