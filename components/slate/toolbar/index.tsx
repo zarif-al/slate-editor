@@ -86,7 +86,10 @@ const Toolbar = () => {
 				onMouseDown={(event) => {
 					event.preventDefault();
 					const url = window.prompt("Enter the URL of the image:");
-					if (url && !isImageUrl(url)) {
+					if (url === null) {
+						return;
+					}
+					if (url == "" || !isImageUrl(url)) {
 						alert("URL is not an image");
 						return;
 					}

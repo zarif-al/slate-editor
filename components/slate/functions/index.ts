@@ -16,6 +16,14 @@ export const insertImage = (
 	url: string | ArrayBuffer | null
 ) => {
 	const text = { text: "" };
-	const image: CustomElement = { type: "image", url, children: [text] };
+	const image: CustomElement = {
+		type: "image",
+		url,
+		size: {
+			width: 400,
+			height: 400,
+		},
+		children: [text],
+	};
 	Transforms.insertNodes(editor, image);
 };

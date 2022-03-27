@@ -14,9 +14,13 @@ type ParagraphElement = { type: "paragraph"; children: CustomText[] };
 
 type CodeElement = { type: "code"; children: CustomText[] };
 
-type ImageElement = {
+export type ImageElement = {
 	type: "image";
 	url: string | ArrayBuffer | null;
+	size: {
+		width: number;
+		height: number;
+	};
 	children: CustomText[];
 };
 
