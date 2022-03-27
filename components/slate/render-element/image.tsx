@@ -10,7 +10,7 @@ const ImageElement = (props: RenderProps) => {
 
 	//Cast element as ImageElement
 	const element = props.element as ImageElement;
-
+	//The path is simply the index of the element in the children array
 	const path = ReactEditor.findPath(editor, element);
 	const [imageSize, setImageSize] = useState(element.size);
 	const [aspectRatio, setAspectRatio] = useState(1);
