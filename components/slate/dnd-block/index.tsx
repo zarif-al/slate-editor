@@ -5,8 +5,6 @@ import { useReadOnly, useSlateStatic, ReactEditor } from "slate-react";
 import Element from "components/slate/render-element";
 import { RenderProps } from "utils/types";
 
-/* ReactEditor.findPath(editor, element); */
-
 interface ItemType {
 	type: string;
 	path: number[];
