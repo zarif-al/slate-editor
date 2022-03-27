@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useDrag, useDrop } from "react-dnd";
-import { Editor, Transforms } from "slate";
-import { useReadOnly, useSlateStatic, ReactEditor } from "slate-react";
+import { Editor, Transforms, Path } from "slate";
+import { useReadOnly, useSlate, ReactEditor } from "slate-react";
 import Element from "components/slate/render-element";
 import { RenderProps } from "utils/types";
 
@@ -13,15 +13,15 @@ interface ItemType {
 }
 
 const DndBlock = (props: RenderProps) => {
-	const editor = useSlateStatic();
+	const editor = useSlate();
 	const element = props.element;
 	const path = ReactEditor.findPath(editor, element);
-
 	const [{ isDragging }, drag, preview] = useDrag(() => ({
 		type: "container",
 		item: {
 			type: "container",
 			path: path,
+			element: element,
 		},
 		collect: (monitor) => ({
 			isDragging: !!monitor.isDragging(),
@@ -32,8 +32,16 @@ const DndBlock = (props: RenderProps) => {
 		() => ({
 			accept: "container",
 			drop: (item: ItemType, monitor) => {
-				console.log("Moving from", item.path[0], "to", path[0]);
-				Transforms.moveNodes(editor, { at: item.path, to: path });
+				console.log(
+					"Moving from",
+					item.element.children[0].text,
+					"to",
+					element.children[0].text
+				);
+				Transforms.moveNodes(editor, {
+					at: item.path,
+					to: path,
+				});
 			},
 			collect: (monitor) => ({
 				isOver: !!monitor.isOver(),
@@ -44,6 +52,20 @@ const DndBlock = (props: RenderProps) => {
 		}),
 		[]
 	);
+
+	const moveUp = () => {
+		Transforms.moveNodes(editor, {
+			at: path,
+			to: Path.previous(path),
+		});
+	};
+
+	const moveDown = () => {
+		Transforms.moveNodes(editor, {
+			at: path,
+			to: Path.next(path),
+		});
+	};
 
 	return (
 		<div ref={drop}>
@@ -59,13 +81,27 @@ const DndBlock = (props: RenderProps) => {
 					contentEditable={false}
 					style={{ cursor: "pointer", userSelect: "none" }}
 				>
-					||
+					<button
+						onClick={() => {
+							moveUp();
+						}}
+					>
+						Up
+					</button>
+					<button
+						onClick={() => {
+							moveDown();
+						}}
+					>
+						Down
+					</button>
 				</div>
 				<div
 					ref={preview}
 					style={{
 						color: isDragging ? "red" : "black",
 						backgroundColor: isOver ? "cyan" : "transparent",
+						width: "100%",
 					}}
 				>
 					<Element {...props} />

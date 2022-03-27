@@ -64,7 +64,7 @@ const SlateEditor = (): JSX.Element => {
 	const [value, setValue] = useState<Descendant[]>(initialValue);
 
 	//Editor Init
-	const editor = useMemo(
+	const [editor] = useState(
 		() => withImages(withHistory(withReact(createEditor()))),
 		[]
 	);
@@ -83,10 +83,15 @@ const SlateEditor = (): JSX.Element => {
 		}
 	}, [editor]);
 
+	console.log(value);
+
 	//Render Element. Elements are different types of content Quote, Code etc.
-	const renderElement = useCallback((props) => {
-		return <DndBlock {...props} />;
-	}, []);
+	const renderElement = useCallback(
+		(props) => {
+			return <DndBlock {...props} />;
+		},
+		[editor]
+	);
 
 	// Define a leaf rendering function. Leaves are formatted text spans. Bolded text, italicised text etc.
 	const renderLeaf = useCallback((props) => {
