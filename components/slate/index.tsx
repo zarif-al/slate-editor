@@ -84,9 +84,9 @@ const SlateEditor = (): JSX.Element => {
 	//Render Element. Elements are different types of content Quote, Code etc.
 	const renderElement = useCallback(
 		(props) => {
-			return <Movable {...props} />;
+			return <Movable props={props} lastIndex={value.length - 1} />;
 		},
-		[editor]
+		[value]
 	);
 
 	// Define a leaf rendering function. Leaves are formatted text spans. Bolded text, italicised text etc.

@@ -5,11 +5,16 @@ import { useReadOnly, useSlate, ReactEditor } from "slate-react";
 import Element from "components/slate/render-element";
 import { RenderProps } from "utils/types";
 
-const Movable = (props: RenderProps) => {
+interface MovableType {
+	props: RenderProps;
+	lastIndex: number;
+}
+
+const Movable = ({ props, lastIndex }: MovableType) => {
 	const editor = useSlate();
 	const element = props.element;
 	const path = ReactEditor.findPath(editor, element);
-
+	console.log(lastIndex);
 	const moveUp = () => {
 		Transforms.moveNodes(editor, {
 			at: path,
@@ -48,7 +53,7 @@ const Movable = (props: RenderProps) => {
 							Up
 						</button>
 					)}
-					{Path.endsAfter(path, path) && (
+					{path[0] != lastIndex && (
 						<button
 							onClick={() => {
 								moveDown();
