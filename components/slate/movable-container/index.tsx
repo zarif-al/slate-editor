@@ -14,7 +14,7 @@ const Movable = ({ props, lastIndex }: MovableType) => {
 	const editor = useSlate();
 	const element = props.element;
 	const path = ReactEditor.findPath(editor, element);
-	console.log(lastIndex);
+
 	const moveUp = () => {
 		Transforms.moveNodes(editor, {
 			at: path,
@@ -23,8 +23,6 @@ const Movable = ({ props, lastIndex }: MovableType) => {
 	};
 
 	const moveDown = () => {
-		console.log(Path.next(path));
-
 		Transforms.moveNodes(editor, {
 			at: path,
 			to: Path.next(path),
