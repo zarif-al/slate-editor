@@ -14,7 +14,6 @@ const DndBlock = (props: RenderProps) => {
 	const editor = useSlateStatic();
 	const element = props.element;
 	const path = ReactEditor.findPath(editor, element);
-
 	const [{ isDragging }, drag, preview] = useDrag(() => ({
 		type: "container",
 		item: {
@@ -30,7 +29,7 @@ const DndBlock = (props: RenderProps) => {
 		() => ({
 			accept: "container",
 			drop: (item: ItemType, monitor) => {
-				console.log("Moving from", item.path[0], "to", path[0]);
+				console.log("Moving from", item.path, "to", path);
 				Transforms.moveNodes(editor, { at: item.path, to: path });
 			},
 			collect: (monitor) => ({
