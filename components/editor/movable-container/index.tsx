@@ -2,8 +2,8 @@ import React, { useContext, useEffect, useState } from "react";
 import { useDrag, useDrop } from "react-dnd";
 import { Editor, Transforms, Path } from "slate";
 import { useReadOnly, useSlate, ReactEditor } from "slate-react";
-import Element from "components/slate/render-element";
-import { RenderProps } from "utils/types";
+import Element from "@/components/editor/render-element";
+import { RenderProps } from "@/utils/types";
 
 interface MovableType {
 	props: RenderProps;

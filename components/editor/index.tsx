@@ -17,22 +17,22 @@ import { ReactEditor, Slate, Editable, withReact } from "slate-react";
 import { HistoryEditor, withHistory } from "slate-history";
 
 //My Renderers
-import ImageElement from "components/slate/render-element/image";
-import CodeElement from "components/slate/render-element/code";
-import DefaultElement from "components/slate/render-element/default";
-import Leaf from "components/slate/render-leaf";
+import ImageElement from "@/components/editor/render-element/image";
+import CodeElement from "@/components/editor/render-element/code";
+import DefaultElement from "@/components/editor/render-element/default";
+import Leaf from "@/components/editor/render-leaf";
 //
 
 //Plugin
-import withImages from "components/slate/plugins/withImages";
+import withImages from "@/components/editor/plugins/withImages";
 //
 
-import { CustomText, CustomElement } from "utils/types";
-import ToggleFunctions from "components/slate/toggle-functions";
-import Toolbar from "components/slate/toolbar";
+import { CustomText, CustomElement } from "@/utils/types";
+import ToggleFunctions from "@/components/editor/toggle-functions";
+import Toolbar from "@/components/editor/toolbar";
 
 //Moving Items Around
-import Movable from "components/slate/movable-container";
+import Movable from "@/components/editor/movable-container";
 // TypeScript specific code <-
 
 // Imports :-
@@ -140,17 +140,21 @@ const SlateEditor = (): JSX.Element => {
 					}
 				}}
 				onDrop={(e) => {
-					//This is necessary because we dont want to use slate-reacts default drag-drop function to move text around.
+					//This is necessary because we dont want to use slate-react's default drag-drop function to move text around.
 					//However we still want to be able to drag and drop images.
-					//Allow file dropping.
+					//So this allows file dropping.
 					const files = e.dataTransfer.files;
 					if (!files || files.length < 1) {
 						return true;
 					}
+					//Disable for everything else
 					return false;
 				}}
 				onDragStart={(e) => {
-					const files = e.dataTransfer.files;
+					//This disables dragging images.
+					e.preventDefault();
+					return true;
+					/* 			const files = e.dataTransfer.files;
 					if (!files || files.length < 1) {
 						//This allows dragging our drag handle in react-dnd
 						return true;
@@ -158,7 +162,7 @@ const SlateEditor = (): JSX.Element => {
 						//This disables dragging images.
 						e.preventDefault();
 						return true;
-					}
+					} */
 				}}
 			/>
 		</Slate>
