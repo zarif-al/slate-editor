@@ -2,6 +2,7 @@ import React from "react";
 import { useSlate } from "slate-react";
 import ToggleFunctions from "@/components/editor/toggle-functions";
 import { isImageUrl, insertImage } from "@/components/editor/functions";
+import { Icon } from "@/components/_icons";
 
 const Toolbar = () => {
 	const editor = useSlate();
