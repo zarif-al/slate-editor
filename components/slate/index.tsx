@@ -81,12 +81,18 @@ const SlateEditor = (): JSX.Element => {
 		}
 	}, [editor]);
 
+	//Swap Logic
+	const [selected, setSelected] = useState<Path | null>(null);
+	//
+
 	//Render Element. Elements are different types of content Quote, Code etc.
 	const renderElement = useCallback(
 		(props) => {
-			return <Movable props={props} lastIndex={value.length - 1} />;
+			return (
+				<Movable props={props} selected={selected} setSelected={setSelected} />
+			);
 		},
-		[value]
+		[value, selected]
 	);
 
 	// Define a leaf rendering function. Leaves are formatted text spans. Bolded text, italicised text etc.

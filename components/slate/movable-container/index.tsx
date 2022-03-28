@@ -7,14 +7,14 @@ import { RenderProps } from "utils/types";
 
 interface MovableType {
 	props: RenderProps;
-	lastIndex: number;
+	selected: Path | null;
+	setSelected: () => void;
 }
 
-const Movable = ({ props, lastIndex }: MovableType) => {
+const Movable = ({ props, selected, setSelected }: MovableType) => {
 	const editor = useSlate();
 	const element = props.element;
 	const path = ReactEditor.findPath(editor, element);
-
 	const moveUp = () => {
 		Transforms.moveNodes(editor, {
 			at: path,
@@ -42,22 +42,29 @@ const Movable = ({ props, lastIndex }: MovableType) => {
 					contentEditable={false}
 					style={{ cursor: "pointer", userSelect: "none" }}
 				>
-					{Path.hasPrevious(path) && (
+					{selected === null && (
 						<button
 							onClick={() => {
-								moveUp();
+								setSelected(path);
 							}}
 						>
-							Up
+							Select
 						</button>
 					)}
-					{path[0] != lastIndex && (
+					{selected !== null && !Path.equals(selected, path) && (
 						<button
 							onClick={() => {
-								moveDown();
+								console.log("Moving from ", selected, " to ", path);
+								Transforms.moveNodes(editor, { at: selected, to: path });
+								if (Path.isAfter(path, selected)) {
+									Transforms.moveNodes(editor, { at: [path[0] - 1], to: selected });
+								} else {
+									Transforms.moveNodes(editor, { at: [path[0] + 1], to: selected });
+								}
+								setSelected(null);
 							}}
 						>
-							Down
+							Swap Here
 						</button>
 					)}
 				</div>
