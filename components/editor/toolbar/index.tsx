@@ -3,89 +3,76 @@ import { useSlate } from "slate-react";
 import ToggleFunctions from "@/components/editor/toggle-functions";
 import { isImageUrl, insertImage } from "@/components/editor/functions";
 import { Icon } from "@/components/_icons";
-
+import MarkButton from "@/components/editor/toolbar/components/mark-button";
+import InsertImageImage from "@/components/editor/toolbar/components/insert-image-button";
 const Toolbar = () => {
 	const editor = useSlate();
 	return (
 		<div
 			style={{
 				display: "flex",
-				gap: "5px",
+				gap: "12px",
 				width: "100%",
-				borderBottom: "1px solid black",
-				padding: "0.5rem",
+				borderBottom: "1px solid",
+				borderTop: "1px solid",
+				borderColor: "#EBEDFF",
+				padding: "12px 0px",
 			}}
 		>
-			<button
-				style={{
-					fontWeight: ToggleFunctions.isMarkActive(editor, "bold")
-						? "800"
-						: "normal",
-				}}
-				onMouseDown={(event) => {
-					event.preventDefault();
+			<MarkButton
+				action={() => {
 					ToggleFunctions.toggleBoldMark(editor);
 				}}
-			>
-				B
-			</button>
-			<button
-				style={{
-					fontWeight: ToggleFunctions.isMarkActive(editor, "italic")
-						? "800"
-						: "normal",
-					fontStyle: "italic",
-				}}
-				onMouseDown={(event) => {
-					event.preventDefault();
+				active={ToggleFunctions.isMarkActive(editor, "bold")}
+				icon={
+					<Icon.FormatBold
+						size={24}
+						color={ToggleFunctions.isMarkActive(editor, "bold") ? "black" : "#ccc"}
+					/>
+				}
+			/>
+			<MarkButton
+				icon={
+					<Icon.FormatItalic
+						size={24}
+						color={ToggleFunctions.isMarkActive(editor, "italic") ? "black" : "#ccc"}
+					/>
+				}
+				action={() => {
 					ToggleFunctions.toggleItalicMark(editor);
 				}}
-			>
-				I
-			</button>
-			<button
-				style={{
-					fontWeight: ToggleFunctions.isMarkActive(editor, "underline")
-						? "800"
-						: "normal",
-					textDecoration: "underline",
-				}}
-				onMouseDown={(event) => {
-					event.preventDefault();
+				active={ToggleFunctions.isMarkActive(editor, "italic")}
+			/>
+
+			<MarkButton
+				icon={
+					<Icon.FormatUnderline
+						size={24}
+						color={
+							ToggleFunctions.isMarkActive(editor, "underline") ? "black" : "#ccc"
+						}
+					/>
+				}
+				action={() => {
 					ToggleFunctions.toggleUnderlineMark(editor);
 				}}
-			>
-				U
-			</button>
-			<button
-				style={{
-					fontWeight: ToggleFunctions.isMarkActive(editor, "code")
-						? "800"
-						: "normal",
-				}}
-				onMouseDown={(event) => {
-					event.preventDefault();
+				active={ToggleFunctions.isMarkActive(editor, "underline")}
+			/>
+
+			<MarkButton
+				action={() => {
 					ToggleFunctions.toggleCodeMark(editor);
 				}}
-			>
-				{"< Span >"}
-			</button>
-			<button
-				style={{
-					fontWeight: ToggleFunctions.isBlockActive(editor, "code")
-						? "800"
-						: "normal",
-				}}
-				onMouseDown={(event) => {
-					event.preventDefault();
-					ToggleFunctions.toggleCodeBlock(editor);
-				}}
-			>
-				{"< Block >"}
-			</button>
-			<button
-				onMouseDown={(event) => {
-					event.preventDefault();
+				icon={
+					<Icon.Code
+						size={24}
+						color={ToggleFunctions.isMarkActive(editor, "code") ? "black" : "#ccc"}
+					/>
+				}
+				active={ToggleFunctions.isMarkActive(editor, "code")}
+			/>
+			<InsertImageImage
+				action={() => {
 					const url = window.prompt("Enter the URL of the image:");
 					if (url === null) {
 						return;
@@ -96,9 +83,8 @@ const Toolbar = () => {
 					}
 					insertImage(editor, url);
 				}}
-			>
-				Img
-			</button>
+				icon={<Icon.FormatImage size={24} />}
+			/>
 		</div>
 	);
 };

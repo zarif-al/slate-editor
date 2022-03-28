@@ -1,6 +1,7 @@
 import React from "react";
-import Button from "@/components/editor/components/button";
-const MarkButton = ({ icon, action, active }) => {
+import { Icon } from "@/components/_icons";
+
+const InsertImage = ({ action, icon }) => {
 	return (
 		<span
 			style={{
@@ -8,8 +9,8 @@ const MarkButton = ({ icon, action, active }) => {
 				alignItems: "center",
 				cursor: "pointer",
 			}}
-			onMouseDown={(e) => {
-				e.preventDefault();
+			onMouseDown={(event) => {
+				event.preventDefault();
 				action();
 			}}
 		>
@@ -18,4 +19,4 @@ const MarkButton = ({ icon, action, active }) => {
 	);
 };
 
-export default MarkButton;
+export default InsertImage;

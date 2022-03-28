@@ -20,7 +20,7 @@ const Home: NextPage = () => {
 					width: "800px",
 					border: "2px solid black",
 					marginTop: "100px",
-					padding: "2rem",
+					padding: "1rem",
 				}}
 			>
 				<Editor />

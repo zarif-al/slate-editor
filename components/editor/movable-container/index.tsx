@@ -4,6 +4,7 @@ import { Editor, Transforms, Path } from "slate";
 import { useReadOnly, useSlate, ReactEditor } from "slate-react";
 import Element from "@/components/editor/render-element";
 import { RenderProps } from "@/utils/types";
+import { Icon } from "@/components/_icons";
 
 interface MovableType {
 	props: RenderProps;
@@ -52,10 +53,21 @@ const Movable = ({ props, selected, setSelected }: MovableType) => {
 		setSelected(null);
 	};
 
+	const IconContainer = ({ action, icon }) => {
+		return (
+			<span
+				onClick={() => {
+					action();
+				}}
+			>
+				{icon}
+			</span>
+		);
+	};
+
 	return (
 		<div>
 			<div
-				className="container"
 				style={{
 					display: "flex",
 					gap: "10px",
@@ -63,53 +75,56 @@ const Movable = ({ props, selected, setSelected }: MovableType) => {
 				}}
 			>
 				<div
-					contentEditable={false}
-					style={{ cursor: "pointer", userSelect: "none" }}
+					style={{
+						display: "flex",
+						gap: "2px",
+						alignItems: "center",
+					}}
 				>
 					{selected === null && (
-						<button
-							onClick={() => {
-								setSelected(path);
-							}}
-						>
-							Select
-						</button>
+						<IconContainer
+							action={setSelected(path)}
+							icon={<Icon.Drag size={12} color={"grey"} />}
+						/>
 					)}
 					{selected && Path.equals(selected, path) && (
-						<button
+						<span
 							onClick={() => {
 								setSelected(null);
 							}}
 						>
-							Cancel
-						</button>
+							<Icon.Close size={12} color={"grey"} />
+						</span>
 					)}
 					{selected !== null && !Path.equals(selected, path) && (
-						<button
+						<span
 							onClick={() => {
 								moveAbove();
 							}}
+							style={{ transform: "rotate(-180deg)", cursor: "pointer" }}
 						>
-							Above
-						</button>
+							<span>
+								<Icon.Arrow size={12} color={"grey"} />
+							</span>
+						</span>
 					)}
 					{selected !== null && !Path.equals(selected, path) && (
-						<button
+						<span
 							onClick={() => {
 								swap();
 							}}
 						>
-							Swap Here
-						</button>
+							<Icon.Shuffle size={12} color={"grey"} />
+						</span>
 					)}
 					{selected !== null && !Path.equals(selected, path) && (
-						<button
+						<span
 							onClick={() => {
 								moveBelow();
 							}}
 						>
-							Below
-						</button>
+							<Icon.Arrow size={12} color={"grey"} />
+						</span>
 					)}
 				</div>
 				<div>
