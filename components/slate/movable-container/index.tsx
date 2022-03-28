@@ -29,6 +29,29 @@ const Movable = ({ props, selected, setSelected }: MovableType) => {
 		});
 	};
 
+	const swap = () => {
+		console.log("Swapping ", selected, " with ", path);
+		Transforms.moveNodes(editor, { at: selected, to: path });
+		if (Path.isAfter(path, selected)) {
+			Transforms.moveNodes(editor, { at: [path[0] - 1], to: selected });
+		} else {
+			Transforms.moveNodes(editor, { at: [path[0] + 1], to: selected });
+		}
+		setSelected(null);
+	};
+
+	const moveBelow = () => {
+		console.log("Moving ", selected, " below ", path);
+		Transforms.moveNodes(editor, { at: selected, to: [path[0] + 1] });
+		setSelected(null);
+	};
+
+	const moveAbove = () => {
+		console.log("Moving ", selected, " below ", path);
+		Transforms.moveNodes(editor, { at: selected, to: path });
+		setSelected(null);
+	};
+
 	return (
 		<div>
 			<div
@@ -36,6 +59,7 @@ const Movable = ({ props, selected, setSelected }: MovableType) => {
 				style={{
 					display: "flex",
 					gap: "10px",
+					alignItems: "center",
 				}}
 			>
 				<div
@@ -51,20 +75,40 @@ const Movable = ({ props, selected, setSelected }: MovableType) => {
 							Select
 						</button>
 					)}
-					{selected !== null && !Path.equals(selected, path) && (
+					{selected && Path.equals(selected, path) && (
 						<button
 							onClick={() => {
-								console.log("Moving from ", selected, " to ", path);
-								Transforms.moveNodes(editor, { at: selected, to: path });
-								if (Path.isAfter(path, selected)) {
-									Transforms.moveNodes(editor, { at: [path[0] - 1], to: selected });
-								} else {
-									Transforms.moveNodes(editor, { at: [path[0] + 1], to: selected });
-								}
 								setSelected(null);
 							}}
 						>
+							Cancel
+						</button>
+					)}
+					{selected !== null && !Path.equals(selected, path) && (
+						<button
+							onClick={() => {
+								moveAbove();
+							}}
+						>
+							Above
+						</button>
+					)}
+					{selected !== null && !Path.equals(selected, path) && (
+						<button
+							onClick={() => {
+								swap();
+							}}
+						>
 							Swap Here
+						</button>
+					)}
+					{selected !== null && !Path.equals(selected, path) && (
+						<button
+							onClick={() => {
+								moveBelow();
+							}}
+						>
+							Below
 						</button>
 					)}
 				</div>
