@@ -6,6 +6,7 @@ import { Icon } from "@/components/_icons";
 import {
 	MarkButton,
 	InsertImageButton,
+	InsertFileButton,
 } from "@/components/editor/toolbar/components";
 
 const Toolbar = () => {
@@ -74,20 +75,70 @@ const Toolbar = () => {
 				}
 				active={ToggleFunctions.isMarkActive(editor, "code")}
 			/>
-			<InsertImageButton
+
+			<MarkButton
 				action={() => {
-					const url = window.prompt("Enter the URL of the image:");
-					if (url === null) {
-						return;
-					}
-					if (url == "" || !isImageUrl(url)) {
-						alert("URL is not an image");
-						return;
-					}
-					insertImage(editor, url);
+					ToggleFunctions.toggleHeadingOneBlock(editor);
 				}}
-				icon={<Icon.FormatImage size={24} color={"#ccc"} />}
+				icon={
+					<Icon.LooksOne
+						size={24}
+						color={
+							ToggleFunctions.isBlockActive(editor, "heading-one") ? "black" : "#ccc"
+						}
+					/>
+				}
+				active={ToggleFunctions.isBlockActive(editor, "heading-one")}
 			/>
+
+			<MarkButton
+				action={() => {
+					ToggleFunctions.toggleHeadingTwoBlock(editor);
+				}}
+				icon={
+					<Icon.LooksTwo
+						size={24}
+						color={
+							ToggleFunctions.isBlockActive(editor, "heading-two") ? "black" : "#ccc"
+						}
+					/>
+				}
+				active={ToggleFunctions.isBlockActive(editor, "heading-two")}
+			/>
+
+			<MarkButton
+				action={() => {
+					ToggleFunctions.toggleBulletListBlock(editor);
+				}}
+				icon={
+					<Icon.BulletedList
+						size={24}
+						color={
+							ToggleFunctions.isBlockActive(editor, "bulleted-list") ? "black" : "#ccc"
+						}
+					/>
+				}
+				active={ToggleFunctions.isBlockActive(editor, "bulleted-list")}
+			/>
+
+			<MarkButton
+				action={() => {
+					ToggleFunctions.toggleNumberedListBlock(editor);
+				}}
+				icon={
+					<Icon.NumberedList
+						size={24}
+						color={
+							ToggleFunctions.isBlockActive(editor, "numbered-list") ? "black" : "#ccc"
+						}
+					/>
+				}
+				active={ToggleFunctions.isBlockActive(editor, "numbered-list")}
+			/>
+
+			<InsertImageButton icon={<Icon.FormatImage size={24} color={"#ccc"} />} />
+
+			<InsertFileButton icon={<Icon.Attachment size={24} color={"#ccc"} />} />
 		</div>
 	);
 };

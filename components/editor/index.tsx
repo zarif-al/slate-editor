@@ -122,11 +122,6 @@ const SlateEditor = (): JSX.Element => {
 							return;
 						}
 						switch (event.key) {
-							case "`": {
-								event.preventDefault();
-								ToggleFunctions.toggleCodeBlock(editor);
-								break;
-							}
 							case "b": {
 								event.preventDefault();
 								ToggleFunctions.toggleBoldMark(editor);

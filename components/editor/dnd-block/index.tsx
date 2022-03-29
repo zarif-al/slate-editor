@@ -47,13 +47,18 @@ const DndBlock = (props: RenderProps) => {
 		[path]
 	);
 
+	//Disable drag properties in list-items
+	if (props.element.type === "list-item") {
+		return <Element {...props} />;
+	}
+
 	return (
 		<div ref={drop}>
 			<div
 				style={{
 					display: "flex",
 					gap: "10px",
-					alignItems: "center",
+					alignItems: "baseline",
 				}}
 			>
 				<div

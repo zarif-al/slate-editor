@@ -1,19 +1,19 @@
 import React, { useRef, useCallback } from "react";
 import { ReactEditor, useSlate } from "slate-react";
 import { isAcceptableFormat } from "@/utils/editor";
-import { isImageUrl, insertImage } from "components/editor/functions";
+import { isImageUrl, insertFile } from "components/editor/functions";
 
-interface InsertImageTypes {
+interface InsertFileType {
 	icon: JSX.Element;
 }
 
-const EDITOR_UPLOAD_ACCEPT = ".jpg,.jpeg,.png,.gif,.bmp";
+const EDITOR_UPLOAD_ACCEPT = ".zip,.rar,.doc,.docx,.pdf";
 
-const InsertImageButton = ({ icon }: InsertImageTypes) => {
+const InsertFileButton = ({ icon }: InsertFileType) => {
 	const ref = useRef<HTMLInputElement>(null);
 	const editor = useSlate();
 
-	const onUploadImage = useCallback(
+	const onUploadFile = useCallback(
 		async (event: React.ChangeEvent<HTMLInputElement>) => {
 			if (!event.currentTarget.files || !event.currentTarget.files[0]) {
 				return;
@@ -28,7 +28,7 @@ const InsertImageButton = ({ icon }: InsertImageTypes) => {
 
 						reader.addEventListener("load", () => {
 							const url = reader.result;
-							insertImage(editor, url);
+							insertFile(editor, url, file.name);
 						});
 
 						reader.readAsDataURL(file);
@@ -64,11 +64,11 @@ const InsertImageButton = ({ icon }: InsertImageTypes) => {
 				type="file"
 				accept={EDITOR_UPLOAD_ACCEPT}
 				style={{ display: "none" }}
-				onChange={onUploadImage}
+				onChange={onUploadFile}
 			/>
 			{icon}
 		</span>
 	);
 };
 
-export default InsertImageButton;
+export default InsertFileButton;

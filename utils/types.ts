@@ -24,18 +24,49 @@ export type ImageElement = {
 	children: CustomText[];
 };
 
-type HeadingElement = {
-	type: "heading";
-	level: number;
+type HeadingOneElement = {
+	type: "heading-one";
+	children: CustomText[];
+};
+
+type HeadingTwoElement = {
+	type: "heading-two";
+	children: CustomText[];
+};
+
+type ListElement = {
+	type: "list-item";
+	children: CustomText[];
+};
+
+export type BulletedListElement = {
+	type: "bulleted-list";
+	children: ListElement[];
+};
+
+export type NumberedList = {
+	type: "numbered-list";
+	children: ListElement[];
+};
+
+export type FileElement = {
+	type: "file";
+	url: string | ArrayBuffer | null;
+	name: string;
 	children: CustomText[];
 };
 
 // Make Element type a union of the above custom element types
 export type CustomElement =
 	| ParagraphElement
-	| HeadingElement
+	| HeadingOneElement
+	| HeadingTwoElement
 	| CodeElement
-	| ImageElement;
+	| ImageElement
+	| ListElement
+	| BulletedListElement
+	| NumberedList
+	| FileElement;
 
 //RenderElement Props Type
 export interface RenderProps {

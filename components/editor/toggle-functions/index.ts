@@ -1,6 +1,5 @@
 import { Transforms, Editor, Element, Text } from "slate";
-import { CustomText } from "utils/types";
-
+import { CustomText, BulletedListElement, NumberedList } from "utils/types";
 type Mark = Omit<CustomText, "text"> | null;
 
 const ToggleFunctions = {
@@ -41,20 +40,78 @@ const ToggleFunctions = {
 			{ match: (n) => Text.isText(n), split: true }
 		);
 	},
-	//Toggle Code
+	//Toggle Blocks
 	isBlockActive(editor: Editor, block: string) {
 		const [match] = Editor.nodes(editor, {
 			match: (n) => Element.isElement(n) && n.type === block,
 		});
 		return !!match;
 	},
-	toggleCodeBlock(editor: Editor) {
-		const isActive = ToggleFunctions.isBlockActive(editor, "code");
+	toggleHeadingOneBlock(editor: Editor) {
+		const isActive = ToggleFunctions.isBlockActive(editor, "heading-one");
 		Transforms.setNodes(
 			editor,
-			{ type: isActive ? "paragraph" : "code" },
+			{ type: isActive ? "paragraph" : "heading-one" },
 			{ match: (n) => Editor.isBlock(editor, n), split: true }
 		);
+	},
+	toggleHeadingTwoBlock(editor: Editor) {
+		const isActive = ToggleFunctions.isBlockActive(editor, "heading-two");
+		Transforms.setNodes(
+			editor,
+			{ type: isActive ? "paragraph" : "heading-two" },
+			{ match: (n) => Editor.isBlock(editor, n), split: true }
+		);
+	},
+	toggleBulletListBlock(editor: Editor) {
+		const isActive = ToggleFunctions.isBlockActive(editor, "bulleted-list");
+		console.log(isActive);
+		Transforms.unwrapNodes(editor, {
+			match: (n) =>
+				Element.isElement(n) &&
+				(n.type == "bulleted-list" || n.type == "numbered-list"),
+			split: true,
+		});
+
+		Transforms.setNodes(
+			editor,
+			{ type: isActive ? "paragraph" : "list-item" },
+			{ match: (n) => Editor.isBlock(editor, n), split: false }
+		);
+
+		if (!isActive) {
+			const list = { type: "list-item", children: [{ text: "" }] };
+			const block = {
+				type: "bulleted-list",
+				children: [list],
+			} as BulletedListElement;
+			Transforms.wrapNodes(editor, block);
+		}
+	},
+	toggleNumberedListBlock(editor: Editor) {
+		const isActive = ToggleFunctions.isBlockActive(editor, "numbered-list");
+
+		Transforms.unwrapNodes(editor, {
+			match: (n) =>
+				Element.isElement(n) &&
+				(n.type == "bulleted-list" || n.type == "numbered-list"),
+			split: true,
+		});
+
+		Transforms.setNodes(
+			editor,
+			{ type: isActive ? "paragraph" : "list-item" },
+			{ match: (n) => Editor.isBlock(editor, n), split: false }
+		);
+
+		if (!isActive) {
+			const list = { type: "list-item", children: [{ text: "" }] };
+			const block = {
+				type: "numbered-list",
+				children: [list],
+			} as NumberedList;
+			Transforms.wrapNodes(editor, block);
+		}
 	},
 };
 

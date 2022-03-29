@@ -27,3 +27,18 @@ export const insertImage = (
 	};
 	Transforms.insertNodes(editor, image);
 };
+
+export const insertFile = (
+	editor: Editor,
+	url: string | ArrayBuffer | null,
+	name: string
+) => {
+	const text = { text: "" };
+	const file: CustomElement = {
+		type: "file",
+		url,
+		name,
+		children: [text],
+	};
+	Transforms.insertNodes(editor, file);
+};

@@ -55,6 +55,8 @@ import { IconOrganisation } from "@/components/_icons/organisation";
 import { IconTrash } from "@/components/_icons/trash";
 import { IconShuffle } from "@/components/_icons/shuffle";
 import { IconSwap } from "@/components/_icons/swap";
+import { IconDownload } from "@/components/_icons/download";
+
 interface IconProps {
 	color?: string;
 	size?: number;
@@ -448,3 +450,8 @@ Icon.Swap = ({
 	color = DEFAULT_COLOR,
 	size = DEFAULT_SIZE,
 }: IconProps): JSX.Element => <IconSwap color={color} size={size} />;
+
+Icon.Download = ({
+	color = DEFAULT_COLOR,
+	size = DEFAULT_SIZE,
+}: IconProps): JSX.Element => <IconDownload color={color} size={size} />;
