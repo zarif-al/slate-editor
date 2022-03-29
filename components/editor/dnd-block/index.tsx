@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useDrag, useDrop } from "react-dnd";
 import { Editor, Transforms } from "slate";
-import { useReadOnly, useSlateStatic, ReactEditor } from "slate-react";
+import { useReadOnly, useSlate, ReactEditor } from "slate-react";
 import Element from "components/editor/render-element";
 import { RenderProps } from "utils/types";
 
@@ -11,20 +11,23 @@ interface ItemType {
 }
 
 const DndBlock = (props: RenderProps) => {
-	const editor = useSlateStatic();
+	const editor = useSlate();
 	const element = props.element;
 	const path = ReactEditor.findPath(editor, element);
 
-	const [{ isDragging }, drag, preview] = useDrag(() => ({
-		type: "container",
-		item: {
+	const [{ isDragging }, drag, preview] = useDrag(
+		() => ({
 			type: "container",
-			path: path,
-		},
-		collect: (monitor) => ({
-			isDragging: !!monitor.isDragging(),
+			item: {
+				type: "container",
+				path: path,
+			},
+			collect: (monitor) => ({
+				isDragging: !!monitor.isDragging(),
+			}),
 		}),
-	}));
+		[path]
+	);
 
 	const [{ isOver }, drop] = useDrop(
 		() => ({
@@ -40,7 +43,7 @@ const DndBlock = (props: RenderProps) => {
 				isOver: !!monitor.isOver(),
 			}),
 		}),
-		[]
+		[path]
 	);
 
 	return (
