@@ -1,6 +1,6 @@
 import React from "react";
 import { Editor } from "slate";
-import { isImageUrl, insertImage } from "components/slate/functions";
+import { isImageUrl, insertImage } from "components/editor/functions";
 
 const withImages = (editor: Editor) => {
 	const { insertData, isVoid } = editor;

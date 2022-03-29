@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { useDrag, useDrop } from "react-dnd";
 import { Editor, Transforms } from "slate";
 import { useReadOnly, useSlateStatic, ReactEditor } from "slate-react";
-import Element from "components/slate/render-element";
+import Element from "components/editor/render-element";
 import { RenderProps } from "utils/types";
 
 interface ItemType {
