@@ -106,6 +106,7 @@ const SlateEditor = (): JSX.Element => {
 					);
 					if (isAstChange) {
 						// Save the value to Local Storage.
+						console.log("saving");
 						const content = JSON.stringify(newValue);
 						localStorage.setItem("content", content);
 					}

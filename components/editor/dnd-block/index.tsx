@@ -4,6 +4,7 @@ import { Editor, Transforms } from "slate";
 import { useReadOnly, useSlate, ReactEditor } from "slate-react";
 import Element from "components/editor/render-element";
 import { RenderProps } from "utils/types";
+import { Icon } from "@/components/_icons";
 
 interface ItemType {
 	type: string;
@@ -49,10 +50,10 @@ const DndBlock = (props: RenderProps) => {
 	return (
 		<div ref={drop}>
 			<div
-				className="container"
 				style={{
 					display: "flex",
 					gap: "10px",
+					alignItems: "center",
 				}}
 			>
 				<div
@@ -60,13 +61,14 @@ const DndBlock = (props: RenderProps) => {
 					contentEditable={false}
 					style={{ cursor: "pointer", userSelect: "none" }}
 				>
-					||
+					<Icon.Drag size={14} color={"grey"} />
 				</div>
 				<div
 					ref={preview}
 					style={{
 						color: isDragging ? "red" : "black",
 						backgroundColor: isOver ? "cyan" : "transparent",
+						width: "100%",
 					}}
 				>
 					<Element {...props} />
