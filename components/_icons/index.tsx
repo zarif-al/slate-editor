@@ -253,7 +253,6 @@ Icon.Locked = ({
 	color = DEFAULT_COLOR,
 	size = DEFAULT_SIZE,
 }: IconProps): JSX.Element => {
-	// @ts-ignore
 	return <IconLocked size={size} color={color} />;
 };
 
@@ -261,7 +260,6 @@ Icon.Cloud = ({
 	color = DEFAULT_COLOR,
 	size = DEFAULT_SIZE,
 }: IconProps): JSX.Element => {
-	// @ts-ignore
 	return <IconCloud size={size} color={color} />;
 };
 
@@ -283,7 +281,6 @@ Icon.Check = ({
 	color = DEFAULT_COLOR,
 	size = DEFAULT_SIZE,
 }: IconProps): JSX.Element => {
-	// @ts-ignore
 	return <IconCheck size={size} color={color} />;
 };
 
@@ -298,7 +295,6 @@ Icon.ArrowDown = ({
 	color = DEFAULT_COLOR,
 	size = DEFAULT_SIZE,
 }: IconProps): JSX.Element => {
-	// @ts-ignore
 	return <IconArrowDown size={size} color={color} />;
 };
 
@@ -306,7 +302,6 @@ Icon.ArrowUp = ({
 	color = DEFAULT_COLOR,
 	size = DEFAULT_SIZE,
 }: IconProps): JSX.Element => {
-	// @ts-ignore
 	return <IconArrowUp size={size} color={color} />;
 };
 
@@ -314,7 +309,6 @@ Icon.RadioChecked = ({
 	color = DEFAULT_COLOR,
 	size = DEFAULT_SIZE,
 }: IconProps): JSX.Element => {
-	// @ts-ignore
 	return <IconRadioChecked size={size} color={color} />;
 };
 
@@ -410,7 +404,6 @@ Icon.SolidDot = ({
 	size = DEFAULT_SIZE,
 }: IconProps): JSX.Element => <IconSolidDot color={color} size={size} />;
 
-// @ts-ignore
 Icon.Google = ({
 	color = DEFAULT_COLOR,
 	size = DEFAULT_SIZE,
@@ -421,18 +414,12 @@ Icon.Avatar = ({
 	color = DEFAULT_COLOR,
 }: IconProps): JSX.Element => <IconAvatar size={size} color={color} />;
 
-// @ts-ignore
-Icon.Avatar.displayName = "IconAvatar";
-
 Icon.CollaboratorEdit = ({
 	color = DEFAULT_COLOR,
 	size = DEFAULT_SIZE,
 }: IconProps): JSX.Element => (
 	<IconCollaboratorEdit color={color} size={size} />
 );
-
-// @ts-ignore
-Icon.CollaboratorEdit.displayName = "IconCollaboratorEdit";
 
 Icon.Card = ({
 	color = DEFAULT_COLOR,
@@ -456,6 +443,3 @@ Icon.Team = ({
 	color = DEFAULT_COLOR,
 	size = DEFAULT_SIZE,
 }: IconProps): JSX.Element => <IconTeam color={color} size={size} />;
-
-// @ts-ignore
-Icon.Team.displayName = "IconTeam";

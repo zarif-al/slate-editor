@@ -67,7 +67,7 @@ const Movable = ({ props, selected, setSelected }: MovableType) => {
 	const IconContainer = ({ action, icon }: IconContainerType) => {
 		return (
 			<span
-				onClick={() => {
+				onMouseDown={() => {
 					action();
 				}}
 				style={{ cursor: "pointer" }}
