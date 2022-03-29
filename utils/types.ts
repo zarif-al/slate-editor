@@ -56,6 +56,12 @@ export type FileElement = {
 	children: CustomText[];
 };
 
+export type AudioElement = {
+	type: "audio";
+	url: string | ArrayBuffer | null;
+	children: CustomText[];
+};
+
 // Make Element type a union of the above custom element types
 export type CustomElement =
 	| ParagraphElement
@@ -66,7 +72,8 @@ export type CustomElement =
 	| ListElement
 	| BulletedListElement
 	| NumberedList
-	| FileElement;
+	| FileElement
+	| AudioElement;
 
 //RenderElement Props Type
 export interface RenderProps {

@@ -34,10 +34,21 @@ const ToggleFunctions = {
 	},
 	toggleCodeMark(editor: Editor) {
 		const isActive = ToggleFunctions.isMarkActive(editor, "code");
+
 		Transforms.setNodes(
 			editor,
 			{ code: isActive ? false : true },
 			{ match: (n) => Text.isText(n), split: true }
+		);
+	},
+	toggleNewLine(editor: Editor) {
+		Transforms.insertNodes(
+			editor,
+			{
+				type: "paragraph",
+				children: [{ text: "" }],
+			},
+			{ at: [editor.children.length] }
 		);
 	},
 	//Toggle Blocks
@@ -49,18 +60,33 @@ const ToggleFunctions = {
 	},
 	toggleHeadingOneBlock(editor: Editor) {
 		const isActive = ToggleFunctions.isBlockActive(editor, "heading-one");
+
+		Transforms.unwrapNodes(editor, {
+			match: (n) =>
+				Element.isElement(n) &&
+				(n.type == "bulleted-list" || n.type == "numbered-list"),
+			split: true,
+		});
+
 		Transforms.setNodes(
 			editor,
 			{ type: isActive ? "paragraph" : "heading-one" },
-			{ match: (n) => Editor.isBlock(editor, n), split: true }
+			{ match: (n) => Editor.isBlock(editor, n), split: false }
 		);
 	},
 	toggleHeadingTwoBlock(editor: Editor) {
 		const isActive = ToggleFunctions.isBlockActive(editor, "heading-two");
+		Transforms.unwrapNodes(editor, {
+			match: (n) =>
+				Element.isElement(n) &&
+				(n.type == "bulleted-list" || n.type == "numbered-list"),
+			split: true,
+		});
+
 		Transforms.setNodes(
 			editor,
 			{ type: isActive ? "paragraph" : "heading-two" },
-			{ match: (n) => Editor.isBlock(editor, n), split: true }
+			{ match: (n) => Editor.isBlock(editor, n), split: false }
 		);
 	},
 	toggleBulletListBlock(editor: Editor) {

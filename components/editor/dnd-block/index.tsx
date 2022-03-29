@@ -58,7 +58,7 @@ const DndBlock = (props: RenderProps) => {
 				style={{
 					display: "flex",
 					gap: "10px",
-					alignItems: "baseline",
+					alignItems: "center",
 				}}
 			>
 				<div

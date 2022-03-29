@@ -7,6 +7,7 @@ import {
 	MarkButton,
 	InsertImageButton,
 	InsertFileButton,
+	InsertAudioButton,
 } from "@/components/editor/toolbar/components";
 
 const Toolbar = () => {
@@ -27,7 +28,6 @@ const Toolbar = () => {
 				action={() => {
 					ToggleFunctions.toggleBoldMark(editor);
 				}}
-				active={ToggleFunctions.isMarkActive(editor, "bold")}
 				icon={
 					<Icon.FormatBold
 						size={24}
@@ -45,7 +45,6 @@ const Toolbar = () => {
 				action={() => {
 					ToggleFunctions.toggleItalicMark(editor);
 				}}
-				active={ToggleFunctions.isMarkActive(editor, "italic")}
 			/>
 
 			<MarkButton
@@ -60,7 +59,6 @@ const Toolbar = () => {
 				action={() => {
 					ToggleFunctions.toggleUnderlineMark(editor);
 				}}
-				active={ToggleFunctions.isMarkActive(editor, "underline")}
 			/>
 
 			<MarkButton
@@ -73,7 +71,6 @@ const Toolbar = () => {
 						color={ToggleFunctions.isMarkActive(editor, "code") ? "black" : "#ccc"}
 					/>
 				}
-				active={ToggleFunctions.isMarkActive(editor, "code")}
 			/>
 
 			<MarkButton
@@ -88,7 +85,6 @@ const Toolbar = () => {
 						}
 					/>
 				}
-				active={ToggleFunctions.isBlockActive(editor, "heading-one")}
 			/>
 
 			<MarkButton
@@ -103,7 +99,6 @@ const Toolbar = () => {
 						}
 					/>
 				}
-				active={ToggleFunctions.isBlockActive(editor, "heading-two")}
 			/>
 
 			<MarkButton
@@ -118,7 +113,6 @@ const Toolbar = () => {
 						}
 					/>
 				}
-				active={ToggleFunctions.isBlockActive(editor, "bulleted-list")}
 			/>
 
 			<MarkButton
@@ -133,12 +127,20 @@ const Toolbar = () => {
 						}
 					/>
 				}
-				active={ToggleFunctions.isBlockActive(editor, "numbered-list")}
 			/>
 
 			<InsertImageButton icon={<Icon.FormatImage size={24} color={"#ccc"} />} />
 
 			<InsertFileButton icon={<Icon.Attachment size={24} color={"#ccc"} />} />
+
+			<InsertAudioButton icon={<Icon.Audiotrack size={24} color={"#ccc"} />} />
+
+			<MarkButton
+				action={() => {
+					ToggleFunctions.toggleNewLine(editor);
+				}}
+				icon={<Icon.Plus size={24} color={"#ccc"} />}
+			/>
 		</div>
 	);
 };

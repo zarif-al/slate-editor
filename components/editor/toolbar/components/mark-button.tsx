@@ -1,12 +1,11 @@
 import React from "react";
 
 interface MarkDownButtonTypes {
-	active: boolean;
 	action: () => void;
 	icon: JSX.Element;
 }
 
-const MarkButton = ({ icon, action, active }: MarkDownButtonTypes) => {
+const MarkButton = ({ icon, action }: MarkDownButtonTypes) => {
 	return (
 		<span
 			style={{

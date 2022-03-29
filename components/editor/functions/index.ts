@@ -1,4 +1,4 @@
-import { Editor, Transforms } from "slate";
+import { Editor, Transforms, Path } from "slate";
 import imageExtensions from "image-extensions";
 import isUrl from "is-url";
 import { CustomElement } from "utils/types";
@@ -40,5 +40,18 @@ export const insertFile = (
 		name,
 		children: [text],
 	};
-	Transforms.insertNodes(editor, file);
+	Editor.insertNode(editor, file);
+};
+
+export const insertAudio = (
+	editor: Editor,
+	url: string | ArrayBuffer | null
+) => {
+	const text = { text: "" };
+	const audio: CustomElement = { type: "audio", url, children: [text] };
+	Transforms.insertNodes(editor, audio);
+};
+
+export const removeElement = (editor: Editor, path: Path) => {
+	Transforms.removeNodes(editor, { at: path });
 };
