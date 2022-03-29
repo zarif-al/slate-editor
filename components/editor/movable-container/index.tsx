@@ -64,15 +64,23 @@ const Movable = ({ props, selected, setSelected }: MovableType) => {
 	const moveBelow = () => {
 		console.log("Moving ", selected, " below ", path);
 		if (selected !== null) {
-			Transforms.moveNodes(editor, { at: selected, to: [path[0]] });
+			if (Path.isAfter(path, selected)) {
+				Transforms.moveNodes(editor, { at: selected, to: path });
+			} else {
+				Transforms.moveNodes(editor, { at: selected, to: [path[0] + 1] });
+			}
 			setSelected(null);
 		}
 	};
 
 	const moveAbove = () => {
-		console.log("Moving ", selected, " below ", path);
+		console.log("Moving ", selected, " above ", path);
 		if (selected !== null) {
-			Transforms.moveNodes(editor, { at: selected, to: path });
+			if (Path.isAfter(path, selected)) {
+				Transforms.moveNodes(editor, { at: selected, to: [path[0] - 1] });
+			} else {
+				Transforms.moveNodes(editor, { at: selected, to: path });
+			}
 			setSelected(null);
 		}
 	};
