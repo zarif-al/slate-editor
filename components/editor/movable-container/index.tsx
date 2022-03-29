@@ -12,6 +12,24 @@ interface MovableType {
 	setSelected: (path: Path | null) => void;
 }
 
+interface IconContainerType {
+	action: () => void;
+	icon: JSX.Element;
+}
+
+const IconContainer = ({ action, icon }: IconContainerType) => {
+	return (
+		<span
+			onMouseDown={() => {
+				action();
+			}}
+			style={{ cursor: "pointer" }}
+		>
+			{icon}
+		</span>
+	);
+};
+
 const Movable = ({ props, selected, setSelected }: MovableType) => {
 	const editor = useSlate();
 	const element = props.element;
@@ -46,7 +64,7 @@ const Movable = ({ props, selected, setSelected }: MovableType) => {
 	const moveBelow = () => {
 		console.log("Moving ", selected, " below ", path);
 		if (selected !== null) {
-			Transforms.moveNodes(editor, { at: selected, to: [path[0] + 1] });
+			Transforms.moveNodes(editor, { at: selected, to: [path[0]] });
 			setSelected(null);
 		}
 	};
@@ -57,24 +75,6 @@ const Movable = ({ props, selected, setSelected }: MovableType) => {
 			Transforms.moveNodes(editor, { at: selected, to: path });
 			setSelected(null);
 		}
-	};
-
-	interface IconContainerType {
-		action: () => void;
-		icon: JSX.Element;
-	}
-
-	const IconContainer = ({ action, icon }: IconContainerType) => {
-		return (
-			<span
-				onMouseDown={() => {
-					action();
-				}}
-				style={{ cursor: "pointer" }}
-			>
-				{icon}
-			</span>
-		);
 	};
 
 	return (
@@ -89,7 +89,7 @@ const Movable = ({ props, selected, setSelected }: MovableType) => {
 				<div
 					style={{
 						display: "flex",
-						flexDirection: "column",
+
 						alignItems: "center",
 					}}
 				>
@@ -98,7 +98,7 @@ const Movable = ({ props, selected, setSelected }: MovableType) => {
 							action={() => {
 								setSelected(path);
 							}}
-							icon={<Icon.Drag size={12} color={"grey"} />}
+							icon={<Icon.Drag size={14} color={"grey"} />}
 						/>
 					)}
 					{selected && Path.equals(selected, path) && (
@@ -106,7 +106,7 @@ const Movable = ({ props, selected, setSelected }: MovableType) => {
 							action={() => {
 								setSelected(null);
 							}}
-							icon={<Icon.Close size={12} color={"grey"} />}
+							icon={<Icon.Close size={14} color={"grey"} />}
 						/>
 					)}
 					{selected !== null && !Path.equals(selected, path) && (
@@ -114,7 +114,7 @@ const Movable = ({ props, selected, setSelected }: MovableType) => {
 							action={() => {
 								moveAbove();
 							}}
-							icon={<Icon.ArrowUp size={12} color={"grey"} />}
+							icon={<Icon.ArrowUp size={14} color={"grey"} />}
 						/>
 					)}
 					{selected !== null && !Path.equals(selected, path) && (
@@ -122,7 +122,7 @@ const Movable = ({ props, selected, setSelected }: MovableType) => {
 							action={() => {
 								swap();
 							}}
-							icon={<Icon.Shuffle size={12} color={"grey"} />}
+							icon={<Icon.Swap size={14} color={"grey"} />}
 						/>
 					)}
 					{selected !== null && !Path.equals(selected, path) && (
@@ -130,7 +130,7 @@ const Movable = ({ props, selected, setSelected }: MovableType) => {
 							action={() => {
 								moveBelow();
 							}}
-							icon={<Icon.ArrowDown size={12} color={"grey"} />}
+							icon={<Icon.ArrowDown size={14} color={"grey"} />}
 						/>
 					)}
 				</div>

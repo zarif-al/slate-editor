@@ -54,7 +54,7 @@ import { IconTeam } from "@/components/_icons/icon-team";
 import { IconOrganisation } from "@/components/_icons/organisation";
 import { IconTrash } from "@/components/_icons/trash";
 import { IconShuffle } from "@/components/_icons/shuffle";
-
+import { IconSwap } from "@/components/_icons/swap";
 interface IconProps {
 	color?: string;
 	size?: number;
@@ -443,3 +443,8 @@ Icon.Team = ({
 	color = DEFAULT_COLOR,
 	size = DEFAULT_SIZE,
 }: IconProps): JSX.Element => <IconTeam color={color} size={size} />;
+
+Icon.Swap = ({
+	color = DEFAULT_COLOR,
+	size = DEFAULT_SIZE,
+}: IconProps): JSX.Element => <IconSwap color={color} size={size} />;

@@ -86,7 +86,7 @@ const Toolbar = () => {
 					}
 					insertImage(editor, url);
 				}}
-				icon={<Icon.FormatImage size={24} />}
+				icon={<Icon.FormatImage size={24} color={"#ccc"} />}
 			/>
 		</div>
 	);
