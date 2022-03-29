@@ -1,7 +1,12 @@
 import React from "react";
 import { Icon } from "@/components/_icons";
 
-const InsertImage = ({ action, icon }) => {
+interface InsertImageTypes {
+	action: () => void;
+	icon: JSX.Element;
+}
+
+const InsertImageButton = ({ action, icon }: InsertImageTypes) => {
 	return (
 		<span
 			style={{
@@ -19,4 +24,4 @@ const InsertImage = ({ action, icon }) => {
 	);
 };
 
-export default InsertImage;
+export default InsertImageButton;

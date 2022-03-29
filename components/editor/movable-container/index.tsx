@@ -9,7 +9,7 @@ import { Icon } from "@/components/_icons";
 interface MovableType {
 	props: RenderProps;
 	selected: Path | null;
-	setSelected: () => void;
+	setSelected: (path: Path | null) => void;
 }
 
 const Movable = ({ props, selected, setSelected }: MovableType) => {
@@ -32,33 +32,45 @@ const Movable = ({ props, selected, setSelected }: MovableType) => {
 
 	const swap = () => {
 		console.log("Swapping ", selected, " with ", path);
-		Transforms.moveNodes(editor, { at: selected, to: path });
-		if (Path.isAfter(path, selected)) {
-			Transforms.moveNodes(editor, { at: [path[0] - 1], to: selected });
-		} else {
-			Transforms.moveNodes(editor, { at: [path[0] + 1], to: selected });
+		if (selected !== null) {
+			Transforms.moveNodes(editor, { at: selected, to: path });
+			if (Path.isAfter(path, selected)) {
+				Transforms.moveNodes(editor, { at: [path[0] - 1], to: selected });
+			} else {
+				Transforms.moveNodes(editor, { at: [path[0] + 1], to: selected });
+			}
+			setSelected(null);
 		}
-		setSelected(null);
 	};
 
 	const moveBelow = () => {
 		console.log("Moving ", selected, " below ", path);
-		Transforms.moveNodes(editor, { at: selected, to: [path[0] + 1] });
-		setSelected(null);
+		if (selected !== null) {
+			Transforms.moveNodes(editor, { at: selected, to: [path[0] + 1] });
+			setSelected(null);
+		}
 	};
 
 	const moveAbove = () => {
 		console.log("Moving ", selected, " below ", path);
-		Transforms.moveNodes(editor, { at: selected, to: path });
-		setSelected(null);
+		if (selected !== null) {
+			Transforms.moveNodes(editor, { at: selected, to: path });
+			setSelected(null);
+		}
 	};
 
-	const IconContainer = ({ action, icon }) => {
+	interface IconContainerType {
+		action: () => void;
+		icon: JSX.Element;
+	}
+
+	const IconContainer = ({ action, icon }: IconContainerType) => {
 		return (
 			<span
 				onClick={() => {
 					action();
 				}}
+				style={{ cursor: "pointer" }}
 			>
 				{icon}
 			</span>
@@ -77,54 +89,49 @@ const Movable = ({ props, selected, setSelected }: MovableType) => {
 				<div
 					style={{
 						display: "flex",
-						gap: "2px",
+						flexDirection: "column",
 						alignItems: "center",
 					}}
 				>
 					{selected === null && (
 						<IconContainer
-							action={setSelected(path)}
+							action={() => {
+								setSelected(path);
+							}}
 							icon={<Icon.Drag size={12} color={"grey"} />}
 						/>
 					)}
 					{selected && Path.equals(selected, path) && (
-						<span
-							onClick={() => {
+						<IconContainer
+							action={() => {
 								setSelected(null);
 							}}
-						>
-							<Icon.Close size={12} color={"grey"} />
-						</span>
+							icon={<Icon.Close size={12} color={"grey"} />}
+						/>
 					)}
 					{selected !== null && !Path.equals(selected, path) && (
-						<span
-							onClick={() => {
+						<IconContainer
+							action={() => {
 								moveAbove();
 							}}
-							style={{ transform: "rotate(-180deg)", cursor: "pointer" }}
-						>
-							<span>
-								<Icon.Arrow size={12} color={"grey"} />
-							</span>
-						</span>
+							icon={<Icon.ArrowUp size={12} color={"grey"} />}
+						/>
 					)}
 					{selected !== null && !Path.equals(selected, path) && (
-						<span
-							onClick={() => {
+						<IconContainer
+							action={() => {
 								swap();
 							}}
-						>
-							<Icon.Shuffle size={12} color={"grey"} />
-						</span>
+							icon={<Icon.Shuffle size={12} color={"grey"} />}
+						/>
 					)}
 					{selected !== null && !Path.equals(selected, path) && (
-						<span
-							onClick={() => {
+						<IconContainer
+							action={() => {
 								moveBelow();
 							}}
-						>
-							<Icon.Arrow size={12} color={"grey"} />
-						</span>
+							icon={<Icon.ArrowDown size={12} color={"grey"} />}
+						/>
 					)}
 				</div>
 				<div>

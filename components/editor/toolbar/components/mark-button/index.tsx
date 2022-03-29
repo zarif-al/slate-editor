@@ -1,6 +1,12 @@
 import React from "react";
-import Button from "@/components/editor/components/button";
-const MarkButton = ({ icon, action, active }) => {
+
+interface MarkDownButtonTypes {
+	active: boolean;
+	action: () => void;
+	icon: JSX.Element;
+}
+
+const MarkButton = ({ icon, action, active }: MarkDownButtonTypes) => {
 	return (
 		<span
 			style={{

@@ -30,7 +30,8 @@ import { IconBulletList } from "@/components/_icons/bullet-list";
 import { IconSuccess } from "@/components/_icons/success";
 import { IconError } from "@/components/_icons/error";
 import { IconSearch } from "@/components/_icons/search";
-import { IconArrow } from "@/components/_icons/arrow";
+import { IconArrowDown } from "@/components/_icons/arrow-down";
+import { IconArrowUp } from "@/components/_icons/arrow-up";
 import { IconRadioUnchecked } from "@/components/_icons/radio-unchecked";
 import { IconCheckboxChecked } from "@/components/_icons/checkbox-checked";
 import { IconCheckboxUnchecked } from "@/components/_icons/checkbox-unchecked";
@@ -293,12 +294,20 @@ Icon.Search = ({
 	return <IconSearch color={color} size={size} />;
 };
 
-Icon.Arrow = ({
+Icon.ArrowDown = ({
 	color = DEFAULT_COLOR,
 	size = DEFAULT_SIZE,
 }: IconProps): JSX.Element => {
 	// @ts-ignore
-	return <IconArrow size={size} color={color} />;
+	return <IconArrowDown size={size} color={color} />;
+};
+
+Icon.ArrowUp = ({
+	color = DEFAULT_COLOR,
+	size = DEFAULT_SIZE,
+}: IconProps): JSX.Element => {
+	// @ts-ignore
+	return <IconArrowUp size={size} color={color} />;
 };
 
 Icon.RadioChecked = ({

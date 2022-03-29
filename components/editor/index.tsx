@@ -10,6 +10,7 @@ import {
 	Editor,
 	Element,
 	Text,
+	Path,
 } from "slate";
 
 // Import the Slate components and React plugin.

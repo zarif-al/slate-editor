@@ -3,8 +3,11 @@ import { useSlate } from "slate-react";
 import ToggleFunctions from "@/components/editor/toggle-functions";
 import { isImageUrl, insertImage } from "@/components/editor/functions";
 import { Icon } from "@/components/_icons";
-import MarkButton from "@/components/editor/toolbar/components/mark-button";
-import InsertImageImage from "@/components/editor/toolbar/components/insert-image-button";
+import {
+	MarkButton,
+	InsertImageButton,
+} from "@/components/editor/toolbar/components";
+
 const Toolbar = () => {
 	const editor = useSlate();
 	return (
@@ -71,7 +74,7 @@ const Toolbar = () => {
 				}
 				active={ToggleFunctions.isMarkActive(editor, "code")}
 			/>
-			<InsertImageImage
+			<InsertImageButton
 				action={() => {
 					const url = window.prompt("Enter the URL of the image:");
 					if (url === null) {
