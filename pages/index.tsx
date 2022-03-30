@@ -1,7 +1,21 @@
 import type { NextPage } from "next";
+import React, { useState, useEffect } from "react";
 import Head from "next/head";
 import Editor from "components/editor";
+import { CustomText, CustomElement } from "utils/types";
+import { Descendant } from "slate";
+
 const Home: NextPage = () => {
+	const initialValue: CustomElement[] = [
+		{
+			type: "paragraph",
+			children: [{ text: "A line of text in a paragraph." }],
+		},
+	];
+
+	//Initialvalue State
+	const [value, setValue] = useState<Descendant[]>(initialValue);
+
 	return (
 		<div
 			style={{
@@ -23,7 +37,7 @@ const Home: NextPage = () => {
 					padding: "2rem",
 				}}
 			>
-				<Editor />
+				<Editor initialValue={value} setValue={setValue} />
 			</div>
 		</div>
 	);

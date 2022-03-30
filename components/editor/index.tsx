@@ -51,18 +51,19 @@ declare module "slate" {
 	}
 }
 
+//Props
+interface SlateProps {
+	initialValue: Descendant[];
+	setValue: (value: Descendant[]) => void;
+	toolbarVisible?: boolean;
+}
+
 // Typescript specific code ->
-const SlateEditor = (): JSX.Element => {
-	const initialValue: CustomElement[] = [
-		{
-			type: "paragraph",
-			children: [{ text: "A line of text in a paragraph." }],
-		},
-	];
-
-	//Initialvalue State
-	const [value, setValue] = useState<Descendant[]>(initialValue);
-
+const SlateEditor = ({
+	initialValue,
+	setValue,
+	toolbarVisible = true,
+}: SlateProps): JSX.Element => {
 	//Editor Init
 	const editor = useMemo(
 		() => withImages(withHistory(withReact(createEditor()))),
@@ -81,7 +82,7 @@ const SlateEditor = (): JSX.Element => {
 				setValue(content);
 			}
 		}
-	}, [editor]);
+	}, [editor, setValue]);
 
 	//Render Element. Elements are different types of content Quote, Code etc.
 	const renderElement = useCallback((props) => {
