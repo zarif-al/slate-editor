@@ -1,4 +1,4 @@
-import { Attributes, ReactChildren } from "react";
+import { Attributes, ReactChildren } from 'react';
 
 //Customize Text Type Here
 export type CustomText = {
@@ -10,12 +10,18 @@ export type CustomText = {
 };
 
 //Write Custom Element types Here
-type ParagraphElement = { type: "paragraph"; children: CustomText[] };
+type ParagraphElement = { type: 'paragraph'; children: CustomText[] };
 
-type CodeElement = { type: "code"; children: CustomText[] };
+type CodeElement = { type: 'code'; children: CustomText[] };
+
+export type IFrameElement = {
+  type: 'iframe';
+  url: string | ArrayBuffer | null;
+  children: CustomText[];
+};
 
 export type ImageElement = {
-  type: "image";
+  type: 'image';
   url: string | ArrayBuffer | null;
   size: {
     width: number;
@@ -25,39 +31,39 @@ export type ImageElement = {
 };
 
 type HeadingOneElement = {
-  type: "heading-one";
+  type: 'heading-one';
   children: CustomText[];
 };
 
 type HeadingTwoElement = {
-  type: "heading-two";
+  type: 'heading-two';
   children: CustomText[];
 };
 
 type ListElement = {
-  type: "list-item";
+  type: 'list-item';
   children: CustomText[];
 };
 
 export type BulletedListElement = {
-  type: "bulleted-list";
+  type: 'bulleted-list';
   children: ListElement[];
 };
 
 export type NumberedList = {
-  type: "numbered-list";
+  type: 'numbered-list';
   children: ListElement[];
 };
 
 export type FileElement = {
-  type: "file";
+  type: 'file';
   url: string | ArrayBuffer | null;
   name: string;
   children: CustomText[];
 };
 
 export type AudioElement = {
-  type: "audio";
+  type: 'audio';
   url: string | ArrayBuffer | null;
   children: CustomText[];
 };
@@ -73,7 +79,8 @@ export type CustomElement =
   | BulletedListElement
   | NumberedList
   | FileElement
-  | AudioElement;
+  | AudioElement
+  | IFrameElement;
 
 //RenderElement Props Type
 export interface RenderProps {

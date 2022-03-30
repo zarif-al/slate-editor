@@ -46,6 +46,12 @@ export const insertAudio = (editor: Editor, url: string | ArrayBuffer | null): v
   Transforms.insertNodes(editor, audio);
 };
 
+export const insertIframe = (editor: Editor, url: string | ArrayBuffer | null): void => {
+  const text = { text: '' };
+  const iframe: CustomElement = { type: 'iframe', url, children: [text] };
+  Transforms.insertNodes(editor, iframe);
+};
+
 export const removeElement = (editor: Editor, path: Path): void => {
   Transforms.removeNodes(editor, { at: path });
 };

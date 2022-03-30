@@ -1,29 +1,29 @@
 // Import React dependencies.
-import React, { useCallback, useMemo } from "react";
+import React, { useCallback, useMemo } from 'react';
 
 // Import the Slate editor factory.
-import { createEditor, BaseEditor, Descendant } from "slate";
+import { createEditor, BaseEditor, Descendant } from 'slate';
 
 // Import the Slate components and React plugin.
-import { ReactEditor, Slate, Editable, withReact } from "slate-react";
-import { HistoryEditor, withHistory } from "slate-history";
+import { ReactEditor, Slate, Editable, withReact } from 'slate-react';
+import { HistoryEditor, withHistory } from 'slate-history';
 
 //	My Renderers
-import Leaf from "@/components/editor/render-leaf";
+import Leaf from '@/components/editor/render-leaf';
 //
 
 //	Plugin
-import withImages from "@/components/editor/plugins/withImages";
+import withImages from '@/components/editor/plugins/withImages';
 //
 
-import { CustomText, CustomElement } from "@/utils/editor/types";
-import ToggleFunctions from "@/components/editor/toggle-functions";
-import Toolbar from "@/components/editor/toolbar";
+import { CustomText, CustomElement } from '@/utils/editor/types';
+import ToggleFunctions from '@/components/editor/toggle-functions';
+import Toolbar from '@/components/editor/toolbar';
 
 //	React DnD
-import { DndProvider } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
-import DndBlock from "@/components/editor/dnd-block";
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
+import DndBlock from '@/components/editor/dnd-block';
 // TypeScript specific code <-
 
 // Imports :-
@@ -32,7 +32,7 @@ import DndBlock from "@/components/editor/dnd-block";
 // ReactEditor
 
 //	Declare Slate Module
-declare module "slate" {
+declare module 'slate' {
   interface CustomTypes {
     Editor: BaseEditor & ReactEditor & HistoryEditor;
     Element: CustomElement;
@@ -52,10 +52,11 @@ const SlateEditor = ({ initialValue, setValue }: SlateProps): JSX.Element => {
   //	Editor Init
   const editor = useMemo(() => withImages(withHistory(withReact(createEditor()))), []);
 
+  // Slate uses value as an initial value, so it won't re-render even if the initialValue updates, we need to update
+  // the slate value state manually. This line should only be called once.
   if (initialValue !== editor.children) {
     editor.children = initialValue;
   }
-
   //	Render Element. Elements are different types of content Quote, Code etc.
   const renderElement = useCallback((props) => {
     return <DndBlock {...props} />;
@@ -74,10 +75,10 @@ const SlateEditor = ({ initialValue, setValue }: SlateProps): JSX.Element => {
         value={initialValue}
         onChange={(newValue): void => {
           setValue(newValue);
-          const isAstChange = editor.operations.some((op) => "set_selection" !== op.type);
+          const isAstChange = editor.operations.some((op) => 'set_selection' !== op.type);
           if (isAstChange) {
             const content = JSON.stringify(newValue);
-            localStorage.setItem("content", content);
+            localStorage.setItem('content', content);
           }
         }}
       >
@@ -91,7 +92,7 @@ const SlateEditor = ({ initialValue, setValue }: SlateProps): JSX.Element => {
               return;
             }
             switch (event.key) {
-              case "b": {
+              case 'b': {
                 event.preventDefault();
                 ToggleFunctions.toggleBoldMark(editor);
                 break;
