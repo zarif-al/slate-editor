@@ -1,6 +1,6 @@
 import React from "react";
-import { RenderProps } from "@/utils/types";
-import { AudioElement } from "@/utils/types";
+import { RenderProps } from "@/utils/editor/types";
+import { AudioElement } from "@/utils/editor/types";
 import { Icon } from "@/components/_icons";
 
 const AudioElement = (props: RenderProps) => {

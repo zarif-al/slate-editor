@@ -3,7 +3,7 @@ import { useDrag, useDrop } from "react-dnd";
 import { Editor, Transforms } from "slate";
 import { useReadOnly, useSlate, ReactEditor } from "slate-react";
 import Element from "components/editor/render-element";
-import { RenderProps } from "utils/types";
+import { RenderProps } from "utils/editor/types";
 import { Icon } from "@/components/_icons";
 
 interface ItemType {

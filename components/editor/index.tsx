@@ -27,7 +27,7 @@ import Leaf from "components/editor/render-leaf";
 import withImages from "components/editor/plugins/withImages";
 //
 
-import { CustomText, CustomElement } from "utils/types";
+import { CustomText, CustomElement } from "utils/editor/types";
 import ToggleFunctions from "components/editor/toggle-functions";
 import Toolbar from "components/editor/toolbar";
 

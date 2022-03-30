@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { useSlate, ReactEditor, useSelected, useFocused } from "slate-react";
-import { RenderProps } from "utils/types";
+import { RenderProps } from "utils/editor/types";
 import { Transforms, Element, Text } from "slate";
 import { ResizableBox, ResizeCallbackData } from "react-resizable";
-import { ImageElement } from "utils/types";
+import { ImageElement } from "utils/editor/types";
 const ImageElement = (props: RenderProps) => {
 	const editor = useSlate();
 

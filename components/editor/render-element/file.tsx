@@ -1,7 +1,7 @@
 import React from "react";
-import { RenderProps } from "utils/types";
+import { RenderProps } from "utils/editor/types";
 import { Icon } from "@/components/_icons";
-import { FileElement } from "@/utils/types";
+import { FileElement } from "@/utils/editor/types";
 import { removeElement } from "@/components/editor/functions";
 import { ReactEditor, useSlate } from "slate-react";
 

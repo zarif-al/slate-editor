@@ -1,5 +1,9 @@
 import { Transforms, Editor, Element, Text } from "slate";
-import { CustomText, BulletedListElement, NumberedList } from "utils/types";
+import {
+	CustomText,
+	BulletedListElement,
+	NumberedList,
+} from "utils/editor/types";
 type Mark = Omit<CustomText, "text"> | null;
 
 const ToggleFunctions = {

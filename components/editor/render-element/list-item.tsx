@@ -1,5 +1,5 @@
 import React from "react";
-import { RenderProps } from "@/utils/types";
+import { RenderProps } from "@/utils/editor/types";
 
 const ListItem = (props: RenderProps) => {
 	//List Item is kept inside Bulleted or Numbered List Element

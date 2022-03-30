@@ -1,6 +1,6 @@
 import React, { useRef, useCallback } from "react";
 import { ReactEditor, useSlate } from "slate-react";
-import { isAcceptableFormat } from "@/utils/editor";
+import { isAcceptableFormat } from "@/utils/editor/functions";
 import { isImageUrl, insertImage } from "components/editor/functions";
 
 interface InsertImageTypes {

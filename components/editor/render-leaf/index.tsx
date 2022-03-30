@@ -1,5 +1,5 @@
 import React from "react";
-import { RenderLeaf } from "utils/types";
+import { RenderLeaf } from "utils/editor/types";
 const Leaf = (props: RenderLeaf) => {
 	if (props.leaf.code) {
 		return (

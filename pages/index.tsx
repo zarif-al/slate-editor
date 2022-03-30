@@ -2,7 +2,7 @@ import type { NextPage } from "next";
 import React, { useState, useEffect } from "react";
 import Head from "next/head";
 import Editor from "components/editor";
-import { CustomText, CustomElement } from "utils/types";
+import { CustomText, CustomElement } from "utils/editor/types";
 import { Descendant } from "slate";
 
 const Home: NextPage = () => {

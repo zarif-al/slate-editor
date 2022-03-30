@@ -1,7 +1,7 @@
 import { Editor, Transforms, Path } from "slate";
 import imageExtensions from "image-extensions";
 import isUrl from "is-url";
-import { CustomElement } from "utils/types";
+import { CustomElement } from "utils/editor/types";
 
 export const isImageUrl = (url: string) => {
 	if (!url) return false;
