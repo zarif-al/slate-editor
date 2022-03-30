@@ -37,13 +37,19 @@ export const insertFile = (
     name,
     children: [text],
   };
-  Editor.insertNode(editor, file);
+  Transforms.insertNodes(editor, file);
 };
 
 export const insertAudio = (editor: Editor, url: string | ArrayBuffer | null): void => {
   const text = { text: '' };
   const audio: CustomElement = { type: 'audio', url, children: [text] };
   Transforms.insertNodes(editor, audio);
+};
+
+export const insertIframe = (editor: Editor, url: string | ArrayBuffer | null): void => {
+  const text = { text: '' };
+  const iframe: CustomElement = { type: 'iframe', url, children: [text] };
+  Transforms.insertNodes(editor, iframe);
 };
 
 export const removeElement = (editor: Editor, path: Path): void => {

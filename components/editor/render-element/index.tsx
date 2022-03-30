@@ -8,6 +8,7 @@ import BulletedList from '@/components/editor/render-element/bulleted-list';
 import ListItem from '@/components/editor/render-element/list-item';
 import NumberedList from '@/components/editor/render-element/numbered-list';
 import File from '@/components/editor/render-element/file';
+import IframeRender from '@/components/editor/render-element/iframe';
 import { RenderProps } from '@/utils/editor/types';
 
 const Element = (props: RenderProps): JSX.Element => {
@@ -28,6 +29,8 @@ const Element = (props: RenderProps): JSX.Element => {
       return <ListItem {...props} />;
     case 'file':
       return <File {...props} />;
+    /*     case 'iframe':
+      return <IframeRender {...props} />; */
     default:
       return <DefaultElement {...props} />;
   }

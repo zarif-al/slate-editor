@@ -7,6 +7,7 @@ import {
   InsertImageButton,
   InsertFileButton,
   InsertAudioButton,
+  InsertIframeButton,
 } from '@/components/editor/toolbar/components';
 
 const Toolbar = (): JSX.Element => {
@@ -123,6 +124,8 @@ const Toolbar = (): JSX.Element => {
       <InsertFileButton icon={<Icon.Attachment size={24} color={'#ccc'} />} />
 
       <InsertAudioButton icon={<Icon.Audiotrack size={24} color={'#ccc'} />} />
+
+      <InsertIframeButton icon={<Icon.Iframe size={24} color={'#ccc'} />} />
 
       <MarkButton
         action={(): void => {
