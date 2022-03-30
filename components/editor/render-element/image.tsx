@@ -29,10 +29,9 @@ const ImageRenderer = (props: RenderProps): JSX.Element => {
   };
 
   return (
-    <div {...props.attributes} style={{ margin: '16px 0' }}>
+    <div {...props.attributes} contentEditable={false} style={{ margin: '16px 0' }}>
       {props.children}
       <div
-        contentEditable={false}
         style={{
           position: 'relative',
           boxShadow: selected && focused ? '0 0 0 3px #B4D5FF' : 'none',

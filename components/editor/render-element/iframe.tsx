@@ -26,36 +26,50 @@ const IframeRender = (props: RenderProps): JSX.Element => {
   };
 
   return (
-    <div {...props.attributes} contentEditable={false}>
+    <div
+      {...props.attributes}
+      contentEditable={false}
+      style={{
+        position: 'relative',
+        boxShadow: selected && focused ? '0 0 0 3px #B4D5FF' : 'none',
+        width: 'fit-content',
+      }}
+    >
       {props.children}
-      <span
-        style={{
-          position: 'relative',
-          maxWidth: '100%',
-        }}
-        contentEditable={false}
+      <ResizableBox
+        width={iframeSize.width}
+        height={iframeSize.height}
+        lockAspectRatio={true}
+        minConstraints={[100, 100]}
+        maxConstraints={[700, 350]}
+        resizeHandles={['w', 'e']}
+        onResizeStop={onResizeStop}
+        handle={<span className="react-resizable-handle react-resizable-handle-e" />}
       >
-        <ResizableBox
-          width={iframeSize.width}
-          height={iframeSize.height}
-          lockAspectRatio={true}
-          minConstraints={[100, 100]}
-          maxConstraints={[700, 350]}
-          resizeHandles={['w', 'e']}
-          onResizeStop={onResizeStop}
-          handle={<span className="react-resizable-handle react-resizable-handle-e" />}
-        >
-          <iframe
-            loading="lazy"
-            src={element.url as string}
-            style={{
-              width: '100%',
-              height: '100%',
-              border: 0,
-            }}
-          ></iframe>
-        </ResizableBox>
-      </span>
+        <iframe
+          loading="lazy"
+          src={element.url as string}
+          style={{
+            width: '100%',
+            height: '100%',
+            border: 0,
+          }}
+        ></iframe>
+      </ResizableBox>
+      <button
+        onMouseDown={(): void => Transforms.removeNodes(editor, { at: path })}
+        style={{
+          display: selected && focused ? 'block' : 'none',
+          position: 'absolute',
+          top: '0.5em',
+          left: '0.5em',
+          backgroundColor: 'white',
+          cursor: 'pointer',
+          zIndex: 99999,
+        }}
+      >
+        Del
+      </button>
     </div>
   );
 };
