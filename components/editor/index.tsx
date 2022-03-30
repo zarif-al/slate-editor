@@ -33,100 +33,96 @@ import DndBlock from "@/components/editor/dnd-block";
 
 //	Declare Slate Module
 declare module "slate" {
-	interface CustomTypes {
-		Editor: BaseEditor & ReactEditor & HistoryEditor;
-		Element: CustomElement;
-		Text: CustomText;
-	}
+  interface CustomTypes {
+    Editor: BaseEditor & ReactEditor & HistoryEditor;
+    Element: CustomElement;
+    Text: CustomText;
+  }
 }
 
 //	Props
 interface SlateProps {
-	initialValue: Descendant[];
-	setValue: (value: Descendant[]) => void;
-	toolbarVisible?: boolean;
+  initialValue: Descendant[];
+  setValue: (value: Descendant[]) => void;
+  toolbarVisible?: boolean;
 }
 
 // Typescript specific code ->
 const SlateEditor = ({ initialValue, setValue }: SlateProps): JSX.Element => {
-	//	Editor Init
-	const editor = useMemo(
-		() => withImages(withHistory(withReact(createEditor()))),
-		[]
-	);
+  //	Editor Init
+  const editor = useMemo(() => withImages(withHistory(withReact(createEditor()))), []);
 
-	if (initialValue !== editor.children) {
-		editor.children = initialValue;
-	}
-	//	Render Element. Elements are different types of content Quote, Code etc.
-	const renderElement = useCallback((props) => {
-		return <DndBlock {...props} />;
-	}, []);
+  if (initialValue !== editor.children) {
+    editor.children = initialValue;
+  }
 
-	// Define a leaf rendering function. Leaves are formatted text spans. Bolded text, italicised text etc.
-	const renderLeaf = useCallback((props) => {
-		return <Leaf {...props} />;
-	}, []);
+  //	Render Element. Elements are different types of content Quote, Code etc.
+  const renderElement = useCallback((props) => {
+    return <DndBlock {...props} />;
+  }, []);
 
-	return (
-		<DndProvider backend={HTML5Backend}>
-			<Slate
-				editor={editor}
-				//	This value only acts as initial value.
-				value={initialValue}
-				onChange={(newValue): void => {
-					setValue(newValue);
-					const isAstChange = editor.operations.some(
-						(op) => "set_selection" !== op.type
-					);
-					if (isAstChange) {
-						const content = JSON.stringify(newValue);
-						localStorage.setItem("content", content);
-					}
-				}}
-			>
-				<Toolbar />
-				<Editable
-					renderElement={renderElement}
-					renderLeaf={renderLeaf}
-					//	Keyboard ShortCut Functions Here
-					onKeyDown={(event): void => {
-						if (!event.ctrlKey) {
-							return;
-						}
-						switch (event.key) {
-							case "b": {
-								event.preventDefault();
-								ToggleFunctions.toggleBoldMark(editor);
-								break;
-							}
-						}
-					}}
-					onDrop={(e): boolean => {
-						//	This is necessary because we dont want to use slate-reacts default drag-drop function to move text around.
-						//	However we still want to be able to drag and drop images.
-						//	Allow file dropping.
-						const files = e.dataTransfer.files;
-						if (!files || files.length < 1) {
-							return true;
-						}
-						return false;
-					}}
-					onDragStart={(e): boolean => {
-						const files = e.dataTransfer.files;
-						if (!files || files.length < 1) {
-							//	This allows dragging our drag handle in react-dnd
-							return true;
-						} else {
-							//	This disables dragging images.
-							e.preventDefault();
-							return true;
-						}
-					}}
-				/>
-			</Slate>
-		</DndProvider>
-	);
+  // Define a leaf rendering function. Leaves are formatted text spans. Bolded text, italicised text etc.
+  const renderLeaf = useCallback((props) => {
+    return <Leaf {...props} />;
+  }, []);
+
+  return (
+    <DndProvider backend={HTML5Backend}>
+      <Slate
+        editor={editor}
+        //	This value only acts as initial value.
+        value={initialValue}
+        onChange={(newValue): void => {
+          setValue(newValue);
+          const isAstChange = editor.operations.some((op) => "set_selection" !== op.type);
+          if (isAstChange) {
+            const content = JSON.stringify(newValue);
+            localStorage.setItem("content", content);
+          }
+        }}
+      >
+        <Toolbar />
+        <Editable
+          renderElement={renderElement}
+          renderLeaf={renderLeaf}
+          //	Keyboard ShortCut Functions Here
+          onKeyDown={(event): void => {
+            if (!event.ctrlKey) {
+              return;
+            }
+            switch (event.key) {
+              case "b": {
+                event.preventDefault();
+                ToggleFunctions.toggleBoldMark(editor);
+                break;
+              }
+            }
+          }}
+          onDrop={(e): boolean => {
+            //	This is necessary because we dont want to use slate-reacts default drag-drop function to move text around.
+            //	However we still want to be able to drag and drop images.
+            //	Allow file dropping.
+            const files = e.dataTransfer.files;
+            if (!files || files.length < 1) {
+              return true;
+            }
+            return false;
+          }}
+          onDragStart={(e): boolean => {
+            const files = e.dataTransfer.files;
+            if (!files || files.length < 1) {
+              //	This allows dragging our drag handle in react-dnd
+              return true;
+            } else {
+              //	This disables dragging images.
+              e.preventDefault();
+              return true;
+            }
+          }}
+        />
+      </Slate>
+    </DndProvider>
+  );
 };
 
 export default SlateEditor;
