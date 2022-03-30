@@ -6,6 +6,7 @@ import { CustomText, CustomElement } from "utils/types";
 import { Descendant } from "slate";
 
 const Home: NextPage = () => {
+	const [loading, setLoading] = useState(true);
 	const initialValue: CustomElement[] = [
 		{
 			type: "paragraph",
@@ -15,6 +16,18 @@ const Home: NextPage = () => {
 
 	//Initialvalue State
 	const [value, setValue] = useState<Descendant[]>(initialValue);
+
+	//Update initial value with localStorage content
+	useEffect(() => {
+		if (typeof window !== "undefined") {
+			const content = JSON.parse(localStorage.getItem("content") as string);
+
+			if (content && content.length > 0) {
+				setValue(content);
+				setLoading(false);
+			}
+		}
+	}, []);
 
 	return (
 		<div
@@ -37,7 +50,11 @@ const Home: NextPage = () => {
 					padding: "2rem",
 				}}
 			>
-				<Editor initialValue={value} setValue={setValue} />
+				{loading ? (
+					<div>Loading...</div>
+				) : (
+					<Editor initialValue={value} setValue={setValue} />
+				)}
 			</div>
 		</div>
 	);
