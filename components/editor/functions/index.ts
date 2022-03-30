@@ -1,20 +1,20 @@
-import { Editor, Transforms, Path } from "slate";
-import imageExtensions from "image-extensions";
-import isUrl from "is-url";
-import { CustomElement } from "@/utils/editor/types";
+import { Editor, Transforms, Path } from 'slate';
+import imageExtensions from 'image-extensions';
+import isUrl from 'is-url';
+import { CustomElement } from '@/utils/editor/types';
 
 export const isImageUrl = (url: string): boolean => {
   if (!url) return false;
   if (!isUrl(url)) return false;
-  const ext = new URL(url).pathname.split(".").pop();
+  const ext = new URL(url).pathname.split('.').pop();
   if (!ext) return false;
   return imageExtensions.includes(ext);
 };
 
 export const insertImage = (editor: Editor, url: string | ArrayBuffer | null): void => {
-  const text = { text: "" };
+  const text = { text: '' };
   const image: CustomElement = {
-    type: "image",
+    type: 'image',
     url,
     size: {
       width: 400,
@@ -30,9 +30,9 @@ export const insertFile = (
   url: string | ArrayBuffer | null,
   name: string,
 ): void => {
-  const text = { text: "" };
+  const text = { text: '' };
   const file: CustomElement = {
-    type: "file",
+    type: 'file',
     url,
     name,
     children: [text],
@@ -41,14 +41,22 @@ export const insertFile = (
 };
 
 export const insertAudio = (editor: Editor, url: string | ArrayBuffer | null): void => {
-  const text = { text: "" };
-  const audio: CustomElement = { type: "audio", url, children: [text] };
+  const text = { text: '' };
+  const audio: CustomElement = { type: 'audio', url, children: [text] };
   Transforms.insertNodes(editor, audio);
 };
 
 export const insertIframe = (editor: Editor, url: string | ArrayBuffer | null): void => {
   const text = { text: '' };
-  const iframe: CustomElement = { type: 'iframe', url, children: [text] };
+  const iframe: CustomElement = {
+    type: 'iframe',
+    url,
+    size: {
+      width: 400,
+      height: 200,
+    },
+    children: [text],
+  };
   Transforms.insertNodes(editor, iframe);
 };
 

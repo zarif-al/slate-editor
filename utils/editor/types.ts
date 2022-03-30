@@ -17,6 +17,10 @@ type CodeElement = { type: 'code'; children: CustomText[] };
 export type IFrameElement = {
   type: 'iframe';
   url: string | ArrayBuffer | null;
+  size: {
+    width: number;
+    height: number;
+  };
   children: CustomText[];
 };
 
