@@ -1,86 +1,95 @@
-import React, { useContext, useEffect, useState } from "react";
-import { useDrag, useDrop } from "react-dnd";
-import { Editor, Transforms } from "slate";
-import { useReadOnly, useSlate, ReactEditor } from "slate-react";
-import Element from "components/editor/render-element";
-import { RenderProps } from "utils/editor/types";
-import { Icon } from "@/components/_icons";
+import React from 'react';
+import { useDrag, useDrop } from 'react-dnd';
+import { Transforms } from 'slate';
+import { useSlate, ReactEditor } from 'slate-react';
+import Element from '@/components/editor/render-element';
+import { RenderProps } from '@/utils/editor/types';
+import { Icon } from '@/components/_icons';
 
 interface ItemType {
-	type: string;
-	path: number[];
+  type: string;
+  path: number[];
 }
 
-const DndBlock = (props: RenderProps) => {
-	const editor = useSlate();
-	const element = props.element;
-	const path = ReactEditor.findPath(editor, element);
+interface UseDragCollectReturnType {
+  isDragging: boolean;
+}
 
-	const [{ isDragging }, drag, preview] = useDrag(
-		() => ({
-			type: "container",
-			item: {
-				type: "container",
-				path: path,
-			},
-			collect: (monitor) => ({
-				isDragging: !!monitor.isDragging(),
-			}),
-		}),
-		[path]
-	);
+interface UseDropCollectReturnType {
+  isOver: boolean;
+}
 
-	const [{ isOver }, drop] = useDrop(
-		() => ({
-			accept: "container",
-			drop: (item: ItemType, monitor) => {
-				console.log("Moving from", item.path, "to", path);
-				Transforms.moveNodes(editor, { at: item.path, to: path });
-			},
-			collect: (monitor) => ({
-				isOver: !!monitor.isOver(),
-			}),
-			hover: (item, monitor) => ({
-				isOver: !!monitor.isOver(),
-			}),
-		}),
-		[path]
-	);
+interface UseDropHoverReturnType {
+  isOver: boolean;
+}
 
-	//Disable drag properties in list-items
-	if (props.element.type === "list-item") {
-		return <Element {...props} />;
-	}
+const DndBlock = (props: RenderProps): JSX.Element => {
+  const editor = useSlate();
+  const element = props.element;
+  const path = ReactEditor.findPath(editor, element);
 
-	return (
-		<div ref={drop}>
-			<div
-				style={{
-					display: "flex",
-					gap: "10px",
-					alignItems: "center",
-				}}
-			>
-				<div
-					ref={drag}
-					contentEditable={false}
-					style={{ cursor: "pointer", userSelect: "none" }}
-				>
-					<Icon.Drag size={14} color={"grey"} />
-				</div>
-				<div
-					ref={preview}
-					style={{
-						color: isDragging ? "red" : "black",
-						backgroundColor: isOver ? "cyan" : "transparent",
-						width: "100%",
-					}}
-				>
-					<Element {...props} />
-				</div>
-			</div>
-		</div>
-	);
+  const [{ isDragging }, drag, preview] = useDrag(
+    () => ({
+      type: 'container',
+      item: {
+        type: 'container',
+        path: path,
+      },
+      collect: (monitor): UseDragCollectReturnType => ({
+        isDragging: !!monitor.isDragging(),
+      }),
+    }),
+    [path],
+  );
+
+  const [{ isOver }, drop] = useDrop(
+    () => ({
+      accept: 'container',
+      drop: (item: ItemType): void => {
+        // eslint-disable-next-line no-console
+        console.log('Moving from', item.path, 'to', path);
+        Transforms.moveNodes(editor, { at: item.path, to: path });
+      },
+      collect: (monitor): UseDropCollectReturnType => ({
+        isOver: !!monitor.isOver(),
+      }),
+      hover: (item, monitor): UseDropHoverReturnType => ({
+        isOver: !!monitor.isOver(),
+      }),
+    }),
+    [path],
+  );
+
+  //	Disable drag properties in list-items
+  if (props.element.type === 'list-item') {
+    return <Element {...props} />;
+  }
+
+  return (
+    <div ref={drop}>
+      <div
+        style={{
+          display: 'flex',
+          gap: '10px',
+          alignItems: 'center',
+        }}
+      >
+        <div ref={drag} contentEditable={false} style={{ cursor: 'pointer', userSelect: 'none' }}>
+          <Icon.Drag size={14} color={'grey'} />
+        </div>
+        <div
+          ref={preview}
+          style={{
+            color: isDragging ? 'red' : 'black',
+            backgroundColor: isOver ? 'cyan' : 'transparent',
+            width: '100%',
+          }}
+        >
+          <Element {...props} />
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default DndBlock;

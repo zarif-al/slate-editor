@@ -6,7 +6,6 @@ import { CustomText, CustomElement } from "utils/editor/types";
 import { Descendant } from "slate";
 
 const Home: NextPage = () => {
-	const [loading, setLoading] = useState(true);
 	const initialValue: CustomElement[] = [
 		{
 			type: "paragraph",
@@ -24,7 +23,6 @@ const Home: NextPage = () => {
 
 			if (content && content.length > 0) {
 				setValue(content);
-				setLoading(false);
 			}
 		}
 	}, []);
@@ -50,11 +48,7 @@ const Home: NextPage = () => {
 					padding: "2rem",
 				}}
 			>
-				{loading ? (
-					<div>Loading...</div>
-				) : (
-					<Editor initialValue={value} setValue={setValue} />
-				)}
+				<Editor initialValue={value} setValue={setValue} />
 			</div>
 		</div>
 	);

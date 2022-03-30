@@ -1,8 +1,8 @@
-import React from "react";
-import { RenderProps } from "utils/editor/types";
+import React from 'react';
+import { RenderProps } from '@/utils/editor/types';
 
-const DefaultElement = (props: RenderProps) => {
-	return <p {...props.attributes}>{props.children}</p>;
+const DefaultElement = (props: RenderProps): JSX.Element => {
+  return <p {...props.attributes}>{props.children}</p>;
 };
 
 export default DefaultElement;

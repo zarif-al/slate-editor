@@ -1,50 +1,46 @@
-import React, { useRef, useCallback } from "react";
-import { ReactEditor, useSlate } from "slate-react";
-import { isAcceptableFormat } from "@/utils/editor/functions";
-import { isImageUrl, insertAudio } from "components/editor/functions";
+import React, { useRef } from 'react';
 
 interface InsertFileType {
-	icon: JSX.Element;
+  icon: JSX.Element;
 }
 
-const EDITOR_UPLOAD_ACCEPT = ".mp3";
+const EDITOR_UPLOAD_ACCEPT = '.mp3';
 
-const InsertAudioButton = ({ icon }: InsertFileType) => {
-	const ref = useRef<HTMLInputElement>(null);
-	const editor = useSlate();
+const InsertAudioButton = ({ icon }: InsertFileType): JSX.Element => {
+  const ref = useRef<HTMLInputElement>(null);
 
-	const onUploadAudio = () => {
-		alert("Can't Store in LocalStorage, Implement Upload to AWS");
-	};
+  const onUploadAudio = (): void => {
+    alert("Can't Store in LocalStorage, Implement Upload to AWS");
+  };
 
-	const handleMouseDown = () => {
-		if (ref.current !== null) {
-			ref.current.click();
-		}
-	};
+  const handleMouseDown = (): void => {
+    if (ref.current !== null) {
+      ref.current.click();
+    }
+  };
 
-	return (
-		<span
-			style={{
-				display: "flex",
-				alignItems: "center",
-				cursor: "pointer",
-			}}
-			onMouseDown={(event) => {
-				event.preventDefault();
-				handleMouseDown();
-			}}
-		>
-			<input
-				ref={ref}
-				type="file"
-				accept={EDITOR_UPLOAD_ACCEPT}
-				style={{ display: "none" }}
-				onChange={onUploadAudio}
-			/>
-			{icon}
-		</span>
-	);
+  return (
+    <span
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        cursor: 'pointer',
+      }}
+      onMouseDown={(event): void => {
+        event.preventDefault();
+        handleMouseDown();
+      }}
+    >
+      <input
+        ref={ref}
+        type="file"
+        accept={EDITOR_UPLOAD_ACCEPT}
+        style={{ display: 'none' }}
+        onChange={onUploadAudio}
+      />
+      {icon}
+    </span>
+  );
 };
 
 export default InsertAudioButton;
