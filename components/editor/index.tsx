@@ -14,6 +14,7 @@ import Leaf from '@/components/editor/render-leaf';
 
 //	Plugin
 import withImages from '@/components/editor/plugins/withImages';
+import withCleanLists from '@/components/editor/plugins/withCleanLists';
 //
 
 import { CustomText, CustomElement } from '@/utils/editor/types';
@@ -50,7 +51,10 @@ interface SlateProps {
 // Typescript specific code ->
 const SlateEditor = ({ initialValue, setValue, readOnly }: SlateProps): JSX.Element => {
   //	Editor Init
-  const editor = useMemo(() => withImages(withHistory(withReact(createEditor()))), []);
+  const editor = useMemo(
+    () => withHistory(withImages(withCleanLists(withReact(createEditor())))),
+    [],
+  );
 
   // Slate uses value as an initial value, so it won't re-render even if the initialValue updates, we need to update
   // the slate value state manually. This line should only be called once.
