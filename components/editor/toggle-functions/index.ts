@@ -1,5 +1,5 @@
 import { Transforms, Editor, Element, Text } from 'slate';
-import { CustomText, BulletedListElement, NumberedList } from '@/utils/editor/types';
+import { CustomText, BulletedListElement, NumberedList, Alignment } from '@/utils/editor/types';
 type Mark = Omit<CustomText, 'text'> | null;
 
 const ToggleFunctions = {
@@ -55,41 +55,20 @@ const ToggleFunctions = {
   // Toggle Alignment
   isAlignActive(editor: Editor, block: string, align: string): boolean {
     const [match] = Editor.nodes(editor, {
-      match: (n) => n.type === block,
+      match: (n) => Element.isElement(n) && n.type === block,
     });
 
     if (!match) return false;
 
-    return match.data.get('align') === align;
+    const element = match[0] as Element;
+    return 'align' in element && element.align === align;
   },
-  toggleAlignLeftMark(editor: Editor): void {
-    Transforms.setNodes(editor, { align: 'left' }, { match: (n) => Text.isText(n), split: true });
-  },
-  toggleAlignRightMark(editor: Editor): void {
-    const isActive = ToggleFunctions.isMarkActive(editor, 'align', 'right');
-
+  toggleAlignment(editor: Editor, block: string, alignment: string): void {
+    const isActive = ToggleFunctions.isAlignActive(editor, block, alignment);
     Transforms.setNodes(
       editor,
-      { align: isActive ? 'left' : 'right' },
-      { match: (n) => Text.isText(n), split: true },
-    );
-  },
-  toggleAlignCenterMark(editor: Editor): void {
-    const isActive = ToggleFunctions.isMarkActive(editor, 'align', 'center');
-
-    Transforms.setNodes(
-      editor,
-      { align: isActive ? 'left' : 'center' },
-      { match: (n) => Text.isText(n), split: true },
-    );
-  },
-  toggleAlignJustifyMark(editor: Editor): void {
-    const isActive = ToggleFunctions.isMarkActive(editor, 'align', 'justify');
-
-    Transforms.setNodes(
-      editor,
-      { align: isActive ? 'left' : 'justify' },
-      { match: (n) => Text.isText(n), split: true },
+      { align: isActive ? 'left' : (alignment as Alignment) },
+      { match: (n) => Editor.isBlock(editor, n), split: false },
     );
   },
   //	Toggle Blocks

@@ -1,5 +1,8 @@
 import { Attributes, ReactChildren } from 'react';
 
+// Alignment Types
+export type Alignment = 'left' | 'center' | 'right' | 'justify';
+
 //Customize Text Type Here
 export type CustomText = {
   text: string;
@@ -10,13 +13,11 @@ export type CustomText = {
 };
 
 //Write Custom Element types Here
-type ParagraphElement = {
+export type ParagraphElement = {
   type: 'paragraph';
-  align?: 'left' | 'center' | 'right' | 'justify';
+  align?: Alignment;
   children: CustomText[];
 };
-
-type CodeElement = { type: 'code'; children: CustomText[] };
 
 export type IFrameElement = {
   type: 'iframe';
@@ -25,6 +26,7 @@ export type IFrameElement = {
     width: number;
     height: number;
   };
+  align?: Alignment;
   children: CustomText[];
 };
 
@@ -35,16 +37,19 @@ export type ImageElement = {
     width: number;
     height: number;
   };
+  align?: Alignment;
   children: CustomText[];
 };
 
-type HeadingOneElement = {
+export type HeadingOneElement = {
   type: 'heading-one';
+  align?: Alignment;
   children: CustomText[];
 };
 
-type HeadingTwoElement = {
+export type HeadingTwoElement = {
   type: 'heading-two';
+  align?: Alignment;
   children: CustomText[];
 };
 
@@ -55,11 +60,13 @@ type ListElement = {
 
 export type BulletedListElement = {
   type: 'bulleted-list';
+  align?: Alignment;
   children: ListElement[];
 };
 
 export type NumberedList = {
   type: 'numbered-list';
+  align?: Alignment;
   children: ListElement[];
 };
 
@@ -81,7 +88,6 @@ export type CustomElement =
   | ParagraphElement
   | HeadingOneElement
   | HeadingTwoElement
-  | CodeElement
   | ImageElement
   | ListElement
   | BulletedListElement

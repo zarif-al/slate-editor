@@ -9,11 +9,22 @@ import {
   InsertAudioButton,
   InsertIframeButton,
 } from '@/components/editor/toolbar/components';
-
+import { CustomElement } from '@/utils/editor/types';
 const Toolbar = (): JSX.Element => {
   const editor = useSlate();
-  const selected = useSelected();
-  const selectedBlock = selected && editor.children[editor.selection.anchor.path[0]];
+  // Needed to set alignment property on the selected block of content
+  const selectedBlock = editor.selection
+    ? (editor.children[editor.selection.anchor.path[0]] as CustomElement)
+    : undefined;
+
+  const isAlignActive = (alignment: string) => {
+    if (selectedBlock) {
+      return ToggleFunctions.isAlignActive(editor, selectedBlock.type, alignment);
+    } else {
+      return false;
+    }
+  };
+
   return (
     <div
       style={{
@@ -123,50 +134,38 @@ const Toolbar = (): JSX.Element => {
 
       <MarkButton
         action={(): void => {
-          ToggleFunctions.toggleAlignLeftMark(editor);
+          if (selectedBlock) {
+            ToggleFunctions.toggleAlignment(editor, selectedBlock.type, 'left');
+          }
         }}
-        icon={
-          <Icon.AlignLeft
-            size={24}
-            color={ToggleFunctions.isAlignActive(editor, 'align', 'left') ? 'black' : '#ccc'}
-          />
-        }
+        icon={<Icon.AlignLeft size={24} color={isAlignActive('left') ? 'black' : '#ccc'} />}
       />
 
       <MarkButton
         action={(): void => {
-          ToggleFunctions.toggleAlignCenterMark(editor);
+          if (selectedBlock) {
+            ToggleFunctions.toggleAlignment(editor, selectedBlock.type, 'center');
+          }
         }}
-        icon={
-          <Icon.AlignCenter
-            size={24}
-            color={ToggleFunctions.isAlignActive(editor, 'align', 'center') ? 'black' : '#ccc'}
-          />
-        }
+        icon={<Icon.AlignCenter size={24} color={isAlignActive('center') ? 'black' : '#ccc'} />}
       />
 
       <MarkButton
         action={(): void => {
-          ToggleFunctions.toggleAlignRightMark(editor);
+          if (selectedBlock) {
+            ToggleFunctions.toggleAlignment(editor, selectedBlock.type, 'right');
+          }
         }}
-        icon={
-          <Icon.AlignRight
-            size={24}
-            color={ToggleFunctions.isAlignActive(editor, 'align', 'right') ? 'black' : '#ccc'}
-          />
-        }
+        icon={<Icon.AlignRight size={24} color={isAlignActive('right') ? 'black' : '#ccc'} />}
       />
 
       <MarkButton
         action={(): void => {
-          ToggleFunctions.toggleAlignJustifyMark(editor);
+          if (selectedBlock) {
+            ToggleFunctions.toggleAlignment(editor, selectedBlock.type, 'justify');
+          }
         }}
-        icon={
-          <Icon.AlignJustify
-            size={24}
-            color={ToggleFunctions.isAlignActive(editor, 'align', 'justify') ? 'black' : '#ccc'}
-          />
-        }
+        icon={<Icon.AlignJustify size={24} color={isAlignActive('justify') ? 'black' : '#ccc'} />}
       />
 
       <InsertImageButton icon={<Icon.FormatImage size={24} color={'#ccc'} />} />

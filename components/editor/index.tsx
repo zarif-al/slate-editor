@@ -77,6 +77,7 @@ const SlateEditor = ({ initialValue, setValue, readOnly }: SlateProps): JSX.Elem
           setValue(newValue);
           const isAstChange = editor.operations.some((op) => 'set_selection' !== op.type);
           if (isAstChange) {
+            console.log('saving');
             const content = JSON.stringify(newValue);
             localStorage.setItem('content', content);
           }

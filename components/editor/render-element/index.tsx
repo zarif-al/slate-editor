@@ -1,6 +1,5 @@
 import React from 'react';
 import ImageElement from '@/components/editor/render-element/image';
-import CodeElement from '@/components/editor/render-element/code';
 import DefaultElement from '@/components/editor/render-element/default';
 import HeadingOne from '@/components/editor/render-element/heading-one';
 import HeadingTwo from '@/components/editor/render-element/heading-two';
@@ -9,12 +8,11 @@ import ListItem from '@/components/editor/render-element/list-item';
 import NumberedList from '@/components/editor/render-element/numbered-list';
 import File from '@/components/editor/render-element/file';
 import IframeRender from '@/components/editor/render-element/iframe';
+import ParagraphElement from '@/components/editor/render-element/paragraph';
 import { RenderProps } from '@/utils/editor/types';
 
 const Element = (props: RenderProps): JSX.Element => {
   switch (props.element.type) {
-    case 'code':
-      return <CodeElement {...props} />;
     case 'image':
       return <ImageElement {...props} />;
     case 'heading-one':
@@ -31,6 +29,8 @@ const Element = (props: RenderProps): JSX.Element => {
       return <File {...props} />;
     case 'iframe':
       return <IframeRender {...props} />;
+    case 'paragraph':
+      return <ParagraphElement {...props} />;
     default:
       return <DefaultElement {...props} />;
   }

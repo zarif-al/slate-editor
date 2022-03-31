@@ -1,7 +1,12 @@
 import React from 'react';
-import { RenderProps } from '@/utils/editor/types';
+import { RenderProps, HeadingOneElement } from '@/utils/editor/types';
 const HeadingOne = (props: RenderProps): JSX.Element => {
-  return <h1 {...props.attributes}>{props.children}</h1>;
+  const element = props.element as HeadingOneElement;
+  return (
+    <h1 {...props.attributes} style={{ textAlign: element.align ? element.align : 'left' }}>
+      {props.children}
+    </h1>
+  );
 };
 
 export default HeadingOne;

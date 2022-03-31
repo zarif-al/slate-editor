@@ -31,7 +31,16 @@ const ImageRenderer = (props: RenderProps): JSX.Element => {
   };
 
   return (
-    <div {...props.attributes} contentEditable={false} style={{ margin: '16px 0' }}>
+    <div
+      {...props.attributes}
+      contentEditable={false}
+      style={{
+        margin: '16px 0',
+        width: '100%',
+        display: 'flex',
+        justifyContent: element.align ? element.align : 'left',
+      }}
+    >
       {props.children}
       <div
         style={{
@@ -70,21 +79,23 @@ const ImageRenderer = (props: RenderProps): JSX.Element => {
             }}
           />
         </ResizableBox>
-        <span
-          onMouseDown={(): void => Transforms.removeNodes(editor, { at: path })}
-          style={{
-            display: selected && focused ? 'block' : 'none',
-            position: 'absolute',
-            top: '0.5em',
-            right: '0.5em',
-            backgroundColor: 'white',
-            cursor: 'pointer',
-            borderRadius: '5px',
-            border: '0.5px solid black',
-          }}
-        >
-          <Icon.Trash size={24} />
-        </span>
+        {!readOnly && (
+          <span
+            onMouseDown={(): void => Transforms.removeNodes(editor, { at: path })}
+            style={{
+              display: selected && focused ? 'block' : 'none',
+              position: 'absolute',
+              top: '0.5em',
+              right: '0.5em',
+              backgroundColor: 'white',
+              cursor: 'pointer',
+              borderRadius: '5px',
+              border: '0.5px solid black',
+            }}
+          >
+            <Icon.Trash size={24} />
+          </span>
+        )}
       </div>
     </div>
   );
