@@ -2,6 +2,9 @@ import { isImageUrl, insertImage } from '@/components/editor/functions';
 import { Transforms, Editor, Element, Text, Range } from 'slate';
 import { CustomElement } from '@/utils/editor/types';
 
+// This plugin changes a node from a list-item to paragraph because normal behavior is bad for UX.
+// Normal behavior renders a list-item without a parent ordered/unordered list tag
+
 const withCleanLists = (editor: Editor): Editor => {
   const { deleteBackward } = editor;
 
