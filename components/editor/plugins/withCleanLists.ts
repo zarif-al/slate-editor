@@ -1,5 +1,4 @@
-import { isImageUrl, insertImage } from '@/components/editor/functions';
-import { Transforms, Editor, Element, Text, Range } from 'slate';
+import { Transforms, Editor, Range } from 'slate';
 import { CustomElement } from '@/utils/editor/types';
 
 // This plugin changes a node from a list-item to paragraph because normal behavior is bad for UX.
