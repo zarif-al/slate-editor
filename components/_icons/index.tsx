@@ -57,6 +57,10 @@ import { IconShuffle } from '@/components/_icons/shuffle';
 import { IconSwap } from '@/components/_icons/swap';
 import { IconDownload } from '@/components/_icons/download';
 import { IconIframe } from '@/components/_icons/iframe';
+import { IconAlignRight } from '@/components/_icons/format-align-right';
+import { IconAlignLeft } from '@/components/_icons/format-align-left';
+import { IconAlignCenter } from '@/components/_icons/format-align-center';
+import { IconAlignJustify } from '@/components/_icons/format-align-justify';
 interface IconProps {
   color?: string;
   size?: number;
@@ -330,4 +334,20 @@ Icon.Download = ({ color = DEFAULT_COLOR, size = DEFAULT_SIZE }: IconProps): JSX
 
 Icon.Iframe = ({ color = DEFAULT_COLOR, size = DEFAULT_SIZE }: IconProps): JSX.Element => (
   <IconIframe color={color} size={size} />
+);
+
+Icon.AlignRight = ({ color = DEFAULT_COLOR, size = DEFAULT_SIZE }: IconProps): JSX.Element => (
+  <IconAlignRight color={color} size={size} />
+);
+
+Icon.AlignLeft = ({ color = DEFAULT_COLOR, size = DEFAULT_SIZE }: IconProps): JSX.Element => (
+  <IconAlignLeft color={color} size={size} />
+);
+
+Icon.AlignCenter = ({ color = DEFAULT_COLOR, size = DEFAULT_SIZE }: IconProps): JSX.Element => (
+  <IconAlignCenter color={color} size={size} />
+);
+
+Icon.AlignJustify = ({ color = DEFAULT_COLOR, size = DEFAULT_SIZE }: IconProps): JSX.Element => (
+  <IconAlignJustify color={color} size={size} />
 );

@@ -10,7 +10,11 @@ export type CustomText = {
 };
 
 //Write Custom Element types Here
-type ParagraphElement = { type: 'paragraph'; children: CustomText[] };
+type ParagraphElement = {
+  type: 'paragraph';
+  align?: 'left' | 'center' | 'right' | 'justify';
+  children: CustomText[];
+};
 
 type CodeElement = { type: 'code'; children: CustomText[] };
 

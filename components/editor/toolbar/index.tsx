@@ -119,6 +119,54 @@ const Toolbar = (): JSX.Element => {
         }
       />
 
+      <MarkButton
+        action={(): void => {
+          ToggleFunctions.toggleAlignLeftMark(editor);
+        }}
+        icon={
+          <Icon.AlignLeft
+            size={24}
+            color={ToggleFunctions.isMarkActive(editor, 'align', 'left') ? 'black' : '#ccc'}
+          />
+        }
+      />
+
+      <MarkButton
+        action={(): void => {
+          ToggleFunctions.toggleAlignCenterMark(editor);
+        }}
+        icon={
+          <Icon.AlignCenter
+            size={24}
+            color={ToggleFunctions.isMarkActive(editor, 'align', 'center') ? 'black' : '#ccc'}
+          />
+        }
+      />
+
+      <MarkButton
+        action={(): void => {
+          ToggleFunctions.toggleAlignRightMark(editor);
+        }}
+        icon={
+          <Icon.AlignRight
+            size={24}
+            color={ToggleFunctions.isMarkActive(editor, 'align', 'right') ? 'black' : '#ccc'}
+          />
+        }
+      />
+
+      <MarkButton
+        action={(): void => {
+          ToggleFunctions.toggleAlignJustifyMark(editor);
+        }}
+        icon={
+          <Icon.AlignJustify
+            size={24}
+            color={ToggleFunctions.isMarkActive(editor, 'align', 'justify') ? 'black' : '#ccc'}
+          />
+        }
+      />
+
       <InsertImageButton icon={<Icon.FormatImage size={24} color={'#ccc'} />} />
 
       <InsertFileButton icon={<Icon.Attachment size={24} color={'#ccc'} />} />

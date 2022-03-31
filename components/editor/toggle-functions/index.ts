@@ -6,6 +6,7 @@ const ToggleFunctions = {
   //	Toggle Marks
   isMarkActive(editor: Editor, format: string): boolean {
     const marks: Mark = Editor.marks(editor);
+
     return marks ? marks[format as keyof Mark] === true : false;
   },
   toggleBoldMark(editor: Editor): void {
@@ -49,6 +50,46 @@ const ToggleFunctions = {
         children: [{ text: '' }],
       },
       { at: [editor.children.length] },
+    );
+  },
+  // Toggle Alignment
+  isAlignActive(editor: Editor, block: string, align: string): boolean {
+    const [block] = Editor.nodes(editor, {
+      match: (n) => n.type === block,
+    });
+
+    if (!block) return false;
+
+    return block.data.get('align') === align;
+  },
+  toggleAlignLeftMark(editor: Editor): void {
+    Transforms.setNodes(editor, { align: 'left' }, { match: (n) => Text.isText(n), split: true });
+  },
+  toggleAlignRightMark(editor: Editor): void {
+    const isActive = ToggleFunctions.isMarkActive(editor, 'align', 'right');
+
+    Transforms.setNodes(
+      editor,
+      { align: isActive ? 'left' : 'right' },
+      { match: (n) => Text.isText(n), split: true },
+    );
+  },
+  toggleAlignCenterMark(editor: Editor): void {
+    const isActive = ToggleFunctions.isMarkActive(editor, 'align', 'center');
+
+    Transforms.setNodes(
+      editor,
+      { align: isActive ? 'left' : 'center' },
+      { match: (n) => Text.isText(n), split: true },
+    );
+  },
+  toggleAlignJustifyMark(editor: Editor): void {
+    const isActive = ToggleFunctions.isMarkActive(editor, 'align', 'justify');
+
+    Transforms.setNodes(
+      editor,
+      { align: isActive ? 'left' : 'justify' },
+      { match: (n) => Text.isText(n), split: true },
     );
   },
   //	Toggle Blocks
