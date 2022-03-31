@@ -44,11 +44,11 @@ declare module 'slate' {
 interface SlateProps {
   initialValue: Descendant[];
   setValue: (value: Descendant[]) => void;
-  toolbarVisible?: boolean;
+  readOnly: boolean;
 }
 
 // Typescript specific code ->
-const SlateEditor = ({ initialValue, setValue }: SlateProps): JSX.Element => {
+const SlateEditor = ({ initialValue, setValue, readOnly }: SlateProps): JSX.Element => {
   //	Editor Init
   const editor = useMemo(() => withImages(withHistory(withReact(createEditor()))), []);
 
@@ -82,8 +82,9 @@ const SlateEditor = ({ initialValue, setValue }: SlateProps): JSX.Element => {
           }
         }}
       >
-        <Toolbar />
+        {!readOnly && <Toolbar />}
         <Editable
+          readOnly={readOnly}
           renderElement={renderElement}
           renderLeaf={renderLeaf}
           //	Keyboard ShortCut Functions Here

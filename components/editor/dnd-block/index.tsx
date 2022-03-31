@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDrag, useDrop } from 'react-dnd';
 import { Transforms } from 'slate';
-import { useSlate, ReactEditor } from 'slate-react';
+import { useSlate, ReactEditor, useReadOnly } from 'slate-react';
 import Element from '@/components/editor/render-element';
 import { RenderProps } from '@/utils/editor/types';
 import { Icon } from '@/components/_icons';
@@ -28,12 +28,17 @@ const DndBlock = (props: RenderProps): JSX.Element => {
   const element = props.element;
   const path = ReactEditor.findPath(editor, element);
 
+  const readOnly = useReadOnly();
+
   const [{ isDragging }, drag, preview] = useDrag(
     () => ({
       type: 'container',
       item: {
         type: 'container',
         path: path,
+      },
+      canDrag: (monitor) => {
+        return !readOnly;
       },
       collect: (monitor): UseDragCollectReturnType => ({
         isDragging: !!monitor.isDragging(),
@@ -72,9 +77,12 @@ const DndBlock = (props: RenderProps): JSX.Element => {
           alignItems: 'center',
         }}
       >
-        <div ref={drag} contentEditable={false} style={{ cursor: 'grab', userSelect: 'none' }}>
-          <Icon.Drag size={14} color={'grey'} />
-        </div>
+        {!readOnly && (
+          <div ref={drag} contentEditable={false} style={{ cursor: 'grab', userSelect: 'none' }}>
+            <Icon.Drag size={14} color={'grey'} />
+          </div>
+        )}
+
         <div
           ref={preview}
           style={{

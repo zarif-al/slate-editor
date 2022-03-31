@@ -1,57 +1,69 @@
-import type { NextPage } from "next";
-import React, { useState, useEffect } from "react";
-import Head from "next/head";
-import Editor from "components/editor";
-import { CustomText, CustomElement } from "utils/editor/types";
-import { Descendant } from "slate";
+import type { NextPage } from 'next';
+import React, { useState, useEffect } from 'react';
+import Head from 'next/head';
+import Editor from 'components/editor';
+import { CustomText, CustomElement } from 'utils/editor/types';
+import { Descendant } from 'slate';
 
 const Home: NextPage = () => {
-	const initialValue: CustomElement[] = [
-		{
-			type: "paragraph",
-			children: [{ text: "A line of text in a paragraph." }],
-		},
-	];
+  const [previewMode, setPreviewMode] = useState(false);
 
-	//Initialvalue State
-	const [value, setValue] = useState<Descendant[]>(initialValue);
+  const initialValue: CustomElement[] = [
+    {
+      type: 'paragraph',
+      children: [{ text: 'A line of text in a paragraph.' }],
+    },
+  ];
 
-	//Update initial value with localStorage content
-	useEffect(() => {
-		if (typeof window !== "undefined") {
-			const content = JSON.parse(localStorage.getItem("content") as string);
+  //Initialvalue State
+  const [value, setValue] = useState<Descendant[]>(initialValue);
 
-			if (content && content.length > 0) {
-				setValue(content);
-			}
-		}
-	}, []);
+  //Update initial value with localStorage content
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const content = JSON.parse(localStorage.getItem('content') as string);
 
-	return (
-		<div
-			style={{
-				display: "flex",
-				justifyContent: "center",
-				padding: "0 2rem",
-			}}
-		>
-			<Head>
-				<title>Editors Trial</title>
-				<meta name="description" content="Trying out different editors" />
-				<link rel="icon" href="/favicon.ico" />
-			</Head>
-			<div
-				style={{
-					width: "800px",
-					border: "2px solid black",
-					marginTop: "100px",
-					padding: "2rem",
-				}}
-			>
-				<Editor initialValue={value} setValue={setValue} />
-			</div>
-		</div>
-	);
+      if (content && content.length > 0) {
+        setValue(content);
+      }
+    }
+  }, []);
+
+  return (
+    <div
+      style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: '0 2rem',
+        flexDirection: 'column',
+        marginTop: '100px',
+        gap: '20px',
+      }}
+    >
+      <Head>
+        <title>Editors Trial</title>
+        <meta name="description" content="Trying out different editors" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      <button
+        onClick={() => {
+          setPreviewMode(!previewMode);
+        }}
+      >
+        Preview Mode {previewMode ? 'Off' : 'On'}
+      </button>
+      <div
+        style={{
+          width: '800px',
+          border: '2px solid black',
+          padding: '2rem',
+        }}
+      >
+        <Editor initialValue={value} setValue={setValue} readOnly={previewMode} />
+      </div>
+    </div>
+  );
 };
 
 export default Home;
