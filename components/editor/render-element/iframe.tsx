@@ -75,6 +75,8 @@ const IframeRender = (props: RenderProps): JSX.Element => {
                 height: '100%',
                 border: 0,
               }}
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen={false}
             ></iframe>
           </ResizableBox>
           {!readOnly && (

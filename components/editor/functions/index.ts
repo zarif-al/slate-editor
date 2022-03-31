@@ -61,6 +61,15 @@ export const insertIframe = (editor: Editor, url: string | ArrayBuffer | null): 
   Transforms.insertNodes(editor, iframe);
 };
 
+export const isIframe = (url: string): boolean => {
+  const startsWithIframe = url.startsWith('<iframe');
+  const endsWithIframe = url.endsWith('</iframe>');
+  if (startsWithIframe && endsWithIframe) {
+    return true;
+  }
+  return false;
+};
+
 export const removeElement = (editor: Editor, path: Path): void => {
   Transforms.removeNodes(editor, { at: path });
 };

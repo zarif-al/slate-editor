@@ -1,5 +1,5 @@
 import React from 'react';
-import { insertIframe } from '@/components/editor/functions';
+import { insertIframe, isIframe } from '@/components/editor/functions';
 import isUrl from 'is-url';
 import { useSlate } from 'slate-react';
 
@@ -12,11 +12,22 @@ const InsertIframeButton = ({ icon }: IframeButtonProps): JSX.Element => {
 
   const linkHandler = () => {
     const url = window.prompt('Enter the URL of the iframe:');
-    if (!url || !isUrl(url)) {
+
+    if (!url) {
+      return;
+    } else if (!isUrl(url) && !isIframe(url)) {
       alert('Invalid URL');
       return;
     } else {
-      insertIframe(editor, url);
+      if (isIframe(url)) {
+        var parser = new DOMParser();
+        var parsedIframe = parser.parseFromString(url, 'text/html');
+        let iFrame = parsedIframe.getElementsByTagName('iframe');
+        let src = iFrame[0].src;
+        insertIframe(editor, src);
+      } else {
+        insertIframe(editor, url);
+      }
     }
   };
 
