@@ -61,6 +61,7 @@ const ToggleFunctions = {
     if (!match) return false;
 
     const element = match[0] as Element;
+
     return 'align' in element && element.align === align;
   },
   toggleAlignment(editor: Editor, block: string, alignment: string): void {
@@ -68,7 +69,7 @@ const ToggleFunctions = {
     Transforms.setNodes(
       editor,
       { align: isActive ? 'left' : (alignment as Alignment) },
-      { match: (n) => Editor.isBlock(editor, n), split: false },
+      { match: (n) => Editor.isBlock(editor, n) && n.type === block, split: false },
     );
   },
   //	Toggle Blocks

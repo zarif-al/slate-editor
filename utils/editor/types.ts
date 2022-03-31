@@ -55,6 +55,7 @@ export type HeadingTwoElement = {
 
 type ListElement = {
   type: 'list-item';
+
   children: CustomText[];
 };
 

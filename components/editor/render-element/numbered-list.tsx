@@ -1,11 +1,12 @@
 import React from 'react';
-import { RenderProps } from '@/utils/editor/types';
+import { RenderProps, NumberedList } from '@/utils/editor/types';
 
 const NumberedList = (props: RenderProps): JSX.Element => {
+  const element = props.element as NumberedList;
   return (
-    <div>
-      <ol {...props.attributes}>{props.children}</ol>
-    </div>
+    <ol {...props.attributes} style={{ textAlign: element.align ? element.align : 'left' }}>
+      {props.children}
+    </ol>
   );
 };
 

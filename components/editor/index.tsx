@@ -99,6 +99,11 @@ const SlateEditor = ({ initialValue, setValue, readOnly }: SlateProps): JSX.Elem
                 ToggleFunctions.toggleBoldMark(editor);
                 break;
               }
+              case 'Enter': {
+                event.preventDefault();
+                ToggleFunctions.toggleNewLine(editor);
+                break;
+              }
             }
           }}
           onDrop={(e): boolean => {
