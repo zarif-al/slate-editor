@@ -64,7 +64,7 @@ const DndBlock = (props: RenderProps): JSX.Element => {
   );
 
   //	Disable drag properties in list-items
-  if (props.element.type === 'list-item') {
+  if (props.element.type === 'list-item' || props.element.type === 'link') {
     return <Element {...props} />;
   }
 

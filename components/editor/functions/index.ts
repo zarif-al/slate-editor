@@ -1,7 +1,8 @@
-import { Editor, Transforms, Path } from 'slate';
+import { Editor, Transforms, Path, Element, Range } from 'slate';
 import imageExtensions from 'image-extensions';
 import isUrl from 'is-url';
-import { CustomElement } from '@/utils/editor/types';
+import { CustomElement, LinkElement } from '@/utils/editor/types';
+import ToggleFunctions from '@/components/editor/toggle-functions';
 
 export const isImageUrl = (url: string): boolean => {
   if (!url) return false;

@@ -10,6 +10,7 @@ export type CustomText = {
   italic?: boolean;
   underline?: boolean;
   code?: boolean;
+  link?: boolean;
 };
 
 //Write Custom Element types Here
@@ -41,6 +42,12 @@ export type ImageElement = {
   children: CustomText[];
 };
 
+export type LinkElement = {
+  type: 'link';
+  url: string;
+  children: CustomText[];
+};
+
 export type HeadingOneElement = {
   type: 'heading-one';
   align?: Alignment;
@@ -53,9 +60,8 @@ export type HeadingTwoElement = {
   children: CustomText[];
 };
 
-type ListElement = {
+export type ListElement = {
   type: 'list-item';
-
   children: CustomText[];
 };
 
@@ -95,7 +101,8 @@ export type CustomElement =
   | NumberedList
   | FileElement
   | AudioElement
-  | IFrameElement;
+  | IFrameElement
+  | LinkElement;
 
 //RenderElement Props Type
 export interface RenderProps {

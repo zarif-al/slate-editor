@@ -2,7 +2,7 @@
 import React, { useCallback, useMemo } from 'react';
 
 // Import the Slate editor factory.
-import { createEditor, BaseEditor, Descendant } from 'slate';
+import { createEditor, BaseEditor, Descendant, Range, Transforms } from 'slate';
 
 // Import the Slate components and React plugin.
 import { ReactEditor, Slate, Editable, withReact } from 'slate-react';
@@ -15,6 +15,7 @@ import Leaf from '@/components/editor/render-leaf';
 //	Plugin
 import withImages from '@/components/editor/plugins/withImages';
 import withCleanLists from '@/components/editor/plugins/withCleanLists';
+import withLinks from '@/components/editor/plugins/withLink';
 //
 
 import { CustomText, CustomElement } from '@/utils/editor/types';
@@ -25,6 +26,10 @@ import Toolbar from '@/components/editor/toolbar';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import DndBlock from '@/components/editor/dnd-block';
+
+// For working with links
+import { isKeyHotkey } from 'is-hotkey';
+
 // TypeScript specific code <-
 
 // Imports :-
@@ -52,7 +57,7 @@ interface SlateProps {
 const SlateEditor = ({ initialValue, setValue, readOnly }: SlateProps): JSX.Element => {
   //	Editor Init
   const editor = useMemo(
-    () => withHistory(withImages(withCleanLists(withReact(createEditor())))),
+    () => withHistory(withImages(withLinks(withCleanLists(withReact(createEditor()))))),
     [],
   );
 
@@ -94,19 +99,18 @@ const SlateEditor = ({ initialValue, setValue, readOnly }: SlateProps): JSX.Elem
           renderLeaf={renderLeaf}
           //	Keyboard ShortCut Functions Here
           onKeyDown={(event): void => {
-            if (!event.ctrlKey) {
-              return;
-            }
-            switch (event.key) {
-              case 'b': {
+            const { selection } = editor;
+            if (selection && Range.isCollapsed(selection)) {
+              const { nativeEvent } = event;
+              if (isKeyHotkey('left', nativeEvent)) {
                 event.preventDefault();
-                ToggleFunctions.toggleBoldMark(editor);
-                break;
+                Transforms.move(editor, { unit: 'offset', reverse: true });
+                return;
               }
-              case 'Enter': {
+              if (isKeyHotkey('right', nativeEvent)) {
                 event.preventDefault();
-                ToggleFunctions.toggleNewLine(editor);
-                break;
+                Transforms.move(editor, { unit: 'offset' });
+                return;
               }
             }
           }}

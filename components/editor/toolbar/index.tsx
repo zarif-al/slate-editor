@@ -8,6 +8,7 @@ import {
   InsertFileButton,
   InsertAudioButton,
   InsertIframeButton,
+  InsertLinkButton,
 } from '@/components/editor/toolbar/components';
 import { CustomElement } from '@/utils/editor/types';
 const Toolbar = (): JSX.Element => {
@@ -175,6 +176,12 @@ const Toolbar = (): JSX.Element => {
       <InsertAudioButton icon={<Icon.Audiotrack size={24} color={'#ccc'} />} />
 
       <InsertIframeButton icon={<Icon.Iframe size={24} color={'#ccc'} />} />
+
+      <InsertLinkButton
+        icon={
+          <Icon.Link size={24} color={ToggleFunctions.isLinkActive(editor) ? 'black' : '#ccc'} />
+        }
+      />
 
       <MarkButton
         action={(): void => {

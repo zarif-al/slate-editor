@@ -1,5 +1,11 @@
-import { Transforms, Editor, Element, Text } from 'slate';
-import { CustomText, BulletedListElement, NumberedList, Alignment } from '@/utils/editor/types';
+import { Transforms, Editor, Element, Text, Range } from 'slate';
+import {
+  CustomText,
+  BulletedListElement,
+  NumberedList,
+  Alignment,
+  LinkElement,
+} from '@/utils/editor/types';
 type Mark = Omit<CustomText, 'text'> | null;
 
 const ToggleFunctions = {
@@ -39,6 +45,14 @@ const ToggleFunctions = {
     Transforms.setNodes(
       editor,
       { code: isActive ? false : true },
+      { match: (n) => Text.isText(n), split: true },
+    );
+  },
+  toggleLinkMark(editor: Editor, text: string): void {
+    const isActive = ToggleFunctions.isMarkActive(editor, 'link');
+    Transforms.setNodes(
+      editor,
+      { link: isActive ? false : true, text: text },
       { match: (n) => Text.isText(n), split: true },
     );
   },
@@ -153,6 +167,34 @@ const ToggleFunctions = {
         children: [list],
       } as NumberedList;
       Transforms.wrapNodes(editor, block);
+    }
+  },
+  // Toggle Link
+  isLinkActive(editor: Editor): boolean {
+    const [link] = Editor.nodes(editor, {
+      match: (n) => !Editor.isEditor(n) && Element.isElement(n) && n.type === 'link',
+    });
+    return !!link;
+  },
+  unWrapLink(editor: Editor): void {
+    Transforms.unwrapNodes(editor, {
+      match: (n) => !Editor.isEditor(n) && Element.isElement(n) && n.type === 'link',
+    });
+  },
+  toggleWrapLink(editor: Editor, url: string): void {
+    const { selection } = editor;
+    const isCollapsed = selection && Range.isCollapsed(selection);
+    const link: LinkElement = {
+      type: 'link',
+      url,
+      children: isCollapsed ? [{ text: url }] : [],
+    };
+
+    if (isCollapsed) {
+      Transforms.insertNodes(editor, link);
+    } else {
+      Transforms.wrapNodes(editor, link, { split: true });
+      Transforms.collapse(editor, { edge: 'end' });
     }
   },
 };

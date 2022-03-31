@@ -9,6 +9,7 @@ import NumberedList from '@/components/editor/render-element/numbered-list';
 import File from '@/components/editor/render-element/file';
 import IframeRender from '@/components/editor/render-element/iframe';
 import ParagraphElement from '@/components/editor/render-element/paragraph';
+import LinkElement from '@/components/editor/render-element/link';
 import { RenderProps } from '@/utils/editor/types';
 
 const Element = (props: RenderProps): JSX.Element => {
@@ -31,6 +32,8 @@ const Element = (props: RenderProps): JSX.Element => {
       return <IframeRender {...props} />;
     case 'paragraph':
       return <ParagraphElement {...props} />;
+    case 'link':
+      return <LinkElement {...props} />;
     default:
       return <DefaultElement {...props} />;
   }

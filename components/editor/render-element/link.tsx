@@ -1,0 +1,35 @@
+import React from 'react';
+import { RenderProps, LinkElement } from '@/utils/editor/types';
+import { useSelected, useReadOnly } from 'slate-react';
+const InlineChromiumBugfix = () => (
+  <span
+    contentEditable={false}
+    style={{
+      fontSize: 0,
+    }}
+  >
+    ${String.fromCodePoint(160)}
+  </span>
+);
+
+const LinkRender = (props: RenderProps) => {
+  const element = props.element as LinkElement;
+  const selected = useSelected();
+  const readOnly = useReadOnly();
+  return (
+    <a
+      {...props.attributes}
+      href={element.url}
+      style={{
+        boxShadow: !readOnly && selected ? '0 0 0 3px #ddd' : '',
+        color: 'blue',
+      }}
+    >
+      {/*  <InlineChromiumBugfix /> */}
+      {props.children}
+      {/*  <InlineChromiumBugfix /> */}
+    </a>
+  );
+};
+
+export default LinkRender;

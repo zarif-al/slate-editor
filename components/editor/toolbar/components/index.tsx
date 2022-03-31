@@ -3,4 +3,12 @@ import InsertImageButton from '@/components/editor/toolbar/components/insert-ima
 import InsertFileButton from '@/components/editor/toolbar/components/insert-file-button';
 import InsertAudioButton from '@/components/editor/toolbar/components/insert-audio-button';
 import InsertIframeButton from '@/components/editor/toolbar/components/insert-iframe-button';
-export { MarkButton, InsertImageButton, InsertFileButton, InsertAudioButton, InsertIframeButton };
+import InsertLinkButton from '@/components/editor/toolbar/components/insert-link-button';
+export {
+  MarkButton,
+  InsertImageButton,
+  InsertFileButton,
+  InsertAudioButton,
+  InsertIframeButton,
+  InsertLinkButton,
+};
