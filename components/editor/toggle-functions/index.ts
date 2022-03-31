@@ -54,13 +54,13 @@ const ToggleFunctions = {
   },
   // Toggle Alignment
   isAlignActive(editor: Editor, block: string, align: string): boolean {
-    const [block] = Editor.nodes(editor, {
+    const [match] = Editor.nodes(editor, {
       match: (n) => n.type === block,
     });
 
-    if (!block) return false;
+    if (!match) return false;
 
-    return block.data.get('align') === align;
+    return match.data.get('align') === align;
   },
   toggleAlignLeftMark(editor: Editor): void {
     Transforms.setNodes(editor, { align: 'left' }, { match: (n) => Text.isText(n), split: true });

@@ -1,5 +1,5 @@
 import React from 'react';
-import { useSlate } from 'slate-react';
+import { useSlate, useSelected } from 'slate-react';
 import ToggleFunctions from '@/components/editor/toggle-functions';
 import { Icon } from '@/components/_icons';
 import {
@@ -12,6 +12,8 @@ import {
 
 const Toolbar = (): JSX.Element => {
   const editor = useSlate();
+  const selected = useSelected();
+  const selectedBlock = selected && editor.children[editor.selection.anchor.path[0]];
   return (
     <div
       style={{
@@ -126,7 +128,7 @@ const Toolbar = (): JSX.Element => {
         icon={
           <Icon.AlignLeft
             size={24}
-            color={ToggleFunctions.isMarkActive(editor, 'align', 'left') ? 'black' : '#ccc'}
+            color={ToggleFunctions.isAlignActive(editor, 'align', 'left') ? 'black' : '#ccc'}
           />
         }
       />
@@ -138,7 +140,7 @@ const Toolbar = (): JSX.Element => {
         icon={
           <Icon.AlignCenter
             size={24}
-            color={ToggleFunctions.isMarkActive(editor, 'align', 'center') ? 'black' : '#ccc'}
+            color={ToggleFunctions.isAlignActive(editor, 'align', 'center') ? 'black' : '#ccc'}
           />
         }
       />
@@ -150,7 +152,7 @@ const Toolbar = (): JSX.Element => {
         icon={
           <Icon.AlignRight
             size={24}
-            color={ToggleFunctions.isMarkActive(editor, 'align', 'right') ? 'black' : '#ccc'}
+            color={ToggleFunctions.isAlignActive(editor, 'align', 'right') ? 'black' : '#ccc'}
           />
         }
       />
@@ -162,7 +164,7 @@ const Toolbar = (): JSX.Element => {
         icon={
           <Icon.AlignJustify
             size={24}
-            color={ToggleFunctions.isMarkActive(editor, 'align', 'justify') ? 'black' : '#ccc'}
+            color={ToggleFunctions.isAlignActive(editor, 'align', 'justify') ? 'black' : '#ccc'}
           />
         }
       />
