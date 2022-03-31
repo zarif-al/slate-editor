@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
-import { useSlate, ReactEditor, useSelected, useFocused } from 'slate-react';
+import { Icon } from '@/components/_icons';
+import { useSlate, ReactEditor, useSelected, useFocused, useReadOnly } from 'slate-react';
 import { RenderProps, ImageElement } from '@/utils/editor/types';
 import { Transforms, Element } from 'slate';
 import { ResizableBox, ResizeCallbackData } from 'react-resizable';
@@ -16,6 +17,7 @@ const ImageRenderer = (props: RenderProps): JSX.Element => {
   const [aspectRatio, setAspectRatio] = useState(1);
   const selected = useSelected();
   const focused = useFocused();
+  const readOnly = useReadOnly();
 
   const onResizeStop = (e: React.SyntheticEvent, data: ResizeCallbackData): void => {
     Transforms.setNodes(
@@ -46,7 +48,13 @@ const ImageRenderer = (props: RenderProps): JSX.Element => {
           maxConstraints={[700, 700 / aspectRatio]}
           resizeHandles={['w', 'e']}
           onResizeStop={onResizeStop}
-          handle={<span className="react-resizable-handle react-resizable-handle-e" />}
+          handle={
+            readOnly ? (
+              <div />
+            ) : (
+              <span className="react-resizable-handle react-resizable-handle-e" />
+            )
+          }
         >
           <Image
             src={element.url as string}
@@ -62,19 +70,21 @@ const ImageRenderer = (props: RenderProps): JSX.Element => {
             }}
           />
         </ResizableBox>
-        <button
+        <span
           onMouseDown={(): void => Transforms.removeNodes(editor, { at: path })}
           style={{
             display: selected && focused ? 'block' : 'none',
             position: 'absolute',
             top: '0.5em',
-            left: '0.5em',
+            right: '0.5em',
             backgroundColor: 'white',
             cursor: 'pointer',
+            borderRadius: '5px',
+            border: '0.5px solid black',
           }}
         >
-          Del
-        </button>
+          <Icon.Trash size={24} />
+        </span>
       </div>
     </div>
   );

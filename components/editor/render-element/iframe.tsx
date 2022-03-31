@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { RenderProps, IFrameElement } from '@/utils/editor/types';
 import { Icon } from '@/components/_icons';
-import { useSlate, ReactEditor, useSelected, useFocused } from 'slate-react';
+import { useSlate, ReactEditor, useSelected, useFocused, useReadOnly } from 'slate-react';
 import { Transforms, Element } from 'slate';
 import { ResizableBox, ResizeCallbackData } from 'react-resizable';
 
@@ -13,6 +13,8 @@ const IframeRender = (props: RenderProps): JSX.Element => {
   const [iframeSize, setIframeSize] = useState(element.size);
   const selected = useSelected();
   const focused = useFocused();
+
+  const readOnly = useReadOnly();
 
   const onResizeStop = (e: React.SyntheticEvent, data: ResizeCallbackData): void => {
     Transforms.setNodes(
@@ -30,6 +32,8 @@ const IframeRender = (props: RenderProps): JSX.Element => {
       {...props.attributes}
       contentEditable={false}
       style={{
+        padding: '1rem',
+        cursor: 'pointer',
         position: 'relative',
         boxShadow: selected && focused ? '0 0 0 3px #B4D5FF' : 'none',
         width: 'fit-content',
@@ -44,7 +48,9 @@ const IframeRender = (props: RenderProps): JSX.Element => {
         maxConstraints={[700, 350]}
         resizeHandles={['w', 'e']}
         onResizeStop={onResizeStop}
-        handle={<span className="react-resizable-handle react-resizable-handle-e" />}
+        handle={
+          readOnly ? <div /> : <span className="react-resizable-handle react-resizable-handle-e" />
+        }
       >
         <iframe
           loading="lazy"
@@ -56,20 +62,21 @@ const IframeRender = (props: RenderProps): JSX.Element => {
           }}
         ></iframe>
       </ResizableBox>
-      <button
+      <span
         onMouseDown={(): void => Transforms.removeNodes(editor, { at: path })}
         style={{
           display: selected && focused ? 'block' : 'none',
           position: 'absolute',
           top: '0.5em',
-          left: '0.5em',
+          right: '0.5em',
           backgroundColor: 'white',
           cursor: 'pointer',
-          zIndex: 99999,
+          borderRadius: '5px',
+          border: '0.5px solid black',
         }}
       >
-        Del
-      </button>
+        <Icon.Trash size={24} />
+      </span>
     </div>
   );
 };
