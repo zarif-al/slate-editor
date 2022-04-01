@@ -33,11 +33,15 @@ const Toolbar = (): JSX.Element => {
       style={{
         display: 'flex',
         gap: '12px',
-        width: '100%',
         borderBottom: '1px solid',
+        width: '100%',
         borderTop: '1px solid',
         borderColor: '#EBEDFF',
         padding: '12px 0px',
+        position: 'sticky',
+        top: '0',
+        zIndex: 999,
+        backgroundColor: 'white',
       }}
     >
       <ToolbarButton

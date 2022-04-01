@@ -57,7 +57,9 @@ const Home: NextPage = () => {
         style={{
           width: '800px',
           border: '2px solid black',
-          padding: '2rem',
+          padding: '1rem 2rem',
+          height: '600px',
+          overflow: 'scroll',
         }}
       >
         <Editor initialValue={value} setValue={setValue} readOnly={previewMode} />
