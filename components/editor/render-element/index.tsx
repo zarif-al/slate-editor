@@ -11,28 +11,29 @@ import IframeRender from '@/components/editor/render-element/iframe';
 import ParagraphElement from '@/components/editor/render-element/paragraph';
 import LinkElement from '@/components/editor/render-element/link';
 import { RenderProps } from '@/utils/editor/types';
+import { ElementEnums } from '@/utils/editor/enums';
 
 const Element = (props: RenderProps): JSX.Element => {
   switch (props.element.type) {
-    case 'image':
+    case ElementEnums.Image:
       return <ImageElement {...props} />;
-    case 'heading-one':
+    case ElementEnums.HeadingOne:
       return <HeadingOne {...props} />;
-    case 'heading-two':
+    case ElementEnums.HeadingTwo:
       return <HeadingTwo {...props} />;
-    case 'bulleted-list':
+    case ElementEnums.BulletedList:
       return <BulletedList {...props} />;
-    case 'numbered-list':
+    case ElementEnums.NumberedList:
       return <NumberedList {...props} />;
-    case 'list-item':
+    case ElementEnums.ListItem:
       return <ListItem {...props} />;
-    case 'file':
+    case ElementEnums.File:
       return <File {...props} />;
-    case 'iframe':
+    case ElementEnums.IFrame:
       return <IframeRender {...props} />;
-    case 'paragraph':
+    case ElementEnums.Paragraph:
       return <ParagraphElement {...props} />;
-    case 'link':
+    case ElementEnums.Link:
       return <LinkElement {...props} />;
     default:
       return <DefaultElement {...props} />;

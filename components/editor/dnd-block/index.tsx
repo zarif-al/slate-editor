@@ -5,7 +5,7 @@ import { useSlate, ReactEditor, useReadOnly } from 'slate-react';
 import Element from '@/components/editor/render-element';
 import { RenderProps } from '@/utils/editor/types';
 import { Icon } from '@/components/_icons';
-
+import { ElementEnums } from '@/utils/editor/enums';
 interface ItemType {
   type: string;
   path: number[];
@@ -64,7 +64,7 @@ const DndBlock = (props: RenderProps): JSX.Element => {
   );
 
   //	Disable drag properties in list-items
-  if (props.element.type === 'list-item' || props.element.type === 'link') {
+  if (props.element.type === ElementEnums.ListItem || props.element.type === ElementEnums.Link) {
     return <Element {...props} />;
   }
 

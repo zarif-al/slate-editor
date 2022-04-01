@@ -2,6 +2,7 @@ import React from 'react';
 import { insertIframe, isIframe } from '@/components/editor/functions';
 import isUrl from 'is-url';
 import { useSlate } from 'slate-react';
+import { ElementEnums } from '@/utils/editor/enums';
 
 interface IframeButtonProps {
   icon: JSX.Element;
@@ -22,7 +23,7 @@ const InsertIframeButton = ({ icon }: IframeButtonProps): JSX.Element => {
       if (isIframe(url)) {
         var parser = new DOMParser();
         var parsedIframe = parser.parseFromString(url, 'text/html');
-        let iFrame = parsedIframe.getElementsByTagName('iframe');
+        let iFrame = parsedIframe.getElementsByTagName(ElementEnums.IFrame);
         let src = iFrame[0].src;
         insertIframe(editor, src);
       } else {

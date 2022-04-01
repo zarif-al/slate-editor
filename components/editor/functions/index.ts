@@ -3,7 +3,7 @@ import imageExtensions from 'image-extensions';
 import isUrl from 'is-url';
 import { CustomElement, LinkElement } from '@/utils/editor/types';
 import ToggleFunctions from '@/components/editor/toggle-functions';
-
+import { ElementEnums } from '@/utils/editor/enums';
 export const isImageUrl = (url: string): boolean => {
   if (!url) return false;
   if (!isUrl(url)) return false;
@@ -15,7 +15,7 @@ export const isImageUrl = (url: string): boolean => {
 export const insertImage = (editor: Editor, url: string | ArrayBuffer | null): void => {
   const text = { text: '' };
   const image: CustomElement = {
-    type: 'image',
+    type: ElementEnums.Image,
     url,
     size: {
       width: 400,
@@ -33,7 +33,7 @@ export const insertFile = (
 ): void => {
   const text = { text: '' };
   const file: CustomElement = {
-    type: 'file',
+    type: ElementEnums.File,
     url,
     name,
     children: [text],
@@ -43,14 +43,14 @@ export const insertFile = (
 
 export const insertAudio = (editor: Editor, url: string | ArrayBuffer | null): void => {
   const text = { text: '' };
-  const audio: CustomElement = { type: 'audio', url, children: [text] };
+  const audio: CustomElement = { type: ElementEnums.Audio, url, children: [text] };
   Transforms.insertNodes(editor, audio);
 };
 
 export const insertIframe = (editor: Editor, url: string | ArrayBuffer | null): void => {
   const text = { text: '' };
   const iframe: CustomElement = {
-    type: 'iframe',
+    type: ElementEnums.IFrame,
     url,
     size: {
       width: 400,

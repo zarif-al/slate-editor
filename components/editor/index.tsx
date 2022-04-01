@@ -99,6 +99,7 @@ const SlateEditor = ({ initialValue, setValue, readOnly }: SlateProps): JSX.Elem
           renderLeaf={renderLeaf}
           //	Keyboard ShortCut Functions Here
           onKeyDown={(event): void => {
+            // Use Arrow keys to get out of link element
             const { selection } = editor;
             if (selection && Range.isCollapsed(selection)) {
               const { nativeEvent } = event;
@@ -112,6 +113,11 @@ const SlateEditor = ({ initialValue, setValue, readOnly }: SlateProps): JSX.Elem
                 Transforms.move(editor, { unit: 'offset' });
                 return;
               }
+            }
+            // New Line on this shortcut
+            if (event.ctrlKey && event.key === 'Enter') {
+              event.preventDefault();
+              ToggleFunctions.toggleNewLine(editor);
             }
           }}
           onDrop={(e): boolean => {

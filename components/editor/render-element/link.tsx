@@ -1,6 +1,8 @@
 import React from 'react';
 import { RenderProps, LinkElement } from '@/utils/editor/types';
 import { useSelected, useReadOnly } from 'slate-react';
+
+// From their sample code
 const InlineChromiumBugfix = () => (
   <span
     contentEditable={false}

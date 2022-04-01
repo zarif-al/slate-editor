@@ -1,11 +1,11 @@
 import { Editor } from 'slate';
 import { isImageUrl, insertImage } from '@/components/editor/functions';
-
+import { ElementEnums } from '@/utils/editor/enums';
 const withImages = (editor: Editor): Editor => {
   const { insertData, isVoid } = editor;
 
   editor.isVoid = (element): boolean => {
-    return element.type === 'image' ? true : isVoid(element);
+    return element.type === ElementEnums.Image ? true : isVoid(element);
   };
 
   editor.insertData = (data): void => {

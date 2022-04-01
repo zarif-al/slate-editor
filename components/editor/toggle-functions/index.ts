@@ -1,11 +1,6 @@
 import { Transforms, Editor, Element, Text, Range } from 'slate';
-import {
-  CustomText,
-  BulletedListElement,
-  NumberedList,
-  Alignment,
-  LinkElement,
-} from '@/utils/editor/types';
+import { CustomText, ListParentElement, Alignment, LinkElement } from '@/utils/editor/types';
+import { ElementEnums } from '@/utils/editor/enums';
 type Mark = Omit<CustomText, 'text'> | null;
 
 const ToggleFunctions = {
@@ -15,52 +10,20 @@ const ToggleFunctions = {
 
     return marks ? marks[format as keyof Mark] === true : false;
   },
-  toggleBoldMark(editor: Editor): void {
-    const isActive = ToggleFunctions.isMarkActive(editor, 'bold');
+  toggleMark(editor: Editor, mark: string): void {
+    const isActive = ToggleFunctions.isMarkActive(editor, mark);
     Transforms.setNodes(
       editor,
-      { bold: isActive ? false : true },
+      { [mark]: isActive ? false : true },
       { match: (n) => Text.isText(n), split: true },
     );
   },
-  toggleItalicMark(editor: Editor): void {
-    const isActive = ToggleFunctions.isMarkActive(editor, 'italic');
-    Transforms.setNodes(
-      editor,
-      { italic: isActive ? false : true },
-      { match: (n) => Text.isText(n), split: true },
-    );
-  },
-  toggleUnderlineMark(editor: Editor): void {
-    const isActive = ToggleFunctions.isMarkActive(editor, 'underline');
-    Transforms.setNodes(
-      editor,
-      { underline: isActive ? false : true },
-      { match: (n) => Text.isText(n), split: true },
-    );
-  },
-  toggleCodeMark(editor: Editor): void {
-    const isActive = ToggleFunctions.isMarkActive(editor, 'code');
-
-    Transforms.setNodes(
-      editor,
-      { code: isActive ? false : true },
-      { match: (n) => Text.isText(n), split: true },
-    );
-  },
-  toggleLinkMark(editor: Editor, text: string): void {
-    const isActive = ToggleFunctions.isMarkActive(editor, 'link');
-    Transforms.setNodes(
-      editor,
-      { link: isActive ? false : true, text: text },
-      { match: (n) => Text.isText(n), split: true },
-    );
-  },
+  // Toggle New Line
   toggleNewLine(editor: Editor): void {
     Transforms.insertNodes(
       editor,
       {
-        type: 'paragraph',
+        type: ElementEnums.Paragraph,
         children: [{ text: '' }],
       },
       { at: [editor.children.length] },
@@ -93,99 +56,54 @@ const ToggleFunctions = {
     });
     return !!match;
   },
-  toggleHeadingOneBlock(editor: Editor): void {
-    const isActive = ToggleFunctions.isBlockActive(editor, 'heading-one');
-
+  toggleBlock(editor: Editor, block: string): void {
+    const isActive = ToggleFunctions.isBlockActive(editor, block);
     Transforms.unwrapNodes(editor, {
       match: (n) =>
-        Element.isElement(n) && (n.type == 'bulleted-list' || n.type == 'numbered-list'),
+        Element.isElement(n) &&
+        (n.type == ElementEnums.BulletedList || n.type == ElementEnums.NumberedList),
       split: true,
     });
 
-    Transforms.setNodes(
-      editor,
-      { type: isActive ? 'paragraph' : 'heading-one' },
-      { match: (n) => Editor.isBlock(editor, n), split: false },
-    );
-  },
-  toggleHeadingTwoBlock(editor: Editor): void {
-    const isActive = ToggleFunctions.isBlockActive(editor, 'heading-two');
-    Transforms.unwrapNodes(editor, {
-      match: (n) =>
-        Element.isElement(n) && (n.type == 'bulleted-list' || n.type == 'numbered-list'),
-      split: true,
-    });
-
-    Transforms.setNodes(
-      editor,
-      { type: isActive ? 'paragraph' : 'heading-two' },
-      { match: (n) => Editor.isBlock(editor, n), split: false },
-    );
-  },
-  toggleBulletListBlock(editor: Editor): void {
-    const isActive = ToggleFunctions.isBlockActive(editor, 'bulleted-list');
-    Transforms.unwrapNodes(editor, {
-      match: (n) =>
-        Element.isElement(n) && (n.type == 'bulleted-list' || n.type == 'numbered-list'),
-      split: true,
-    });
-
-    Transforms.setNodes(
-      editor,
-      { type: isActive ? 'paragraph' : 'list-item' },
-      { match: (n) => Editor.isBlock(editor, n), split: false },
-    );
-
-    if (!isActive) {
-      const list = { type: 'list-item', children: [{ text: '' }] };
-      const block = {
-        type: 'bulleted-list',
-        children: [list],
-      } as BulletedListElement;
-      Transforms.wrapNodes(editor, block);
-    }
-  },
-  toggleNumberedListBlock(editor: Editor): void {
-    const isActive = ToggleFunctions.isBlockActive(editor, 'numbered-list');
-
-    Transforms.unwrapNodes(editor, {
-      match: (n) =>
-        Element.isElement(n) && (n.type == 'bulleted-list' || n.type == 'numbered-list'),
-      split: true,
-    });
-
-    Transforms.setNodes(
-      editor,
-      { type: isActive ? 'paragraph' : 'list-item' },
-      { match: (n) => Editor.isBlock(editor, n), split: false },
-    );
-
-    if (!isActive) {
-      const list = { type: 'list-item', children: [{ text: '' }] };
-      const block = {
-        type: 'numbered-list',
-        children: [list],
-      } as NumberedList;
-      Transforms.wrapNodes(editor, block);
+    if (block == ElementEnums.BulletedList || block == ElementEnums.NumberedList) {
+      Transforms.setNodes(
+        editor,
+        { type: isActive ? ElementEnums.Paragraph : ElementEnums.ListItem },
+        { match: (n) => Editor.isBlock(editor, n), split: false },
+      );
+      if (!isActive) {
+        const list = { type: ElementEnums.ListItem, children: [{ text: '' }] };
+        const element = {
+          type: block,
+          children: [list],
+        } as ListParentElement;
+        Transforms.wrapNodes(editor, element);
+      }
+    } else {
+      Transforms.setNodes(
+        editor,
+        { type: isActive ? ElementEnums.Paragraph : (block as ElementEnums) },
+        { match: (n) => Editor.isBlock(editor, n), split: false },
+      );
     }
   },
   // Toggle Link
   isLinkActive(editor: Editor): boolean {
     const [link] = Editor.nodes(editor, {
-      match: (n) => !Editor.isEditor(n) && Element.isElement(n) && n.type === 'link',
+      match: (n) => !Editor.isEditor(n) && Element.isElement(n) && n.type === ElementEnums.Link,
     });
     return !!link;
   },
   unWrapLink(editor: Editor): void {
     Transforms.unwrapNodes(editor, {
-      match: (n) => !Editor.isEditor(n) && Element.isElement(n) && n.type === 'link',
+      match: (n) => !Editor.isEditor(n) && Element.isElement(n) && n.type === ElementEnums.Link,
     });
   },
   toggleWrapLink(editor: Editor, url: string): void {
     const { selection } = editor;
     const isCollapsed = selection && Range.isCollapsed(selection);
     const link: LinkElement = {
-      type: 'link',
+      type: ElementEnums.Link,
       url,
       children: isCollapsed ? [{ text: url }] : [],
     };

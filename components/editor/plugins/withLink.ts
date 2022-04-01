@@ -6,12 +6,12 @@ import isUrl from 'is-url';
 import ToggleFunctions from '@/components/editor/toggle-functions';
 import { Editor, Text } from 'slate';
 import { CustomElement } from '@/utils/editor/types';
-
+import { ElementEnums } from '@/utils/editor/enums';
 const withLinks = (editor: Editor) => {
   const { insertData, insertText, isInline } = editor;
 
   editor.isInline = (element: CustomElement) =>
-    ['link'].includes(element.type) || isInline(element);
+    element.type === ElementEnums.Link || isInline(element);
 
   editor.insertText = (text) => {
     if (text && isUrl(text)) {

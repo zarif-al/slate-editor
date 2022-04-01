@@ -1,5 +1,5 @@
 import { Attributes, ReactChildren } from 'react';
-
+import { ElementEnums } from '@/utils/editor/enums';
 // Alignment Types
 export type Alignment = 'left' | 'center' | 'right' | 'justify';
 
@@ -15,13 +15,13 @@ export type CustomText = {
 
 //Write Custom Element types Here
 export type ParagraphElement = {
-  type: 'paragraph';
+  type: ElementEnums.Paragraph;
   align?: Alignment;
   children: CustomText[];
 };
 
 export type IFrameElement = {
-  type: 'iframe';
+  type: ElementEnums.IFrame;
   url: string | ArrayBuffer | null;
   size: {
     width: number;
@@ -32,7 +32,7 @@ export type IFrameElement = {
 };
 
 export type ImageElement = {
-  type: 'image';
+  type: ElementEnums.Image;
   url: string | ArrayBuffer | null;
   size: {
     width: number;
@@ -43,49 +43,43 @@ export type ImageElement = {
 };
 
 export type LinkElement = {
-  type: 'link';
+  type: ElementEnums.Link;
   url: string;
   children: CustomText[];
 };
 
 export type HeadingOneElement = {
-  type: 'heading-one';
+  type: ElementEnums.HeadingOne;
   align?: Alignment;
   children: CustomText[];
 };
 
 export type HeadingTwoElement = {
-  type: 'heading-two';
+  type: ElementEnums.HeadingTwo;
   align?: Alignment;
   children: CustomText[];
 };
 
 export type ListElement = {
-  type: 'list-item';
+  type: ElementEnums.ListItem;
   children: CustomText[];
 };
 
-export type BulletedListElement = {
-  type: 'bulleted-list';
-  align?: Alignment;
-  children: ListElement[];
-};
-
-export type NumberedList = {
-  type: 'numbered-list';
+export type ListParentElement = {
+  type: ElementEnums.BulletedList | ElementEnums.NumberedList;
   align?: Alignment;
   children: ListElement[];
 };
 
 export type FileElement = {
-  type: 'file';
+  type: ElementEnums.File;
   url: string | ArrayBuffer | null;
   name: string;
   children: CustomText[];
 };
 
 export type AudioElement = {
-  type: 'audio';
+  type: ElementEnums.Audio;
   url: string | ArrayBuffer | null;
   children: CustomText[];
 };
@@ -97,8 +91,7 @@ export type CustomElement =
   | HeadingTwoElement
   | ImageElement
   | ListElement
-  | BulletedListElement
-  | NumberedList
+  | ListParentElement
   | FileElement
   | AudioElement
   | IFrameElement

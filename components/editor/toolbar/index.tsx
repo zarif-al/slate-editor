@@ -3,7 +3,7 @@ import { useSlate, useSelected } from 'slate-react';
 import ToggleFunctions from '@/components/editor/toggle-functions';
 import { Icon } from '@/components/_icons';
 import {
-  MarkButton,
+  ToolbarButton,
   InsertImageButton,
   InsertFileButton,
   InsertAudioButton,
@@ -11,6 +11,8 @@ import {
   InsertLinkButton,
 } from '@/components/editor/toolbar/components';
 import { CustomElement } from '@/utils/editor/types';
+import { ElementEnums } from '@/utils/editor/enums';
+
 const Toolbar = (): JSX.Element => {
   const editor = useSlate();
   // Needed to set alignment property on the selected block of content
@@ -38,9 +40,9 @@ const Toolbar = (): JSX.Element => {
         padding: '12px 0px',
       }}
     >
-      <MarkButton
+      <ToolbarButton
         action={(): void => {
-          ToggleFunctions.toggleBoldMark(editor);
+          ToggleFunctions.toggleMark(editor, 'bold');
         }}
         icon={
           <Icon.FormatBold
@@ -49,7 +51,7 @@ const Toolbar = (): JSX.Element => {
           />
         }
       />
-      <MarkButton
+      <ToolbarButton
         icon={
           <Icon.FormatItalic
             size={24}
@@ -57,11 +59,11 @@ const Toolbar = (): JSX.Element => {
           />
         }
         action={(): void => {
-          ToggleFunctions.toggleItalicMark(editor);
+          ToggleFunctions.toggleMark(editor, 'italic');
         }}
       />
 
-      <MarkButton
+      <ToolbarButton
         icon={
           <Icon.FormatUnderline
             size={24}
@@ -69,13 +71,13 @@ const Toolbar = (): JSX.Element => {
           />
         }
         action={(): void => {
-          ToggleFunctions.toggleUnderlineMark(editor);
+          ToggleFunctions.toggleMark(editor, 'underline');
         }}
       />
 
-      <MarkButton
+      <ToolbarButton
         action={(): void => {
-          ToggleFunctions.toggleCodeMark(editor);
+          ToggleFunctions.toggleMark(editor, 'code');
         }}
         icon={
           <Icon.Code
@@ -85,55 +87,63 @@ const Toolbar = (): JSX.Element => {
         }
       />
 
-      <MarkButton
+      <ToolbarButton
         action={(): void => {
-          ToggleFunctions.toggleHeadingOneBlock(editor);
+          ToggleFunctions.toggleBlock(editor, ElementEnums.HeadingOne);
         }}
         icon={
           <Icon.LooksOne
             size={24}
-            color={ToggleFunctions.isBlockActive(editor, 'heading-one') ? 'black' : '#ccc'}
+            color={
+              ToggleFunctions.isBlockActive(editor, ElementEnums.HeadingOne) ? 'black' : '#ccc'
+            }
           />
         }
       />
 
-      <MarkButton
+      <ToolbarButton
         action={(): void => {
-          ToggleFunctions.toggleHeadingTwoBlock(editor);
+          ToggleFunctions.toggleBlock(editor, ElementEnums.HeadingTwo);
         }}
         icon={
           <Icon.LooksTwo
             size={24}
-            color={ToggleFunctions.isBlockActive(editor, 'heading-two') ? 'black' : '#ccc'}
+            color={
+              ToggleFunctions.isBlockActive(editor, ElementEnums.HeadingTwo) ? 'black' : '#ccc'
+            }
           />
         }
       />
 
-      <MarkButton
+      <ToolbarButton
         action={(): void => {
-          ToggleFunctions.toggleBulletListBlock(editor);
+          ToggleFunctions.toggleBlock(editor, ElementEnums.BulletedList);
         }}
         icon={
           <Icon.BulletedList
             size={24}
-            color={ToggleFunctions.isBlockActive(editor, 'bulleted-list') ? 'black' : '#ccc'}
+            color={
+              ToggleFunctions.isBlockActive(editor, ElementEnums.BulletedList) ? 'black' : '#ccc'
+            }
           />
         }
       />
 
-      <MarkButton
+      <ToolbarButton
         action={(): void => {
-          ToggleFunctions.toggleNumberedListBlock(editor);
+          ToggleFunctions.toggleBlock(editor, ElementEnums.NumberedList);
         }}
         icon={
           <Icon.NumberedList
             size={24}
-            color={ToggleFunctions.isBlockActive(editor, 'numbered-list') ? 'black' : '#ccc'}
+            color={
+              ToggleFunctions.isBlockActive(editor, ElementEnums.NumberedList) ? 'black' : '#ccc'
+            }
           />
         }
       />
 
-      <MarkButton
+      <ToolbarButton
         action={(): void => {
           if (selectedBlock) {
             ToggleFunctions.toggleAlignment(editor, selectedBlock.type, 'left');
@@ -142,7 +152,7 @@ const Toolbar = (): JSX.Element => {
         icon={<Icon.AlignLeft size={24} color={isAlignActive('left') ? 'black' : '#ccc'} />}
       />
 
-      <MarkButton
+      <ToolbarButton
         action={(): void => {
           if (selectedBlock) {
             ToggleFunctions.toggleAlignment(editor, selectedBlock.type, 'center');
@@ -151,7 +161,7 @@ const Toolbar = (): JSX.Element => {
         icon={<Icon.AlignCenter size={24} color={isAlignActive('center') ? 'black' : '#ccc'} />}
       />
 
-      <MarkButton
+      <ToolbarButton
         action={(): void => {
           if (selectedBlock) {
             ToggleFunctions.toggleAlignment(editor, selectedBlock.type, 'right');
@@ -160,7 +170,7 @@ const Toolbar = (): JSX.Element => {
         icon={<Icon.AlignRight size={24} color={isAlignActive('right') ? 'black' : '#ccc'} />}
       />
 
-      <MarkButton
+      <ToolbarButton
         action={(): void => {
           if (selectedBlock) {
             ToggleFunctions.toggleAlignment(editor, selectedBlock.type, 'justify');
@@ -183,7 +193,7 @@ const Toolbar = (): JSX.Element => {
         }
       />
 
-      <MarkButton
+      <ToolbarButton
         action={(): void => {
           ToggleFunctions.toggleNewLine(editor);
         }}

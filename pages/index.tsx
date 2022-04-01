@@ -4,13 +4,13 @@ import Head from 'next/head';
 import Editor from 'components/editor';
 import { CustomText, CustomElement } from 'utils/editor/types';
 import { Descendant } from 'slate';
-
+import { ElementEnums } from '@/utils/editor/enums';
 const Home: NextPage = () => {
   const [previewMode, setPreviewMode] = useState(false);
 
   const initialValue: CustomElement[] = [
     {
-      type: 'paragraph',
+      type: ElementEnums.Paragraph,
       children: [{ text: 'A line of text in a paragraph.' }],
     },
   ];
