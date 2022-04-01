@@ -1,4 +1,4 @@
-import { Transforms, Editor, Range, Path, Element, Node } from 'slate';
+import { Transforms, Editor, Range, Element } from 'slate';
 import { CustomElement } from '@/utils/editor/types';
 import { ElementEnums } from '@/utils/editor/enums';
 // This plugin changes a node from a list-item to paragraph because normal behavior is bad for UX.
