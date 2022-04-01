@@ -1,66 +1,75 @@
 html,
 body {
-	padding: 0;
-	margin: 0;
-	font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-		Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  padding: 0;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell,
+    Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
 a {
-	color: inherit;
-	text-decoration: none;
+  color: inherit;
+  text-decoration: none;
 }
 
 * {
-	box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+h2,
+h1,
+p,
+li,
+span {
+  overflow-wrap: break-word;
+  word-break: break-all;
 }
 
 .react-resizable {
-	position: relative;
+  position: relative;
 }
 
 .react-resizable-handle {
-	position: absolute;
-	width: 20px;
-	background-repeat: no-repeat;
-	background-origin: content-box;
-	box-sizing: border-box;
-	height: 20px;
-	background-position: bottom right;
-	padding: 0 3px 3px 0;
-	background: transparent;
+  position: absolute;
+  width: 20px;
+  background-repeat: no-repeat;
+  background-origin: content-box;
+  box-sizing: border-box;
+  height: 20px;
+  background-position: bottom right;
+  padding: 0 3px 3px 0;
+  background: transparent;
 }
 
 .react-resizable-handle-w,
 .react-resizable-handle-e {
-	top: 0;
-	cursor: col-resize;
-	height: 100%;
+  top: 0;
+  cursor: col-resize;
+  height: 100%;
 }
 
 .react-resizable-handle-w::before,
 .react-resizable-handle-e::before {
-	position: absolute;
-	content: "";
-	width: 3px;
-	height: 64px;
-	border-radius: 6px;
-	left: 50%;
-	top: 50%;
-	transform: translate(0, -50%);
-	opacity: 0;
-	transition: opacity 0.3s;
+  position: absolute;
+  content: '';
+  width: 3px;
+  height: 64px;
+  border-radius: 6px;
+  left: 50%;
+  top: 50%;
+  transform: translate(0, -50%);
+  opacity: 0;
+  transition: opacity 0.3s;
 }
 
 .react-resizable-handle-w:hover::before,
 .react-resizable-handle-e:hover::before {
-	opacity: 1;
-	background: cyan;
+  opacity: 1;
+  background: cyan;
 }
 
 .react-resizable-handle-w {
-	left: -15px;
+  left: -15px;
 }
 .react-resizable-handle-e {
-	right: -15px;
+  right: -15px;
 }

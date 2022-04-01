@@ -37,7 +37,7 @@ const DndBlock = (props: RenderProps): JSX.Element => {
         type: 'container',
         path: path,
       },
-      canDrag: (monitor) => {
+      canDrag: (): boolean => {
         return !readOnly;
       },
       collect: (monitor): UseDragCollectReturnType => ({

@@ -1,5 +1,5 @@
 import React from 'react';
-import { useSlate, useSelected } from 'slate-react';
+import { useSlate } from 'slate-react';
 import ToggleFunctions from '@/components/editor/toggle-functions';
 import { Icon } from '@/components/_icons';
 import {
@@ -20,7 +20,7 @@ const Toolbar = (): JSX.Element => {
     ? (editor.children[editor.selection.anchor.path[0]] as CustomElement)
     : undefined;
 
-  const isAlignActive = (alignment: string) => {
+  const isAlignActive = (alignment: string): boolean => {
     if (selectedBlock) {
       return ToggleFunctions.isAlignActive(editor, selectedBlock.type, alignment);
     } else {

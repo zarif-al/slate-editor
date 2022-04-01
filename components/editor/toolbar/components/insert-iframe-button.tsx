@@ -11,7 +11,7 @@ interface IframeButtonProps {
 const InsertIframeButton = ({ icon }: IframeButtonProps): JSX.Element => {
   const editor = useSlate();
 
-  const linkHandler = () => {
+  const linkHandler = (): void => {
     const url = window.prompt('Enter the URL of the iframe:');
 
     if (!url) {
@@ -21,10 +21,10 @@ const InsertIframeButton = ({ icon }: IframeButtonProps): JSX.Element => {
       return;
     } else {
       if (isIframe(url)) {
-        var parser = new DOMParser();
-        var parsedIframe = parser.parseFromString(url, 'text/html');
-        let iFrame = parsedIframe.getElementsByTagName(ElementEnums.IFrame);
-        let src = iFrame[0].src;
+        const parser = new DOMParser();
+        const parsedIframe = parser.parseFromString(url, 'text/html');
+        const iFrame = parsedIframe.getElementsByTagName(ElementEnums.IFrame);
+        const src = iFrame[0].src;
         insertIframe(editor, src);
       } else {
         insertIframe(editor, url);

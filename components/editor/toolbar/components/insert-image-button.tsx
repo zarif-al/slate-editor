@@ -41,9 +41,10 @@ const InsertImageButton = ({ icon }: InsertImageTypes): JSX.Element => {
   );
 
   const handleMouseDown = (): void => {
-    if (ref.current !== null) {
+    alert('Not Implemented');
+    /*    if (ref.current !== null) {
       ref.current.click();
-    }
+    } */
   };
 
   return (

@@ -1,19 +1,15 @@
-// this hoc componenet used to check if inserted text is url or not
-// https://github.com/ianstormtaylor/slate/blob/master/site/examples/links.tsx
-
-import { ReactEditor } from 'slate-react';
 import isUrl from 'is-url';
 import ToggleFunctions from '@/components/editor/toggle-functions';
-import { Editor, Text } from 'slate';
+import { Editor } from 'slate';
 import { CustomElement } from '@/utils/editor/types';
 import { ElementEnums } from '@/utils/editor/enums';
-const withLinks = (editor: Editor) => {
+const withLinks = (editor: Editor): Editor => {
   const { insertData, insertText, isInline } = editor;
 
-  editor.isInline = (element: CustomElement) =>
+  editor.isInline = (element: CustomElement): boolean =>
     element.type === ElementEnums.Link || isInline(element);
 
-  editor.insertText = (text) => {
+  editor.insertText = (text): void => {
     if (text && isUrl(text)) {
       ToggleFunctions.toggleWrapLink(editor, text);
     } else {
@@ -21,7 +17,7 @@ const withLinks = (editor: Editor) => {
     }
   };
 
-  editor.insertData = (data) => {
+  editor.insertData = (data): void => {
     const text = data.getData('text/plain');
 
     if (text && isUrl(text)) {

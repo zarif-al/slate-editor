@@ -2,8 +2,8 @@ import React from 'react';
 import { RenderProps, LinkElement } from '@/utils/editor/types';
 import { useSelected, useReadOnly } from 'slate-react';
 
-// From their sample code
-const InlineChromiumBugfix = () => (
+// From their sample code to fix some chrome bug
+/* const InlineChromiumBugfix = () => (
   <span
     contentEditable={false}
     style={{
@@ -12,9 +12,9 @@ const InlineChromiumBugfix = () => (
   >
     ${String.fromCodePoint(160)}
   </span>
-);
+); */
 
-const LinkRender = (props: RenderProps) => {
+const LinkRender = (props: RenderProps): JSX.Element => {
   const element = props.element as LinkElement;
   const selected = useSelected();
   const readOnly = useReadOnly();

@@ -54,7 +54,7 @@ const ImageRenderer = (props: RenderProps): JSX.Element => {
           height={imageSize.height}
           lockAspectRatio={true}
           minConstraints={[100, 100]}
-          maxConstraints={[700, 700 / aspectRatio]}
+          maxConstraints={[648, 648 / aspectRatio]}
           resizeHandles={['w', 'e']}
           onResizeStop={onResizeStop}
           handle={

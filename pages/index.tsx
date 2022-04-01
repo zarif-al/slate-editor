@@ -35,7 +35,7 @@ const Home: NextPage = () => {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        padding: '0 2rem',
+        /*      padding: '0 2rem', */
         flexDirection: 'column',
         marginTop: '100px',
         gap: '20px',
@@ -57,9 +57,7 @@ const Home: NextPage = () => {
         style={{
           width: '800px',
           border: '2px solid black',
-          padding: '1rem 2rem',
-          height: '600px',
-          overflow: 'scroll',
+          /*  padding: '0rem 2rem', */
         }}
       >
         <Editor initialValue={value} setValue={setValue} readOnly={previewMode} />

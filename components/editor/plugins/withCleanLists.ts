@@ -7,7 +7,7 @@ import { ElementEnums } from '@/utils/editor/enums';
 const withCleanLists = (editor: Editor): Editor => {
   const { deleteBackward } = editor;
 
-  editor.deleteBackward = (unit) => {
+  editor.deleteBackward = (unit): void => {
     const { selection } = editor;
 
     if (

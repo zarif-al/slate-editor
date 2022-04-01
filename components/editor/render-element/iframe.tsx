@@ -56,7 +56,7 @@ const IframeRender = (props: RenderProps): JSX.Element => {
             height={iframeSize.height}
             lockAspectRatio={true}
             minConstraints={[100, 100]}
-            maxConstraints={[700, 350]}
+            maxConstraints={[648, 324]}
             resizeHandles={['w', 'e']}
             onResizeStop={onResizeStop}
             handle={

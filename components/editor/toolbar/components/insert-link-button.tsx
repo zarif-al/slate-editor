@@ -7,9 +7,9 @@ interface InsertLinkProps {
   icon: JSX.Element;
 }
 
-const InsertLinkButton = ({ icon }: InsertLinkProps) => {
+const InsertLinkButton = ({ icon }: InsertLinkProps): JSX.Element => {
   const editor = useSlate();
-  const linkHandler = () => {
+  const linkHandler = (): void => {
     if (ToggleFunctions.isLinkActive(editor)) {
       ToggleFunctions.unWrapLink(editor);
     } else {

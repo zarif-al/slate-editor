@@ -1,9 +1,9 @@
-import { Editor, Transforms, Path, Element, Range } from 'slate';
+import { Editor, Transforms, Path } from 'slate';
 import imageExtensions from 'image-extensions';
 import isUrl from 'is-url';
-import { CustomElement, LinkElement } from '@/utils/editor/types';
-import ToggleFunctions from '@/components/editor/toggle-functions';
+import { CustomElement } from '@/utils/editor/types';
 import { ElementEnums } from '@/utils/editor/enums';
+
 export const isImageUrl = (url: string): boolean => {
   if (!url) return false;
   if (!isUrl(url)) return false;
@@ -77,7 +77,7 @@ export const removeElement = (editor: Editor, path: Path): void => {
 export function isAcceptableFormat(
   acceptableFormats: string,
   event: React.ChangeEvent<HTMLInputElement>,
-) {
+): boolean {
   const formats = acceptableFormats.split(',');
   const file = event.currentTarget.files && event.currentTarget.files[0];
   if (file) {
