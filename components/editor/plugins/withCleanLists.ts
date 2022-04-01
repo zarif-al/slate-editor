@@ -1,4 +1,4 @@
-import { Transforms, Editor, Range } from 'slate';
+import { Transforms, Editor, Range, Path, Element, Node } from 'slate';
 import { CustomElement } from '@/utils/editor/types';
 import { ElementEnums } from '@/utils/editor/enums';
 // This plugin changes a node from a list-item to paragraph because normal behavior is bad for UX.
@@ -21,10 +21,30 @@ const withCleanLists = (editor: Editor): Editor => {
         (node?.type === ElementEnums.NumberedList || node?.type === ElementEnums.BulletedList) &&
         node.children.length === 1
       ) {
-        Transforms.setNodes(editor, {
-          type: ElementEnums.Paragraph,
-          children: [{ text: '' }],
-        });
+        // If the list is not on the first line
+        if (selection.anchor.path[0] > 0) {
+          Transforms.setNodes(
+            editor,
+            {
+              type: ElementEnums.Paragraph,
+              children: [{ text: '' }],
+            },
+            { at: [selection.anchor.path[0], 0] },
+          );
+        } else {
+          // If the list is on the first line
+          Transforms.unwrapNodes(editor, {
+            match: (n) =>
+              Element.isElement(n) &&
+              (n.type == ElementEnums.BulletedList || n.type == ElementEnums.NumberedList),
+            split: true,
+          });
+          Transforms.setNodes(
+            editor,
+            { type: ElementEnums.Paragraph, children: [{ text: '' }] },
+            { match: (n) => Editor.isBlock(editor, n), split: false },
+          );
+        }
       }
       deleteBackward(unit);
     } else {
