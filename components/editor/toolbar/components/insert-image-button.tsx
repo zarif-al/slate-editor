@@ -1,7 +1,6 @@
 import React, { useRef, useCallback } from 'react';
 import { useSlate } from 'slate-react';
-import { isAcceptableFormat } from '@/utils/editor/functions';
-import { insertImage } from '@/components/editor/functions';
+import { insertImage, isAcceptableFormat } from '@/components/editor/helper';
 
 interface InsertImageTypes {
   icon: JSX.Element;

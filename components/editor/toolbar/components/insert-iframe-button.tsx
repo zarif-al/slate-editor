@@ -1,5 +1,5 @@
 import React from 'react';
-import { insertIframe, isIframe } from '@/components/editor/functions';
+import { insertIframe, isIframe } from '@/components/editor/helper';
 import isUrl from 'is-url';
 import { useSlate } from 'slate-react';
 import { ElementEnums } from '@/utils/editor/enums';

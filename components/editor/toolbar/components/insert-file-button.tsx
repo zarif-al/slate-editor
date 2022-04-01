@@ -1,7 +1,6 @@
 import React, { useRef, useCallback } from 'react';
 import { useSlate } from 'slate-react';
-import { isAcceptableFormat } from '@/utils/editor/functions';
-import { insertFile } from '@/components/editor/functions';
+import { insertFile, isAcceptableFormat } from '@/components/editor/helper';
 
 interface InsertFileType {
   icon: JSX.Element;

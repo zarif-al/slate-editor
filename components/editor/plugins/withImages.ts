@@ -1,5 +1,5 @@
 import { Editor } from 'slate';
-import { isImageUrl, insertImage } from '@/components/editor/functions';
+import { isImageUrl, insertImage } from '@/components/editor/helper';
 import { ElementEnums } from '@/utils/editor/enums';
 const withImages = (editor: Editor): Editor => {
   const { insertData, isVoid } = editor;

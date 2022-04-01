@@ -1,7 +1,7 @@
 import React from 'react';
 import { RenderProps, FileElement } from '@/utils/editor/types';
 import { Icon } from '@/components/_icons';
-import { removeElement } from '@/components/editor/functions';
+import { removeElement } from '@/components/editor/helper';
 import { ReactEditor, useSlate, useReadOnly } from 'slate-react';
 
 const File = (props: RenderProps): JSX.Element => {
