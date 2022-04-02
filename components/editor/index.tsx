@@ -117,6 +117,7 @@ const SlateEditor = ({ initialValue, setValue, readOnly }: SlateProps): JSX.Elem
             if (event.ctrlKey && event.key === 'Enter') {
               event.preventDefault();
               ToggleFunctions.toggleNewLine(editor);
+              Transforms.move(editor, { unit: 'character' });
             }
           }}
           onDrop={(e): boolean => {
