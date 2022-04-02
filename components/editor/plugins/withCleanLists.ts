@@ -5,7 +5,7 @@ import { ElementEnums } from '@/utils/editor/enums';
 // Normal behavior renders a list-item without a parent ordered/unordered list tag
 
 const withCleanLists = (editor: Editor): Editor => {
-  const { deleteBackward, deleteForward } = editor;
+  const { deleteBackward } = editor;
 
   editor.deleteBackward = (unit): void => {
     const { selection } = editor;

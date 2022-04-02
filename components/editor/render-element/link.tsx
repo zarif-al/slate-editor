@@ -3,7 +3,7 @@ import { RenderProps, LinkElement } from '@/utils/editor/types';
 import { useSelected, useReadOnly } from 'slate-react';
 
 // From their sample code to fix some chrome bug
-const InlineChromiumBugfix = () => (
+const InlineChromiumBugfix = (): JSX.Element => (
   <span
     contentEditable={false}
     style={{
