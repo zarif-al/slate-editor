@@ -19,7 +19,7 @@ const withCleanLists = (editor: Editor): Editor => {
       const node = editor.children[selection.anchor.path[0]] as CustomElement | undefined;
       const prevNode = editor.children[selection.anchor.path[0] - 1] as CustomElement | undefined;
 
-      // If the previous node is a lis
+      // If the previous node is a list-item. This code is necessary if the previous list-item has no content.
       if (
         prevNode &&
         (prevNode.type === ElementEnums.NumberedList || prevNode.type === ElementEnums.BulletedList)
