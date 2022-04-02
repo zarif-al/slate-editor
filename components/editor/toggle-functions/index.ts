@@ -28,6 +28,7 @@ const ToggleFunctions = {
       },
       { at: [editor.children.length] },
     );
+    Transforms.move(editor, { unit: 'character' });
   },
   // Toggle Alignment
   isAlignActive(editor: Editor, block: string, align: string): boolean {
