@@ -3,7 +3,7 @@ import { RenderProps, LinkElement } from '@/utils/editor/types';
 import { useSelected, useReadOnly } from 'slate-react';
 
 // From their sample code to fix some chrome bug
-/* const InlineChromiumBugfix = () => (
+const InlineChromiumBugfix = () => (
   <span
     contentEditable={false}
     style={{
@@ -12,7 +12,7 @@ import { useSelected, useReadOnly } from 'slate-react';
   >
     ${String.fromCodePoint(160)}
   </span>
-); */
+);
 
 const LinkRender = (props: RenderProps): JSX.Element => {
   const element = props.element as LinkElement;
@@ -25,11 +25,13 @@ const LinkRender = (props: RenderProps): JSX.Element => {
       style={{
         boxShadow: !readOnly && selected ? '0 0 0 3px #ddd' : '',
         color: 'blue',
+        overflowWrap: 'break-word',
+        wordBreak: 'break-all',
       }}
     >
-      {/*  <InlineChromiumBugfix /> */}
+      <InlineChromiumBugfix />
       {props.children}
-      {/*  <InlineChromiumBugfix /> */}
+      <InlineChromiumBugfix />
     </a>
   );
 };
