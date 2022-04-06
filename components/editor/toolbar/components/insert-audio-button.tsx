@@ -5,11 +5,12 @@ import { uploadFile } from '@/service/storage';
 
 interface InsertFileType {
   icon: JSX.Element;
+  tooltip: string;
 }
 
 const EDITOR_UPLOAD_ACCEPT = '.mp3';
 
-const InsertAudioButton = ({ icon }: InsertFileType): JSX.Element => {
+const InsertAudioButton = ({ icon, tooltip }: InsertFileType): JSX.Element => {
   const ref = useRef<HTMLInputElement>(null);
   const editor = useSlate();
   const onUploadAudio = useCallback(
@@ -52,6 +53,7 @@ const InsertAudioButton = ({ icon }: InsertFileType): JSX.Element => {
         event.preventDefault();
         handleMouseDown();
       }}
+      title={tooltip}
     >
       <input
         ref={ref}

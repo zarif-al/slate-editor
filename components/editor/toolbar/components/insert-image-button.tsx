@@ -4,11 +4,12 @@ import { insertImage, isAcceptableFormat } from '@/components/editor/helper';
 import { uploadFile } from '@/service/storage';
 interface InsertImageTypes {
   icon: JSX.Element;
+  tooltip: string;
 }
 
 const EDITOR_UPLOAD_ACCEPT = '.jpg,.jpeg,.png,.gif,.bmp';
 
-const InsertImageButton = ({ icon }: InsertImageTypes): JSX.Element => {
+const InsertImageButton = ({ icon, tooltip }: InsertImageTypes): JSX.Element => {
   const ref = useRef<HTMLInputElement>(null);
   const editor = useSlate();
 
@@ -51,6 +52,7 @@ const InsertImageButton = ({ icon }: InsertImageTypes): JSX.Element => {
         event.preventDefault();
         handleMouseDown();
       }}
+      title={tooltip}
     >
       <input
         ref={ref}

@@ -9,7 +9,7 @@ const withImages = (editor: Editor): Editor => {
     return element.type === ElementEnums.Image ? true : isVoid(element);
   };
 
-  editor.insertData = (data): void => {
+  editor.insertData = async (data): Promise<void> => {
     const text = data.getData('text/plain');
     const { files } = data;
 
@@ -19,7 +19,7 @@ const withImages = (editor: Editor): Editor => {
         const [mime] = file.type.split('/');
 
         if (mime === 'image') {
-          const url = uploadFile(file);
+          const url = await uploadFile(file);
           insertImage(editor, url);
         }
       }

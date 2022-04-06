@@ -4,11 +4,12 @@ import { insertFile, isAcceptableFormat } from '@/components/editor/helper';
 import { uploadFile } from '@/service/storage';
 interface InsertFileType {
   icon: JSX.Element;
+  tooltip: string;
 }
 
 const EDITOR_UPLOAD_ACCEPT = '.zip,.rar,.doc,.docx,.pdf';
 
-const InsertFileButton = ({ icon }: InsertFileType): JSX.Element => {
+const InsertFileButton = ({ icon, tooltip }: InsertFileType): JSX.Element => {
   const ref = useRef<HTMLInputElement>(null);
   const editor = useSlate();
 
@@ -23,7 +24,7 @@ const InsertFileButton = ({ icon }: InsertFileType): JSX.Element => {
           const file = event.currentTarget.files[0];
           if (file) {
             const url = await uploadFile(file);
-            insertFile(editor, file, file.name);
+            insertFile(editor, url, file.name);
           }
         } catch (error) {
           // eslint-disable-next-line no-console
@@ -51,6 +52,7 @@ const InsertFileButton = ({ icon }: InsertFileType): JSX.Element => {
         event.preventDefault();
         handleMouseDown();
       }}
+      title={tooltip}
     >
       <input
         ref={ref}

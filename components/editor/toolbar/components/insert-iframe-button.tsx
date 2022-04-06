@@ -6,9 +6,10 @@ import { ElementEnums } from '@/utils/editor/enums';
 
 interface IframeButtonProps {
   icon: JSX.Element;
+  tooltip: string;
 }
 
-const InsertIframeButton = ({ icon }: IframeButtonProps): JSX.Element => {
+const InsertIframeButton = ({ icon, tooltip }: IframeButtonProps): JSX.Element => {
   const editor = useSlate();
 
   const linkHandler = (): void => {
@@ -43,6 +44,7 @@ const InsertIframeButton = ({ icon }: IframeButtonProps): JSX.Element => {
         event.preventDefault();
         linkHandler();
       }}
+      title={tooltip}
     >
       {icon}
     </span>

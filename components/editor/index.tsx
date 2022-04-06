@@ -118,6 +118,26 @@ const SlateEditor = ({ initialValue, setValue, readOnly }: SlateProps): JSX.Elem
               event.preventDefault();
               ToggleFunctions.toggleNewLine(editor);
             }
+            // New Line on this shortcut
+            if (event.ctrlKey && event.key === 'Backspace') {
+              event.preventDefault();
+              ToggleFunctions.toggleRemoveLine(editor);
+            }
+            // Bold on this shortcut
+            if (event.ctrlKey && event.key === 'b') {
+              event.preventDefault();
+              ToggleFunctions.toggleMark(editor, 'bold');
+            }
+            // Underline on this shortcut
+            if (event.ctrlKey && event.key === 'u') {
+              event.preventDefault();
+              ToggleFunctions.toggleMark(editor, 'underline');
+            }
+            // Italic on this shortcut
+            if (event.ctrlKey && event.key === 'i') {
+              event.preventDefault();
+              ToggleFunctions.toggleMark(editor, 'italic');
+            }
           }}
           onDrop={(e): boolean => {
             //	This is necessary because we dont want to use slate-reacts default drag-drop function to move text around.

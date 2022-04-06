@@ -61,6 +61,7 @@ import { IconAlignRight } from '@/components/_icons/format-align-right';
 import { IconAlignLeft } from '@/components/_icons/format-align-left';
 import { IconAlignCenter } from '@/components/_icons/format-align-center';
 import { IconAlignJustify } from '@/components/_icons/format-align-justify';
+import { IconMinus } from '@/components/_icons/minus';
 interface IconProps {
   color?: string;
   size?: number;
@@ -350,4 +351,8 @@ Icon.AlignCenter = ({ color = DEFAULT_COLOR, size = DEFAULT_SIZE }: IconProps): 
 
 Icon.AlignJustify = ({ color = DEFAULT_COLOR, size = DEFAULT_SIZE }: IconProps): JSX.Element => (
   <IconAlignJustify color={color} size={size} />
+);
+
+Icon.Minus = ({ color = DEFAULT_COLOR, size = DEFAULT_SIZE }: IconProps): JSX.Element => (
+  <IconMinus color={color} size={size} />
 );

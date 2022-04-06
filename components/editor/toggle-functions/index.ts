@@ -1,5 +1,11 @@
 import { Transforms, Editor, Element, Text, Range } from 'slate';
-import { CustomText, ListParentElement, Alignment, LinkElement } from '@/utils/editor/types';
+import {
+  CustomText,
+  ListParentElement,
+  Alignment,
+  LinkElement,
+  CustomElement,
+} from '@/utils/editor/types';
 import { ElementEnums } from '@/utils/editor/enums';
 type Mark = Omit<CustomText, 'text'> | null;
 
@@ -28,6 +34,11 @@ const ToggleFunctions = {
       },
       { at: [editor.children.length] },
     );
+    Transforms.move(editor, { unit: 'character' });
+  },
+  // Toggle Remove Line
+  toggleRemoveLine(editor: Editor): void {
+    Transforms.removeNodes(editor, { at: [editor.children.length] });
     Transforms.move(editor, { unit: 'character' });
   },
   // Toggle Alignment
@@ -103,6 +114,15 @@ const ToggleFunctions = {
   toggleWrapLink(editor: Editor, url: string): void {
     const { selection } = editor;
     const isCollapsed = selection && Range.isCollapsed(selection);
+
+    const currentElement =
+      selection && (editor.children[selection.anchor.path[0]] as CustomElement | undefined);
+
+    if (currentElement && currentElement.type !== ElementEnums.Paragraph) {
+      console.log('Trigger');
+      Transforms.move(editor, { distance: 1, unit: 'character', reverse: false });
+    }
+
     const link: LinkElement = {
       type: ElementEnums.Link,
       url,
