@@ -1,7 +1,7 @@
 import React, { useRef, useCallback } from 'react';
 import { useSlate } from 'slate-react';
 import { insertFile, isAcceptableFormat } from '@/components/editor/helper';
-
+import { uploadFile } from '@/service/storage';
 interface InsertFileType {
   icon: JSX.Element;
 }
@@ -22,14 +22,8 @@ const InsertFileButton = ({ icon }: InsertFileType): JSX.Element => {
         try {
           const file = event.currentTarget.files[0];
           if (file) {
-            const reader = new FileReader();
-
-            reader.addEventListener('load', () => {
-              const url = reader.result;
-              insertFile(editor, url, file.name);
-            });
-
-            reader.readAsDataURL(file);
+            const url = await uploadFile(file);
+            insertFile(editor, file, file.name);
           }
         } catch (error) {
           // eslint-disable-next-line no-console
@@ -41,10 +35,9 @@ const InsertFileButton = ({ icon }: InsertFileType): JSX.Element => {
   );
 
   const handleMouseDown = (): void => {
-    alert('Not Implemented');
-    /*  if (ref.current !== null) {
+    if (ref.current !== null) {
       ref.current.click();
-    } */
+    }
   };
 
   return (

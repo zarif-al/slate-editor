@@ -1,7 +1,7 @@
 import React, { useRef, useCallback } from 'react';
 import { useSlate } from 'slate-react';
 import { insertImage, isAcceptableFormat } from '@/components/editor/helper';
-
+import { uploadFile } from '@/service/storage';
 interface InsertImageTypes {
   icon: JSX.Element;
 }
@@ -22,14 +22,8 @@ const InsertImageButton = ({ icon }: InsertImageTypes): JSX.Element => {
         try {
           const file = event.currentTarget.files[0];
           if (file) {
-            const reader = new FileReader();
-
-            reader.addEventListener('load', () => {
-              const url = reader.result;
-              insertImage(editor, url);
-            });
-
-            reader.readAsDataURL(file);
+            const image_url = await uploadFile(file);
+            insertImage(editor, image_url);
           }
         } catch (error) {
           // eslint-disable-next-line no-console
@@ -41,10 +35,9 @@ const InsertImageButton = ({ icon }: InsertImageTypes): JSX.Element => {
   );
 
   const handleMouseDown = (): void => {
-    alert('Not Implemented');
-    /*    if (ref.current !== null) {
+    if (ref.current !== null) {
       ref.current.click();
-    } */
+    }
   };
 
   return (

@@ -6,32 +6,37 @@ const Audio = (props: RenderProps): JSX.Element => {
   const element = props.element as AudioElement;
 
   return (
-    <div {...props.attributes} contentEditable={false}>
+    <div
+      {...props.attributes}
+      contentEditable={false}
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        width: '100%',
+        margin: '16px 0px',
+      }}
+    >
       <div
         style={{
-          position: 'relative',
-          border: '1px solid #ccc',
-          height: '70px',
-          borderRadius: '6px',
           display: 'flex',
           alignItems: 'center',
+          gap: '10px',
         }}
       >
-        <audio src={element.url as string} controls controlsList="nodownload"></audio>
-        <a
-          href={element.url as string}
-          download
+        <audio
+          src={element.url as string}
+          controls
+          controlsList="nodownload"
           style={{
-            position: 'absolute',
-            right: '27px',
-            top: '50%',
-            transform: 'translateY(-50%)',
+            height: '40px',
+            width: '400px',
           }}
-        >
-          <Icon.Download size={16} color={'#ccc'} />
+        ></audio>
+        <a href={element.url as string} download>
+          <Icon.Download size={24} color={'#ccc'} />
         </a>
       </div>
-      {element.children}
+      {props.children}
     </div>
   );
 };

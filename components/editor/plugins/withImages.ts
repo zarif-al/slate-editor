@@ -1,6 +1,7 @@
 import { Editor } from 'slate';
 import { isImageUrl, insertImage } from '@/components/editor/helper';
 import { ElementEnums } from '@/utils/editor/enums';
+import { uploadFile } from '@/service/storage';
 const withImages = (editor: Editor): Editor => {
   const { insertData, isVoid } = editor;
 
@@ -18,12 +19,8 @@ const withImages = (editor: Editor): Editor => {
         const [mime] = file.type.split('/');
 
         if (mime === 'image') {
-          reader.addEventListener('load', () => {
-            const url = reader.result;
-            insertImage(editor, url);
-          });
-
-          reader.readAsDataURL(file);
+          const url = uploadFile(file);
+          insertImage(editor, url);
         }
       }
     } else if (isImageUrl(text)) {

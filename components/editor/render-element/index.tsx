@@ -10,6 +10,7 @@ import File from '@/components/editor/render-element/file';
 import IframeRender from '@/components/editor/render-element/iframe';
 import ParagraphElement from '@/components/editor/render-element/paragraph';
 import LinkElement from '@/components/editor/render-element/link';
+import AudioElement from '@/components/editor/render-element/audio';
 import { RenderProps } from '@/utils/editor/types';
 import { ElementEnums } from '@/utils/editor/enums';
 
@@ -35,6 +36,8 @@ const Element = (props: RenderProps): JSX.Element => {
       return <ParagraphElement {...props} />;
     case ElementEnums.Link:
       return <LinkElement {...props} />;
+    case ElementEnums.Audio:
+      return <AudioElement {...props} />;
     default:
       return <DefaultElement {...props} />;
   }
