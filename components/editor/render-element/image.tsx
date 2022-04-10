@@ -35,7 +35,6 @@ const ImageRenderer = (props: RenderProps): JSX.Element => {
       {...props.attributes}
       contentEditable={false}
       style={{
-        margin: '16px 0',
         width: '100%',
         display: 'flex',
         justifyContent: element.align ? element.align : 'left',

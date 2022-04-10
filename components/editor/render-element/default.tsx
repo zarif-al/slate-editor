@@ -9,6 +9,7 @@ const DefaultElement = (props: RenderProps): JSX.Element => {
       style={{
         overflowWrap: 'break-word',
         wordBreak: 'break-all',
+        marginBottom: 0,
       }}
     >
       {props.children}

@@ -18,7 +18,6 @@ const Audio = (props: RenderProps): JSX.Element => {
         display: 'flex',
         alignItems: 'center',
         width: '100%',
-        margin: '16px 0px',
       }}
     >
       <div

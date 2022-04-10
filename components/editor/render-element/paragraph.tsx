@@ -10,6 +10,7 @@ const ParagraphRender = (props: RenderProps): JSX.Element => {
         textAlign: element.align ? element.align : 'left',
         overflowWrap: 'break-word',
         wordBreak: 'break-all',
+        marginBottom: 0,
       }}
     >
       {props.children}

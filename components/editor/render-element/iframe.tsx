@@ -32,7 +32,6 @@ const IframeRender = (props: RenderProps): JSX.Element => {
       {...props.attributes}
       contentEditable={false}
       style={{
-        margin: '16px 0',
         cursor: 'pointer',
       }}
     >

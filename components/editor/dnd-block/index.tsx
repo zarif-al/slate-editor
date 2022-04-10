@@ -75,6 +75,7 @@ const DndBlock = (props: RenderProps): JSX.Element => {
           display: 'flex',
           gap: '10px',
           alignItems: 'center',
+          margin: '16px 0px',
         }}
       >
         {!readOnly && (
@@ -88,7 +89,7 @@ const DndBlock = (props: RenderProps): JSX.Element => {
           style={{
             color: isDragging ? 'grey' : 'black',
             backgroundColor: isOver ? '#ccc' : 'transparent',
-            borderRadius: isOver ? '10px' : '0px',
+            borderRadius: isOver ? '6px' : '0px',
             width: '100%',
           }}
         >
