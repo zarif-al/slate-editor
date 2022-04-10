@@ -54,6 +54,7 @@ const Toolbar = (): JSX.Element => {
             color={ToggleFunctions.isMarkActive(editor, 'bold') ? 'black' : '#ccc'}
           />
         }
+        tooltip="Bold | CTRL + B"
       />
       <ToolbarButton
         icon={
@@ -65,6 +66,7 @@ const Toolbar = (): JSX.Element => {
         action={(): void => {
           ToggleFunctions.toggleMark(editor, 'italic');
         }}
+        tooltip="Bold | CTRL + I"
       />
 
       <ToolbarButton
@@ -77,6 +79,7 @@ const Toolbar = (): JSX.Element => {
         action={(): void => {
           ToggleFunctions.toggleMark(editor, 'underline');
         }}
+        tooltip="Bold | CTRL + U"
       />
 
       <ToolbarButton
@@ -89,6 +92,7 @@ const Toolbar = (): JSX.Element => {
             color={ToggleFunctions.isMarkActive(editor, 'code') ? 'black' : '#ccc'}
           />
         }
+        tooltip="Code"
       />
 
       <ToolbarButton
@@ -103,6 +107,7 @@ const Toolbar = (): JSX.Element => {
             }
           />
         }
+        tooltip="H1"
       />
 
       <ToolbarButton
@@ -117,6 +122,7 @@ const Toolbar = (): JSX.Element => {
             }
           />
         }
+        tooltip="H2"
       />
 
       <ToolbarButton
@@ -131,6 +137,7 @@ const Toolbar = (): JSX.Element => {
             }
           />
         }
+        tooltip="Unordered Bulletlist"
       />
 
       <ToolbarButton
@@ -145,6 +152,7 @@ const Toolbar = (): JSX.Element => {
             }
           />
         }
+        tooltip="Numbered Bulletlist"
       />
 
       <ToolbarButton
@@ -154,6 +162,7 @@ const Toolbar = (): JSX.Element => {
           }
         }}
         icon={<Icon.AlignLeft size={24} color={isAlignActive('left') ? 'black' : '#ccc'} />}
+        tooltip="Align Left"
       />
 
       <ToolbarButton
@@ -163,6 +172,7 @@ const Toolbar = (): JSX.Element => {
           }
         }}
         icon={<Icon.AlignCenter size={24} color={isAlignActive('center') ? 'black' : '#ccc'} />}
+        tooltip="Align Center"
       />
 
       <ToolbarButton
@@ -172,6 +182,7 @@ const Toolbar = (): JSX.Element => {
           }
         }}
         icon={<Icon.AlignRight size={24} color={isAlignActive('right') ? 'black' : '#ccc'} />}
+        tooltip="Align Right"
       />
 
       <ToolbarButton
@@ -181,20 +192,28 @@ const Toolbar = (): JSX.Element => {
           }
         }}
         icon={<Icon.AlignJustify size={24} color={isAlignActive('justify') ? 'black' : '#ccc'} />}
+        tooltip="Align Justify"
       />
 
-      <InsertImageButton icon={<Icon.FormatImage size={24} color={'#ccc'} />} />
+      <InsertImageButton
+        icon={<Icon.FormatImage size={24} color={'#ccc'} />}
+        tooltip="Insert Image"
+      />
 
-      <InsertFileButton icon={<Icon.Attachment size={24} color={'#ccc'} />} />
+      <InsertFileButton icon={<Icon.Attachment size={24} color={'#ccc'} />} tooltip="Insert File" />
 
-      <InsertAudioButton icon={<Icon.Audiotrack size={24} color={'#ccc'} />} />
+      <InsertAudioButton
+        icon={<Icon.Audiotrack size={24} color={'#ccc'} />}
+        tooltip="Insert Audio"
+      />
 
-      <InsertIframeButton icon={<Icon.Iframe size={24} color={'#ccc'} />} />
+      <InsertIframeButton icon={<Icon.Iframe size={24} color={'#ccc'} />} tooltip="Insert Iframe" />
 
       <InsertLinkButton
         icon={
           <Icon.Link size={24} color={ToggleFunctions.isLinkActive(editor) ? 'black' : '#ccc'} />
         }
+        tooltip="Insert Link"
       />
 
       <ToolbarButton
@@ -202,6 +221,15 @@ const Toolbar = (): JSX.Element => {
           ToggleFunctions.toggleNewLine(editor);
         }}
         icon={<Icon.Plus size={24} color={'#ccc'} />}
+        tooltip="New Line | CTRL + ENTER"
+      />
+
+      <ToolbarButton
+        action={(): void => {
+          ToggleFunctions.toggleRemoveLine(editor);
+        }}
+        icon={<Icon.Minus size={24} color={'#ccc'} />}
+        tooltip="Remove Line | CTRL + Backspace"
       />
     </div>
   );

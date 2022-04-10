@@ -11,7 +11,10 @@ const File = (props: RenderProps): JSX.Element => {
   const readOnly = useReadOnly();
 
   return (
-    <div style={{ display: 'flex', gap: '5px', alignItems: 'center' }} contentEditable={false}>
+    <div
+      style={{ display: 'flex', gap: '5px', alignItems: 'center', margin: '16px 0px' }}
+      contentEditable={false}
+    >
       <a
         target="__blank"
         href={element.url as string}

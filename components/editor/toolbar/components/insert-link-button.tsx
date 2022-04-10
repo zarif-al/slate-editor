@@ -5,9 +5,10 @@ import { useSlate } from 'slate-react';
 
 interface InsertLinkProps {
   icon: JSX.Element;
+  tooltip: string;
 }
 
-const InsertLinkButton = ({ icon }: InsertLinkProps): JSX.Element => {
+const InsertLinkButton = ({ icon, tooltip }: InsertLinkProps): JSX.Element => {
   const editor = useSlate();
   const linkHandler = (): void => {
     if (ToggleFunctions.isLinkActive(editor)) {
@@ -30,6 +31,7 @@ const InsertLinkButton = ({ icon }: InsertLinkProps): JSX.Element => {
         event.preventDefault();
         linkHandler();
       }}
+      title={tooltip}
     >
       {icon}
     </span>

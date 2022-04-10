@@ -1,14 +1,15 @@
 import React, { useRef, useCallback } from 'react';
 import { useSlate } from 'slate-react';
 import { insertImage, isAcceptableFormat } from '@/components/editor/helper';
-
+import { uploadFile } from '@/service/storage';
 interface InsertImageTypes {
   icon: JSX.Element;
+  tooltip: string;
 }
 
 const EDITOR_UPLOAD_ACCEPT = '.jpg,.jpeg,.png,.gif,.bmp';
 
-const InsertImageButton = ({ icon }: InsertImageTypes): JSX.Element => {
+const InsertImageButton = ({ icon, tooltip }: InsertImageTypes): JSX.Element => {
   const ref = useRef<HTMLInputElement>(null);
   const editor = useSlate();
 
@@ -22,14 +23,8 @@ const InsertImageButton = ({ icon }: InsertImageTypes): JSX.Element => {
         try {
           const file = event.currentTarget.files[0];
           if (file) {
-            const reader = new FileReader();
-
-            reader.addEventListener('load', () => {
-              const url = reader.result;
-              insertImage(editor, url);
-            });
-
-            reader.readAsDataURL(file);
+            const image_url = await uploadFile(file);
+            insertImage(editor, image_url);
           }
         } catch (error) {
           // eslint-disable-next-line no-console
@@ -41,10 +36,9 @@ const InsertImageButton = ({ icon }: InsertImageTypes): JSX.Element => {
   );
 
   const handleMouseDown = (): void => {
-    alert('Not Implemented');
-    /*    if (ref.current !== null) {
+    if (ref.current !== null) {
       ref.current.click();
-    } */
+    }
   };
 
   return (
@@ -58,6 +52,7 @@ const InsertImageButton = ({ icon }: InsertImageTypes): JSX.Element => {
         event.preventDefault();
         handleMouseDown();
       }}
+      title={tooltip}
     >
       <input
         ref={ref}

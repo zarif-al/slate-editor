@@ -3,9 +3,10 @@ import React from 'react';
 interface MarkDownButtonTypes {
   action: () => void;
   icon: JSX.Element;
+  tooltip: string;
 }
 
-const ToolbarButton = ({ icon, action }: MarkDownButtonTypes): JSX.Element => {
+const ToolbarButton = ({ icon, action, tooltip }: MarkDownButtonTypes): JSX.Element => {
   return (
     <span
       style={{
@@ -17,6 +18,7 @@ const ToolbarButton = ({ icon, action }: MarkDownButtonTypes): JSX.Element => {
         e.preventDefault();
         action();
       }}
+      title={tooltip}
     >
       {icon}
     </span>

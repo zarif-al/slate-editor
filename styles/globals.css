@@ -15,14 +15,9 @@ a {
   box-sizing: border-box;
 }
 
-/* h2,
-h1,
-p,
-li,
-span {
-  overflow-wrap: break-word;
-  word-break: break-all;
-} */
+.issues-list > li {
+  margin: 8px 0px;
+}
 
 .react-resizable {
   position: relative;

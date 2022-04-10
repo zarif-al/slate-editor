@@ -21,6 +21,8 @@ const LinkRender = (props: RenderProps): JSX.Element => {
   return (
     <a
       {...props.attributes}
+      rel="noreferrer"
+      target="_blank"
       href={element.url}
       style={{
         boxShadow: !readOnly && selected ? '0 0 0 3px #ddd' : '',
