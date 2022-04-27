@@ -136,6 +136,19 @@ const ToggleFunctions = {
       Transforms.collapse(editor, { edge: 'end' });
     }
   },
+  toggleUnwrapBullet(editor: Editor): void {
+    Transforms.unwrapNodes(editor, {
+      match: (n) =>
+        Element.isElement(n) &&
+        (n.type == ElementEnums.BulletedList || n.type == ElementEnums.NumberedList),
+      split: true,
+    });
+    Transforms.setNodes(
+      editor,
+      { type: ElementEnums.Paragraph },
+      { match: (n) => Editor.isBlock(editor, n), split: false },
+    );
+  },
 };
 
 export default ToggleFunctions;

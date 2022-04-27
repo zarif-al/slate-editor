@@ -21,6 +21,7 @@ import withLinks from '@/components/editor/plugins/withLink';
 import { CustomText, CustomElement } from '@/utils/editor/types';
 import ToggleFunctions from '@/components/editor/toggle-functions';
 import Toolbar from '@/components/editor/toolbar';
+import { ElementEnums } from '@/utils/editor/enums';
 
 //	React DnD
 import { DndProvider } from 'react-dnd';
@@ -100,6 +101,7 @@ const SlateEditor = ({ initialValue, setValue, readOnly }: SlateProps): JSX.Elem
           onKeyDown={(event): void => {
             // Use Arrow keys to get out of link element
             const { selection } = editor;
+
             if (selection && Range.isCollapsed(selection)) {
               const { nativeEvent } = event;
               if (isKeyHotkey('left', nativeEvent)) {
@@ -137,6 +139,21 @@ const SlateEditor = ({ initialValue, setValue, readOnly }: SlateProps): JSX.Elem
             if (event.ctrlKey && event.key === 'i') {
               event.preventDefault();
               ToggleFunctions.toggleMark(editor, 'italic');
+            }
+            // Remove Bullet on new line if it contains no text
+            if (selection) {
+              const offset = selection.anchor.offset;
+              const node = editor.children[selection.anchor.path[0]] as CustomElement | undefined;
+              if (event.key === 'Enter') {
+                if (
+                  (node?.type === ElementEnums.NumberedList ||
+                    node?.type === ElementEnums.BulletedList) &&
+                  offset === 0
+                ) {
+                  event.preventDefault();
+                  ToggleFunctions.toggleUnwrapBullet(editor);
+                }
+              }
             }
           }}
           onDrop={(e): boolean => {
