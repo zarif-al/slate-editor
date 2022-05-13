@@ -13,7 +13,7 @@ import Leaf from '@/components/editor/render-leaf';
 //
 
 //	Plugin
-import withImages from '@/components/editor/plugins/withImages';
+import withDragDrop from '@/components/editor/plugins/withDragDrop';
 import withCleanLists from '@/components/editor/plugins/withCleanLists';
 import withLinks from '@/components/editor/plugins/withLink';
 //
@@ -58,7 +58,7 @@ interface SlateProps {
 const SlateEditor = ({ initialValue, setValue, readOnly }: SlateProps): JSX.Element => {
   //	Editor Init
   const editor = useMemo(
-    () => withHistory(withImages(withLinks(withCleanLists(withReact(createEditor()))))),
+    () => withHistory(withDragDrop(withLinks(withCleanLists(withReact(createEditor()))))),
     [],
   );
 

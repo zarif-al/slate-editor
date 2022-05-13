@@ -38,7 +38,7 @@ const ToggleFunctions = {
   },
   // Toggle Remove Line
   toggleRemoveLine(editor: Editor): void {
-    Transforms.removeNodes(editor, { at: [editor.children.length] });
+    Transforms.removeNodes(editor, { at: [editor.children.length - 1] });
     Transforms.move(editor, { unit: 'character' });
   },
   // Toggle Alignment
