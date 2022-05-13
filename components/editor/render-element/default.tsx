@@ -7,8 +7,6 @@ const DefaultElement = (props: RenderProps): JSX.Element => {
       {...props.attributes}
       contentEditable={false}
       style={{
-        overflowWrap: 'break-word',
-        wordBreak: 'break-all',
         marginBottom: 0,
       }}
     >

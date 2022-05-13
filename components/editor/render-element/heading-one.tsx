@@ -7,8 +7,6 @@ const HeadingOne = (props: RenderProps): JSX.Element => {
       {...props.attributes}
       style={{
         textAlign: element.align ? element.align : 'left',
-        overflowWrap: 'break-word',
-        wordBreak: 'break-all',
       }}
     >
       {props.children}

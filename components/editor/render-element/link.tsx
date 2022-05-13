@@ -27,8 +27,6 @@ const LinkRender = (props: RenderProps): JSX.Element => {
       style={{
         boxShadow: !readOnly && selected ? '0 0 0 3px #ddd' : '',
         color: 'blue',
-        overflowWrap: 'break-word',
-        wordBreak: 'break-all',
       }}
     >
       <InlineChromiumBugfix />
